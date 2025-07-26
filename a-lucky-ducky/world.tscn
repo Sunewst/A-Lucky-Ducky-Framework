@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cvmjlwn0k5vjv"]
+[gd_scene load_steps=11 format=3 uid="uid://cvmjlwn0k5vjv"]
 
 [ext_resource type="Shader" uid="uid://bjrvr3aiiuthw" path="res://outlines.gdshader" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://camera_controls.gd" id="1_fj7yv"]
@@ -18,7 +18,12 @@ sky = SubResource("Sky_f3sb7")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_fj7yv"]
+diffuse_mode = 3
+albedo_color = Color(0.486275, 1, 0.266667, 1)
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_gv5m4"]
+material = SubResource("ORMMaterial3D_fj7yv")
 
 [sub_resource type="BoxMesh" id="BoxMesh_f3sb7"]
 
