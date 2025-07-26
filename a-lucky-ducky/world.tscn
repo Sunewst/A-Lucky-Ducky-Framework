@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://cvmjlwn0k5vjv"]
+
+[ext_resource type="Shader" uid="uid://bjrvr3aiiuthw" path="res://outlines.gdshader" id="1_f3sb7"]
+[ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://camera_controls.gd" id="1_fj7yv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gv5m4"]
+sky_top_color = Color(0.435785, 0.507671, 0.607711, 1)
+sky_horizon_color = Color(0.643221, 0.655729, 0.674393, 1)
+ground_bottom_color = Color(0.123553, 0.1017, 0.0763148, 1)
+ground_horizon_color = Color(0.643221, 0.655729, 0.674393, 1)
+
+[sub_resource type="Sky" id="Sky_f3sb7"]
+sky_material = SubResource("ProceduralSkyMaterial_gv5m4")
+
+[sub_resource type="Environment" id="Environment_fj7yv"]
+background_mode = 2
+sky = SubResource("Sky_f3sb7")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gv5m4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_f3sb7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fj7yv"]
+render_priority = 0
+shader = ExtResource("1_f3sb7")
+shader_parameter/depth_threshold = 0.05
+shader_parameter/reverse_depth_threshold = 0.25
+shader_parameter/normal_threshold = 0.6
+shader_parameter/darken_amount = 0.3
+shader_parameter/lighten_amount = 1.5
+shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
+shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
+
+[sub_resource type="QuadMesh" id="QuadMesh_tlwt5"]
+material = SubResource("ShaderMaterial_fj7yv")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="World" type="Node3D"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 4
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(288, 162)
+render_target_update_mode = 4
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0.00352669, 1.47208, -3.78418)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_fj7yv")
+
+[node name="Ground" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(10.6965, 0, 0, 0, 1, 0, 0, 0, 11.1279, 0.0029459, 0.00396252, -0.00397444)
+mesh = SubResource("PlaneMesh_gv5m4")
+
+[node name="Cube" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.652125, 0, 0.758112, 0, 1, 0, -0.758112, 0, 0.652125, 0, 0.836438, -1.64906)
+mesh = SubResource("BoxMesh_f3sb7")
+
+[node name="CameraControls" type="Node3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -0.000476569, 0.46578, -0.423462)
+script = ExtResource("1_fj7yv")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraControls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.969205, 2.9184)
+projection = 1
+size = 6.0
+far = 200.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/CameraControls/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0.0500045, -0.175917)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_tlwt5")
+skeleton = NodePath("../../../../..")
