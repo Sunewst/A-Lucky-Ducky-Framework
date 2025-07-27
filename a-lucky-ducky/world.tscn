@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvmjlwn0k5vjv"]
+[gd_scene load_steps=12 format=3 uid="uid://cvmjlwn0k5vjv"]
 
 [ext_resource type="Shader" uid="uid://bjrvr3aiiuthw" path="res://outlines.gdshader" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://camera_controls.gd" id="1_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://dyqsydj4id8wr" path="res://land.glb" id="3_tlwt5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gv5m4"]
 sky_top_color = Color(0.435785, 0.507671, 0.607711, 1)
@@ -90,3 +91,6 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_tlwt5")
 skeleton = NodePath("../../../../..")
+
+[node name="land" parent="." instance=ExtResource("3_tlwt5")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0.267386, 0, 0.215566)
