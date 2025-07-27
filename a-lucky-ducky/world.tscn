@@ -15,6 +15,7 @@ background_mode = 2
 sky = SubResource("Sky_f3sb7")
 tonemap_mode = 2
 fog_mode = 1
+fog_density = 1.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_f3sb7"]
 
@@ -135,6 +136,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
 stretch = true
 stretch_shrink = 5
 
@@ -162,6 +165,7 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -0.0004765
 script = ExtResource("1_fj7yv")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraControls"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.87833, 50.8858)
 projection = 1
 size = 8.0
