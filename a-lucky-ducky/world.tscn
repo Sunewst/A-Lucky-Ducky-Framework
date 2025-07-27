@@ -4,8 +4,6 @@
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://camera_controls.gd" id="1_fj7yv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gv5m4"]
-sky_top_color = Color(0.435785, 0.507671, 0.607711, 1)
-sky_horizon_color = Color(0.643221, 0.655729, 0.674393, 1)
 ground_bottom_color = Color(0.123553, 0.1017, 0.0763148, 1)
 ground_horizon_color = Color(0.643221, 0.655729, 0.674393, 1)
 
@@ -16,7 +14,7 @@ sky_material = SubResource("ProceduralSkyMaterial_gv5m4")
 background_mode = 2
 sky = SubResource("Sky_f3sb7")
 tonemap_mode = 2
-glow_enabled = true
+fog_mode = 1
 
 [sub_resource type="BoxMesh" id="BoxMesh_f3sb7"]
 

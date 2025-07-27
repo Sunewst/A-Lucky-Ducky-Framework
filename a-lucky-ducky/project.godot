@@ -22,6 +22,10 @@ config/icon="uid://rmx8865htrkh"
 
 SceneTransition="*res://scene_transition.tscn"
 
+[display]
+
+window/size/mode=2
+
 [input]
 
 Right={

@@ -1,10 +1,12 @@
 extends Node3D
 
 @export var rotation_speed: float = 2.0
-@export var camera_speed: float = 2.0
+@export var camera_speed: float = 6.0
 @export var current_rotation: float = 0
 @export var camera_rotation_speed: float = 0.5
 @export var camera_rotation_amount: float = 1
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
