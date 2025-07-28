@@ -13,7 +13,7 @@ config_version=5
 config/name="A Lucky Ducky"
 config/version="PRE-ALHPA"
 run/main_scene="uid://cvmjlwn0k5vjv"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 0)
 boot_splash/image="uid://rmx8865htrkh"
 config/icon="uid://rmx8865htrkh"
@@ -25,6 +25,14 @@ SceneTransition="*res://scene_transition.tscn"
 [display]
 
 window/size/mode=2
+
+[dotnet]
+
+project/assembly_name="A Lucky Ducky"
+
+[editor_plugins]
+
+enabled=PackedStringArray()
 
 [input]
 

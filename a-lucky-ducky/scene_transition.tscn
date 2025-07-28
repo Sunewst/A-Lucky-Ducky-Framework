@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://do6k0h178rfnl"]
 
-[ext_resource type="Script" uid="uid://cmifekkl8bjg3" path="res://Scene_Transition.gd" id="1_gbkcp"]
+[ext_resource type="Script" uid="uid://cmifekkl8bjg3" path="res://scripts/Scene_Transition.gd" id="1_gbkcp"]
 [ext_resource type="Shader" uid="uid://dj2jr1xnqlmbr" path="res://shaders/fadeIn.gdshader" id="1_jiq3i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gbkcp"]
