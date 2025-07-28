@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cvmjlwn0k5vjv"]
+[gd_scene load_steps=11 format=3 uid="uid://cvmjlwn0k5vjv"]
 
 [ext_resource type="PackedScene" uid="uid://06c4vdmsaoe6" path="res://land.tscn" id="1_aqk2v"]
-[ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://camera_controls.gd" id="1_fj7yv"]
+[ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/camera_controls.gd" id="1_fj7yv"]
+[ext_resource type="Script" uid="uid://coo455qimvsvw" path="res://SimpleSerialController.cs" id="1_tlwt5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gv5m4"]
 ground_bottom_color = Color(0.123553, 0.1017, 0.0763148, 1)
@@ -128,6 +129,9 @@ flip_faces = true
 size = Vector2(2, 2)
 
 [node name="World" type="Node3D"]
+
+[node name="SimpleSerialController" type="Node" parent="."]
+script = ExtResource("1_tlwt5")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
