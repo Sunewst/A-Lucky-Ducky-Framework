@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://06c4vdmsaoe6"]
 
 [ext_resource type="PackedScene" uid="uid://dyqsydj4id8wr" path="res://land.glb" id="1_dwsah"]
-[ext_resource type="Shader" uid="uid://dafgg205ko6ba" path="res://water.gdshader" id="2_mgpfe"]
+[ext_resource type="Shader" uid="uid://dafgg205ko6ba" path="res://shaders/water.gdshader" id="2_mgpfe"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_pl1wv"]
 noise_type = 3

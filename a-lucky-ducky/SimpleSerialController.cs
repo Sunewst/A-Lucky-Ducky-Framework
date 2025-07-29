@@ -5,23 +5,32 @@ using System.IO.Ports;
 public partial class SimpleSerialController : Node
 {
 	private SerialPort _serialPort;
+	[Signal] 
+	public delegate void SerialDataReceivedEventHandler(string data);
+	[Signal]
+	public delegate void SerialErrorEventHandler(string error);
+	private string _serialDataReceived;
 
 	public override void _Ready()
 	{
-
-		string portName = "COM3"; 
+		GD.Print(SerialPort.GetPortNames());
+		
+		string portName = "/dev/cu.usbmodem11301"; 
 		int baudRate = 9600;
+		
 
 		_serialPort = new SerialPort(portName, baudRate);
 		_serialPort.ReadTimeout = 10; 
 		try
 		{
 			_serialPort.Open();
-			GD.Print($"✅ Successfully opened port {portName}.");
+			
+			GD.Print($"Successfully opened port {portName}.");
 		}
 		catch (Exception ex)
 		{
-			GD.PrintErr($"❌ Could not open serial port: {ex.Message}");
+			GD.PrintErr($"Could not open serial port: {ex.Message}");
+			EmitSignal(SignalName.SerialError, ex.Message);
 		}
 	}
 
@@ -31,16 +40,16 @@ public partial class SimpleSerialController : Node
 		{
 			try
 			{
-				string message = _serialPort.ReadLine();
-				GD.Print($"Received: {message.Trim()}");
+				if (_serialPort.BytesToRead > 0)
+				{
+					_serialDataReceived = _serialPort.ReadLine();
+					GD.Print(_serialDataReceived);
+					EmitSignal(SignalName.SerialDataReceived, _serialDataReceived);
+				}
 			}
 			catch (TimeoutException)
 			{
 			}
-		}
-		else
-		{
-			GD.Print("Waiting for connection... No device connected or port is not open.");
 		}
 	}
 
