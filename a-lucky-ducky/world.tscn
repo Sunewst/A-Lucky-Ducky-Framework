@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvmjlwn0k5vjv"]
+[gd_scene load_steps=13 format=3 uid="uid://cvmjlwn0k5vjv"]
 
 [ext_resource type="PackedScene" uid="uid://06c4vdmsaoe6" path="res://land.tscn" id="1_aqk2v"]
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/camera_controls.gd" id="1_fj7yv"]
 [ext_resource type="Script" uid="uid://coo455qimvsvw" path="res://SimpleSerialController.cs" id="1_tlwt5"]
+[ext_resource type="Script" uid="uid://do000sg0pn2mi" path="res://scripts/testCubeScript.gd" id="3_aqk2v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gv5m4"]
 ground_bottom_color = Color(0.123553, 0.1017, 0.0763148, 1)
@@ -19,6 +20,9 @@ fog_mode = 1
 fog_density = 1.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_f3sb7"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_tlwt5"]
+albedo_color = Color(1, 0.626849, 0.984711, 1)
 
 [sub_resource type="Shader" id="Shader_fj7yv"]
 code = "shader_type spatial;
@@ -161,8 +165,11 @@ environment = SubResource("Environment_fj7yv")
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 
 [node name="Cube" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
 transform = Transform3D(0.652125, 0, 0.758112, 0, 1, 0, -0.758112, 0, 0.652125, -1.71668, 1.4981, -3.48008)
 mesh = SubResource("BoxMesh_f3sb7")
+surface_material_override/0 = SubResource("ORMMaterial3D_tlwt5")
+script = ExtResource("3_aqk2v")
 
 [node name="CameraControls" type="Node3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -0.000476569, 0.46578, -0.423462)
@@ -180,3 +187,5 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_tlwt5")
 skeleton = NodePath("../../../../..")
+
+[connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_data_received"]
