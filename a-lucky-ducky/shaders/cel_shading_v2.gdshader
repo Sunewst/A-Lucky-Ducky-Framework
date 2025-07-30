@@ -104,14 +104,14 @@ void vertex() {
 
 void fragment() {
     vec3 base_color = use_texture_albedo ? texture(albedo_texture, UV).rgb : albedo;
-    
+
     if (use_normal_map) {
         vec3 tex_normal = texture(normal_texture, UV).rgb * 2.0 - 1.0;
         NORMAL = normalize(TANGENT * tex_normal);
     }
-    
+
     vec3 emission = use_emission_map ? texture(emission_texture, UV).rgb * emission_color * emission_intensity : emission_color * emission_intensity;
-    
+
     if (use_outline) {
         float outline_factor = 1.0 - dot(NORMAL, VIEW);
         float outline = smoothstep(outline_threshold - outline_smoothness, outline_threshold + outline_smoothness, outline_factor);
@@ -134,7 +134,7 @@ void fragment() {
             EMISSION = emission;
         }
     }
-    
+
     METALLIC = metallic;
     ROUGHNESS = roughness;
 }
@@ -142,7 +142,7 @@ void fragment() {
 void light() {
     vec3 normal = NORMAL;
     vec3 light_dir = LIGHT;
-    
+
     float NdotL = dot(normal, light_dir);
     float diffuse;
     if (use_half_lambert) {
@@ -162,27 +162,27 @@ void light() {
         );
     }
     diffuse *= ATTENUATION;
-    
+
     int cuts = LIGHT_IS_DIRECTIONAL ? directional_cuts : non_directional_cuts;
     float cuts_inv = 1.0 / float(cuts);
     float diffuse_cell = floor(diffuse * float(cuts)) * cuts_inv;
-    
+
     float border = 0.0;
     if (use_borders) {
         float corr_border_width = length(cross(normal, light_dir)) * border_width * steepness;
-        border = step(diffuse_cell - corr_border_width, diffuse) 
+        border = step(diffuse_cell - corr_border_width, diffuse)
                - step(1.0 - corr_border_width, diffuse);
     }
-    
+
     vec3 diffuse_contrib = mix(ALBEDO, shadow_color, shadow_intensity) * LIGHT_COLOR / 3.14159;
     if (use_ramp) {
         diffuse_contrib *= texture(ramp, vec2(diffuse_cell * (1.0 - border), 0.0) + ramp_offset).rgb;
     } else {
         diffuse_contrib *= diffuse_cell * (1.0 - border);
     }
-    
+
     float dist_atten = LIGHT_IS_DIRECTIONAL ? 1.0 : ATTENUATION;
-    
+
     vec3 halfway = normalize(light_dir + VIEW);
     float specular = pow(clamp(dot(normal, halfway), 0.0, 1.0), shininess) * specular_intensity;
     float specular_cell = smoothstep(
@@ -190,7 +190,7 @@ void light() {
         specular_threshold + specular_smoothness,
         specular
     );
-    
+
     float rim = clamp(1.0 - dot(normal, VIEW), 0.0, 1.0);
     float rim_distance_atten = clamp(1.0 / (length(VIEW) * rim_distance_falloff), 0.0, 1.0);
     float rim_cell = smoothstep(
@@ -198,7 +198,7 @@ void light() {
         rim_threshold + rim_smoothness,
         rim
     ) * rim_distance_atten;
-    
+
     vec3 highlight_color = specular_color * LIGHT_COLOR * (specular_cell + rim_cell * rim_strength);
     float light_contrib = diffuse_cell;
     DIFFUSE_LIGHT += (diffuse_contrib * light_contrib + highlight_color) * dist_atten;

@@ -155,7 +155,6 @@ shadow_enabled = true
 script = ExtResource("2_dwbse")
 worldEnvironment = NodePath("../WorldEnvironment")
 nightLight = NodePath("DirectionalLight3D")
-speedMultiplier = 1000.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/DirectionalLight3D"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -176,7 +175,7 @@ snap = false
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraControls"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.87833, 50.8858)
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, -0.39914, 49.5709)
 projection = 1
 size = 8.0
 far = 200.0

@@ -1,45 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://06c4vdmsaoe6"]
+[gd_scene load_steps=4 format=3 uid="uid://06c4vdmsaoe6"]
 
 [ext_resource type="PackedScene" uid="uid://dyqsydj4id8wr" path="res://land.glb" id="1_dwsah"]
 [ext_resource type="Shader" uid="uid://dafgg205ko6ba" path="res://water.gdshader" id="2_mgpfe"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_pl1wv"]
-noise_type = 3
-frequency = 0.07
-fractal_octaves = 1
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iooh7"]
-noise = SubResource("FastNoiseLite_pl1wv")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_asfs6"]
-noise_type = 3
-seed = 4
-frequency = 0.0265
-fractal_octaves = 1
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nfuxm"]
-noise = SubResource("FastNoiseLite_asfs6")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_atr1s"]
 render_priority = 0
 shader = ExtResource("2_mgpfe")
-shader_parameter/time_speed = 0.02
-shader_parameter/surface_speed = 1.0
-shader_parameter/spin = 0.3
-shader_parameter/brightness = 0.6
-shader_parameter/color_intensity = 1.38
-shader_parameter/horizontal_frequency = 2.0
-shader_parameter/vertical_frequency = 2.0
-shader_parameter/size = 3.0
-shader_parameter/banding_bias = 0.6
-shader_parameter/wave_texture = SubResource("NoiseTexture2D_nfuxm")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_iooh7")
-shader_parameter/wave_height = 0.001
-shader_parameter/texture_height = 0.001
-shader_parameter/color1 = Color(0.59, 0.761, 1, 1)
-shader_parameter/color2 = Color(0.274, 0.474, 0.98, 1)
-shader_parameter/color3 = Color(0.059, 0.389, 0.85, 1)
-shader_parameter/color4 = Color(0, 0.267, 1, 1)
+shader_parameter/WaveSpeed = 0.61
+shader_parameter/WaveIntensity = 0.2
+shader_parameter/WaveColor = Color(0, 1, 0.986607, 1)
+shader_parameter/WaterColor = Color(0, 0.169643, 1, 1)
+shader_parameter/FoamSize = 0.1
+shader_parameter/WaterOpacity = 0.4
 
 [node name="land" instance=ExtResource("1_dwsah")]
 

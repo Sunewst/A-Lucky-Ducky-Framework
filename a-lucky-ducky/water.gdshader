@@ -1,62 +1,124 @@
 shader_type spatial;
-render_mode cull_disabled, blend_add, unshaded;
-uniform float time_speed = 1.0;
-//time specifically for the wave noise texture
-uniform float surface_speed = 1.0;
-uniform float spin = 0.0; //Twisting motion of the water
-uniform float brightness = 0.6;
-uniform float color_intensity = 0.0;
-//Tiling frequency of the noise accross the mesh
-uniform float horizontal_frequency = 2.0;
-uniform float vertical_frequency = 2.0;
-//overall size muliplier
-uniform float size = 3.0;
-//affects total size
-uniform float banding_bias = 0.6;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
 
-uniform sampler2D wave_texture;
-uniform sampler2D noise_texture;
-//wave height, use for ocean waves
-uniform float wave_height = 0.5;
-//water surface height variation based on the noise texture
-uniform float texture_height = 0.5;
-//preset band colors
-uniform vec4 color1 : source_color = vec4(0.59, 0.761, 1.0, 1.0);
-uniform vec4 color2 : source_color = vec4(0.274, 0.474, 0.98, 1.0);
-uniform vec4 color3 : source_color = vec4(0.059, 0.389, 0.85, 1.0);
-uniform vec4 color4 : source_color = vec4(0.0, 0.267, 1.0, 1.0);
+uniform float WaveSpeed = 0.00999999977648;
+uniform sampler2D tex_frg_19;
+uniform sampler2D tex_frg_11;
+uniform float WaveIntensity = 0.20000000298023;
+uniform vec4 WaveColor : source_color = vec4(0.000000, 1.000000, 0.986607, 1.000000);
+uniform vec4 WaterColor : source_color = vec4(0.000000, 0.169643, 1.000000, 1.000000);
+uniform float FoamSize = 0.10000000149012;
+uniform sampler2D depth_tex_frg_2 : hint_depth_texture;
+uniform float WaterOpacity = 0.40000000596046;
 
-void vertex() {
-	float time = -TIME * time_speed;
-	VERTEX += NORMAL * wave_height * texture(wave_texture, vec2(UV.x + time * surface_speed, UV.y + time * surface_speed)).r;
-	VERTEX += NORMAL * texture_height * texture(noise_texture,vec2(UV.x * horizontal_frequency + spin * (time /2.0), (UV.y * vertical_frequency) + time)).r;;
-}
+
 
 void fragment() {
-	float time = -TIME * time_speed;
+// FloatParameter:23
+	float n_out23p0 = WaveSpeed;
 
-// Calculate dot product of normals and combine with noise texture value
-	float normal_facing = dot(NORMAL, VIEW);
-	float noise_value = texture(noise_texture,vec2(UV.x * horizontal_frequency + spin * (time /2.0), (UV.y * vertical_frequency) + time)).r;
-	normal_facing += (noise_value -0.5 + size) * 0.3;
 
-	float band = normal_facing * 3.0 * banding_bias;
-	vec4 band_color = vec4(0,0,0,0);
-	if (band <= 1.5) {
-		discard;
+// FloatOp:24
+	float n_in24p1 = -1.00000;
+	float n_out24p0 = n_out23p0 * n_in24p1;
+
+
+// Input:21
+	float n_out21p0 = TIME;
+
+
+// UVFunc:20
+	vec2 n_out20p0 = vec2(n_out21p0) * vec2(n_out24p0) + UV;
+
+
+// Texture2D:19
+	vec4 n_out19p0 = texture(tex_frg_19, n_out20p0);
+
+
+// Input:18
+	float n_out18p0 = TIME;
+
+
+// UVFunc:17
+	vec2 n_out17p0 = vec2(n_out18p0) * vec2(n_out23p0) + UV;
+
+
+// Texture2D:11
+	vec4 n_out11p0 = texture(tex_frg_11, n_out17p0);
+
+
+// Mix:22
+	float n_in22p2 = 0.50000;
+	float n_out22p0 = mix(n_out19p0.x, n_out11p0.x, n_in22p2);
+
+
+// FloatFunc:13
+	float n_out13p0 = round(n_out22p0);
+
+
+// FloatParameter:28
+	float n_out28p0 = WaveIntensity;
+
+
+// FloatOp:14
+	float n_out14p0 = n_out13p0 * n_out28p0;
+
+
+// ColorParameter:27
+	vec4 n_out27p0 = WaveColor;
+
+
+// VectorOp:15
+	vec3 n_out15p0 = vec3(n_out14p0) * vec3(n_out27p0.xyz);
+
+
+// ColorParameter:26
+	vec4 n_out26p0 = WaterColor;
+
+
+// VectorOp:12
+	vec3 n_out12p0 = n_out15p0 + vec3(n_out26p0.xyz);
+
+
+// FloatParameter:29
+	float n_out29p0 = FoamSize;
+
+
+	float n_out2p0;
+// ProximityFade:2
+	{
+		float __depth_tex = texture(depth_tex_frg_2, SCREEN_UV).r;
+		vec4 __depth_world_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, __depth_tex, 1.0);
+		__depth_world_pos.xyz /= __depth_world_pos.w;
+		n_out2p0 = clamp(1.0 - smoothstep(__depth_world_pos.z + n_out29p0, __depth_world_pos.z, VERTEX.z), 0.0, 1.0);
 	}
-	else if(band <= 2.0){
-		band_color = mix(color1, color2, -0.01 / (band-2.01)); //Mixes the color bands to make a slight gradient
-	}
-	else if (band <= 2.5) {
-		band_color = mix(color2, color3, -0.01 / (band-2.51));
-	}
-	else if (band <= 2.9) {
-		band_color = mix(color3, color4, -0.01 / (band-2.91));
-	}
-	else if (band >= 0.0) {
-		band_color = color4;
-	}
-	//Final color adjestment
-	ALBEDO = clamp(brightness * (vec3(1.0, 1.0, 1.0) - (band_color.xyz * -color_intensity)) * band_color.xyz, vec3(0.0, 0.0, 0.0), vec3(brightness, brightness, brightness));
+
+
+// FloatFunc:3
+	float n_out3p0 = 1.0 - n_out2p0;
+
+
+// FloatFunc:4
+	float n_out4p0 = round(n_out3p0);
+
+
+// FloatParameter:30
+	float n_out30p0 = WaterOpacity;
+
+
+// FloatOp:10
+	float n_out10p0 = n_out4p0 + n_out30p0;
+
+
+// FloatOp:25
+	float n_in25p1 = 1.00000;
+	float n_out25p0 = n_out4p0 * n_in25p1;
+
+
+// Output:0
+	ALBEDO = n_out12p0;
+	ALPHA = n_out10p0;
+	EMISSION = vec3(n_out25p0);
+
+
 }
