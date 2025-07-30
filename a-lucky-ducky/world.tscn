@@ -22,7 +22,7 @@ fog_density = 1.0
 [sub_resource type="BoxMesh" id="BoxMesh_f3sb7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aqk2v"]
-albedo_color = Color(1, 0.0235294, 0.00392157, 1)
+albedo_color = Color(1, 1, 0.145098, 1)
 
 [sub_resource type="Shader" id="Shader_fj7yv"]
 code = "shader_type spatial;
