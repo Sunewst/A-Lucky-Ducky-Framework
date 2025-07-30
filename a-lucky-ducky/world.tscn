@@ -188,4 +188,5 @@ extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_tlwt5")
 skeleton = NodePath("../../../../..")
 
+[connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_data_received"]
 [connection signal="SerialError" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_error"]

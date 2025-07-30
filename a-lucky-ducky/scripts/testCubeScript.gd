@@ -11,8 +11,8 @@ func _process(delta: float) -> void:
 
 
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
-	get_surface_override_material(0).albedo_color = Color(0, 1, 0)
-	
+	get_surface_override_material(0).albedo_color = Color(0, 1, 1)
+	print("Data received")
 
 
 func _on_simple_serial_controller_serial_error(error: String) -> void:

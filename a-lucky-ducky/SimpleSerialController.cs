@@ -15,7 +15,7 @@ public partial class SimpleSerialController : Node
 	{
 		GD.Print(SerialPort.GetPortNames());
 		
-		string portName = "/dev/cu.usbmodem11301"; 
+		string portName = "/dev/cu.usbmodem1301"; 
 		int baudRate = 9600;
 		
 
@@ -24,7 +24,6 @@ public partial class SimpleSerialController : Node
 		try
 		{
 			_serialPort.Open();
-			
 			GD.Print($"Successfully opened port {portName}.");
 		}
 		catch (Exception ex)
