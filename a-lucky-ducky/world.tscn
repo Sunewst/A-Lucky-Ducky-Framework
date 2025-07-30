@@ -21,8 +21,8 @@ fog_density = 1.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_f3sb7"]
 
-[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_tlwt5"]
-albedo_color = Color(1, 0.626849, 0.984711, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aqk2v"]
+albedo_color = Color(1, 0.0235294, 0.00392157, 1)
 
 [sub_resource type="Shader" id="Shader_fj7yv"]
 code = "shader_type spatial;
@@ -168,7 +168,7 @@ transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 unique_name_in_owner = true
 transform = Transform3D(0.652125, 0, 0.758112, 0, 1, 0, -0.758112, 0, 0.652125, -1.71668, 1.4981, -3.48008)
 mesh = SubResource("BoxMesh_f3sb7")
-surface_material_override/0 = SubResource("ORMMaterial3D_tlwt5")
+surface_material_override/0 = SubResource("StandardMaterial3D_aqk2v")
 script = ExtResource("3_aqk2v")
 
 [node name="CameraControls" type="Node3D" parent="SubViewportContainer/SubViewport"]
@@ -188,4 +188,4 @@ extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_tlwt5")
 skeleton = NodePath("../../../../..")
 
-[connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_data_received"]
+[connection signal="SerialError" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_error"]
