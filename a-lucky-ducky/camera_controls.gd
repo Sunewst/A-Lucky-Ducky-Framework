@@ -10,10 +10,11 @@ var _forwardVec: Vector3
 @export var camera_rotation_speed: float = 0.5
 @export var camera_rotation_amount: float = 1
 
+@export var snap := true
+@onready var _prev_rotation := global_rotation
+@onready var _snap_space := global_transform
+
 var camera_animation_running: bool = true
-
-
-
 
 
 # Called when the node enters the scene tree for the first time.
@@ -23,6 +24,21 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if global_rotation != _prev_rotation:
+		_prev_rotation = global_rotation
+		_snap_space = global_transform
+	var texel_size = _cam.size / 180.0
+	# camera position in snap space
+	var snap_space_position := global_position * _snap_space
+	# snap!
+	var snapped_snap_space_position := snap_space_position.snapped(Vector3.ONE * texel_size)
+	# how much we snapped (in snap space)
+	var snap_error := snapped_snap_space_position - snap_space_position
+	if snap:
+		# apply camera offset as to not affect the actual transform
+		_cam.h_offset = snap_error.x
+		_cam.v_offset = snap_error.y
+	
 	if Input.is_action_pressed("Left"):
 		#rotation.y += rotation_speed * delta
 		position.x -= movement_speed * delta
@@ -34,7 +50,6 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("Up"):
 		#rotation.x += rotation_speed * delta
 		position.y += movement_speed * delta
-		print(global_position)
 		
 
 	if Input.is_action_pressed("Down"):
