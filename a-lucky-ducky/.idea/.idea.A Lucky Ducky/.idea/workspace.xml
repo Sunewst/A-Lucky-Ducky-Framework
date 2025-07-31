@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c08b7b05-79c8-424c-9bde-e038408dbf5b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scene_Transition.gd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Scene_Transition.gd.uid" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/camera_controls.gd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/camera_controls.gd.uid" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/world.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/world.tscn" afterDir="false" />
-    </list>
+    <list default="true" id="c08b7b05-79c8-424c-9bde-e038408dbf5b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -129,6 +121,7 @@
       <workItem from="1753919957872" duration="68000" />
       <workItem from="1753920030432" duration="23000" />
       <workItem from="1753920058100" duration="3000" />
+      <workItem from="1753920086311" duration="335000" />
     </task>
     <servers />
   </component>
