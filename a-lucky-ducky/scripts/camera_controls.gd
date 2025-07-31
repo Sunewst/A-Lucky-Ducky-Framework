@@ -41,20 +41,20 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_pressed("Left"):
 		#rotation.y += rotation_speed * delta
-		position.x -= movement_speed * delta
+		_cam.position.x -= movement_speed * delta
 	if Input.is_action_pressed("Right"):
 		#rotation.y -= rotation_speed * delta
-		position.x += movement_speed * delta
+		_cam.position.x += movement_speed * delta
 
 		
 	if Input.is_action_pressed("Up"):
 		#rotation.x += rotation_speed * delta
-		position.y += movement_speed * delta
+		_cam.position.y += movement_speed * delta
 		
 
 	if Input.is_action_pressed("Down"):
 		#rotation.x -= rotation_speed * delta
-		position.y -= movement_speed * delta
+		_cam.position.y -= movement_speed * delta
 
 	if Input.is_action_just_pressed("Arrow_right"):
 		_rotate_camera(camera_rotation_amount)

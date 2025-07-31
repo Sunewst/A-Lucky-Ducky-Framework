@@ -11,7 +11,7 @@ shader_parameter/WaveIntensity = 0.2
 shader_parameter/WaveColor = Color(0, 1, 0.986607, 1)
 shader_parameter/WaterColor = Color(0, 0.169643, 1, 1)
 shader_parameter/FoamSize = 0.1
-shader_parameter/WaterOpacity = 0.4
+shader_parameter/WaterOpacity = 0.185
 
 [node name="land" instance=ExtResource("1_dwsah")]
 
