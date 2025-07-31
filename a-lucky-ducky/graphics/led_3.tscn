@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bm3u7ux7b4ci3"]
+
+[ext_resource type="PackedScene" uid="uid://dtv8a2lna7dms" path="res://graphics/LED3.gltf" id="1_8k4yb"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_8k4yb"]
+albedo_color = Color(0.835651, 0.000557739, 0.83665, 1)
+
+[node name="LED3" instance=ExtResource("1_8k4yb")]
+
+[node name="cylinder" parent="Node/LEDS" index="0"]
+material_override = SubResource("ORMMaterial3D_8k4yb")

@@ -4,8 +4,8 @@ var _cam
 var _rightVec: Vector3
 var _forwardVec: Vector3
 
-@export var rotation_speed: float = 2.0
-@export var movement_speed: float = 6.0
+@export_range (2.0, 20, 1) var rotation_speed: float = 2.0
+@export_range (1.0, 30, 2) var movement_speed: float = 6.0
 @export var current_rotation: float = 0
 @export var camera_rotation_speed: float = 0.5
 @export var camera_rotation_amount: float = 1

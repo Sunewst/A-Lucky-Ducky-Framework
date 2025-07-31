@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cvmjlwn0k5vjv"]
+[gd_scene load_steps=15 format=3 uid="uid://cvmjlwn0k5vjv"]
 
 [ext_resource type="Material" uid="uid://wyikf3yxoy6x" path="res://addons/DayNightCycle/Sky_Day.tres" id="1_036b0"]
 [ext_resource type="PackedScene" uid="uid://06c4vdmsaoe6" path="res://land.tscn" id="1_aqk2v"]
@@ -130,6 +130,8 @@ material = SubResource("ShaderMaterial_fj7yv")
 flip_faces = true
 size = Vector2(2, 2)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pkg7o"]
+
 [node name="World" type="Node3D"]
 
 [node name="SimpleSerialController" type="Node" parent="."]
@@ -193,6 +195,7 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_tlwt5")
 skeleton = NodePath("../../../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_pkg7o")
 
 [connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_data_received"]
 [connection signal="SerialError" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_error"]
