@@ -62,6 +62,13 @@ func _process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("Arrow_left"):
 		_rotate_camera(-camera_rotation_amount)
+		
+	if Input.is_action_just_pressed("Scroll_up"):
+		_cam.size -= 1
+		
+	if Input.is_action_just_pressed("Scroll_down"):
+		_cam.size += 1
+	
 
 func _rotate_camera(direction: float):
 	camera_animation_running = false
