@@ -15,8 +15,8 @@ config/version="PRE-ALHPA"
 run/main_scene="uid://cvmjlwn0k5vjv"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 0)
-boot_splash/image="uid://rmx8865htrkh"
-config/icon="uid://rmx8865htrkh"
+boot_splash/image="uid://exf78fotfxwu"
+config/icon="uid://exf78fotfxwu"
 
 [display]
 
