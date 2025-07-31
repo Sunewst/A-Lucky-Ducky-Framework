@@ -26,6 +26,10 @@ SceneTransition="*res://scene_transition.tscn"
 
 window/size/mode=2
 
+[dotnet]
+
+project/assembly_name="A Lucky Ducky"
+
 [input]
 
 Right={

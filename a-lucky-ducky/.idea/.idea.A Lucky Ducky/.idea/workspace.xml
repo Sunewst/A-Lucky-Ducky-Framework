@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c08b7b05-79c8-424c-9bde-e038408dbf5b" name="Changes" comment="" />
+    <list default="true" id="c08b7b05-79c8-424c-9bde-e038408dbf5b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scene_Transition.gd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scene_Transition.gd.uid" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/camera_controls.gd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/camera_controls.gd.uid" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/world.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/world.tscn" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +24,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Sunewst&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Sunewst/A-Lucky-Ducky-Framework.git&quot;,
+    &quot;accountId&quot;: &quot;830918be-b307-4d0c-a86f-8367d053ae20&quot;
+  }
+}</component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -28,9 +48,10 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;.NET Executable.Player.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;microcontrollers&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -51,7 +72,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Editor" type="RunExe" factoryName=".NET Executable">
-      <option name="EXE_PATH" value="/private/var/folders/bf/rzjt255d2_l2crf3yd8dln5m0000gn/T/AppTranslocation/D6ECD13F-B744-42F4-B706-97B057815561/d/Godot_mono.app/Contents/MacOS/Godot" />
+      <option name="EXE_PATH" value="/Applications/Godot_mono.app/Contents/MacOS/Godot" />
       <option name="PROGRAM_PARAMETERS" value="--path &quot;./&quot; --editor" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -69,7 +90,7 @@
       </method>
     </configuration>
     <configuration name="Player" type="RunExe" factoryName=".NET Executable">
-      <option name="EXE_PATH" value="/private/var/folders/bf/rzjt255d2_l2crf3yd8dln5m0000gn/T/AppTranslocation/D6ECD13F-B744-42F4-B706-97B057815561/d/Godot_mono.app/Contents/MacOS/Godot" />
+      <option name="EXE_PATH" value="/Applications/Godot_mono.app/Contents/MacOS/Godot" />
       <option name="PROGRAM_PARAMETERS" value="--path &quot;./&quot;" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -104,6 +125,10 @@
       <workItem from="1753821045710" duration="2756000" />
       <workItem from="1753835822672" duration="244000" />
       <workItem from="1753836078962" duration="863000" />
+      <workItem from="1753919927406" duration="10000" />
+      <workItem from="1753919957872" duration="68000" />
+      <workItem from="1753920030432" duration="23000" />
+      <workItem from="1753920058100" duration="3000" />
     </task>
     <servers />
   </component>
