@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvmjlwn0k5vjv"]
+[gd_scene load_steps=17 format=3 uid="uid://cvmjlwn0k5vjv"]
 
 [ext_resource type="Material" uid="uid://wyikf3yxoy6x" path="res://addons/DayNightCycle/Sky_Day.tres" id="1_036b0"]
 [ext_resource type="PackedScene" uid="uid://06c4vdmsaoe6" path="res://land.tscn" id="1_aqk2v"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://beim58nabgtiv" path="res://scripts/SimpleSerialController.cs" id="1_pkg7o"]
 [ext_resource type="Script" uid="uid://d4iis7cs4sqni" path="res://addons/DayNightCycle/DayNightCycle.gd" id="2_dwbse"]
 [ext_resource type="Script" uid="uid://cpuluk7oqp7pi" path="res://scripts/testCubeScript.gd" id="6_ioo17"]
+[ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="7_pkg7o"]
 
 [sub_resource type="Sky" id="Sky_pkg7o"]
 sky_material = ExtResource("1_036b0")
@@ -132,6 +133,14 @@ size = Vector2(2, 2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pkg7o"]
 
+[sub_resource type="GDScript" id="GDScript_pkg7o"]
+script/source = "extends CodeEdit
+
+func _ready() -> void:
+	set_line_as_bookmarked(0, true)
+	print('Executing')
+"
+
 [node name="World" type="Node3D"]
 
 [node name="SimpleSerialController" type="Node" parent="."]
@@ -142,6 +151,8 @@ texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -151,23 +162,23 @@ stretch_shrink = 5
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(230, 129)
+size = Vector2i(216, 144)
 render_target_update_mode = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
 environment = SubResource("Environment_fj7yv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("worldEnvironment", "nightLight")]
-transform = Transform3D(-0.863513, -0.431923, 0.260361, -0.377291, 0.895833, 0.234809, -0.334659, 0.104529, -0.936524, 0.00352669, 1.47208, -3.78418)
+transform = Transform3D(1, 0, 0, 0, -0.859183, 0.511668, 0, -0.511668, -0.859183, 0.00352669, 1.47208, -3.78418)
+light_energy = 0.472621
 shadow_enabled = true
 script = ExtResource("2_dwbse")
 worldEnvironment = NodePath("../WorldEnvironment")
 nightLight = NodePath("DirectionalLight3D")
-speedMultiplier = 100.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/DirectionalLight3D"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-light_energy = 0.0
+light_energy = 0.0527372
 
 [node name="land" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_aqk2v")]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
@@ -196,6 +207,29 @@ extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_tlwt5")
 skeleton = NodePath("../../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_pkg7o")
+
+[node name="CodeEdit" type="CodeEdit" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -359.5
+offset_right = 374.0
+offset_bottom = 359.5
+grow_vertical = 2
+theme = ExtResource("7_pkg7o")
+text = "#Include Arduino.h"
+scroll_smooth = true
+minimap_draw = true
+caret_blink = true
+gutters_draw_breakpoints_gutter = true
+gutters_draw_bookmarks = true
+gutters_draw_executing_lines = true
+gutters_draw_line_numbers = true
+indent_use_spaces = true
+indent_automatic = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+script = SubResource("GDScript_pkg7o")
 
 [connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_data_received"]
 [connection signal="SerialError" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_error"]

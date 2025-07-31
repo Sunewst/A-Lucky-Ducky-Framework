@@ -1,4 +1,4 @@
-@tool 
+#@tool 
 extends DirectionalLight3D
 
 @export var worldEnvironment: WorldEnvironment
