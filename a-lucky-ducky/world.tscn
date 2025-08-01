@@ -135,6 +135,7 @@ size = Vector2(2, 2)
 
 [sub_resource type="GDScript" id="GDScript_pkg7o"]
 script/source = "extends CodeEdit
+var _past_line: int
 
 func _ready() -> void:
 	set_line_as_bookmarked(0, true)
@@ -143,8 +144,21 @@ func _ready() -> void:
 	set_line_background_color(0, Color(1,0,0,0.3))
 	
 	
+	
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_simple_serial_controller_serial_data_received(data: String) -> void:
+	var _current_line: int
+	if data.begins_with('$'):
+		set_line_background_color(_past_line, Color(0,0,0,0))
+		set_line_background_color(data.get_slice('$', 1).to_int(), Color(0,0.6,0,0.3))
+		_past_line = _current_line
+	if data.begins_with('()'):
+		set_line_background_color(data.get_slice('$', 1).to_int(), Color(0,0.6,0,0.3))
+
+		
 "
 
 [node name="World" type="Node3D"]
@@ -175,8 +189,8 @@ render_target_update_mode = 4
 environment = SubResource("Environment_fj7yv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("worldEnvironment", "nightLight")]
-transform = Transform3D(1, 0, 0, 0, -0.859183, 0.511668, 0, -0.511668, -0.859183, 0.00352669, 1.47208, -3.78418)
-light_energy = 0.472621
+transform = Transform3D(1, 0, 0, 0, -0.855251, 0.518213, 0, -0.518213, -0.855251, 0.00352669, 1.47208, -3.78418)
+light_energy = 0.999617
 shadow_enabled = true
 script = ExtResource("2_dwbse")
 worldEnvironment = NodePath("../WorldEnvironment")
@@ -184,7 +198,7 @@ nightLight = NodePath("DirectionalLight3D")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/DirectionalLight3D"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-light_energy = 0.0527372
+light_energy = 3.83499e-05
 
 [node name="land" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_aqk2v")]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
@@ -238,6 +252,7 @@ auto_brace_completion_highlight_matching = true
 script = SubResource("GDScript_pkg7o")
 
 [connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_data_received"]
+[connection signal="SerialDataReceived" from="SimpleSerialController" to="CodeEdit" method="_on_simple_serial_controller_serial_data_received"]
 [connection signal="SerialError" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_error"]
 [connection signal="focus_entered" from="CodeEdit" to="SubViewportContainer/SubViewport/CameraControls" method="_on_code_edit_focus_entered"]
 [connection signal="focus_exited" from="CodeEdit" to="SubViewportContainer/SubViewport/CameraControls" method="_on_code_edit_focus_exited"]
