@@ -3,10 +3,11 @@
 [ext_resource type="Material" uid="uid://wyikf3yxoy6x" path="res://addons/DayNightCycle/Sky_Day.tres" id="1_036b0"]
 [ext_resource type="PackedScene" uid="uid://06c4vdmsaoe6" path="res://land.tscn" id="1_aqk2v"]
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/camera_controls.gd" id="1_fj7yv"]
-[ext_resource type="Script" uid="uid://beim58nabgtiv" path="res://scripts/SimpleSerialController.cs" id="1_pkg7o"]
+[ext_resource type="Script" uid="uid://beim58nabgtiv" path="res://serial_communication/SimpleSerialController.cs" id="1_pkg7o"]
 [ext_resource type="Script" uid="uid://d4iis7cs4sqni" path="res://addons/DayNightCycle/DayNightCycle.gd" id="2_dwbse"]
 [ext_resource type="Script" uid="uid://cpuluk7oqp7pi" path="res://scripts/testCubeScript.gd" id="6_ioo17"]
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="7_pkg7o"]
+[ext_resource type="Script" uid="uid://c8facwd4t0bu3" path="res://serial_communication/CodeEdit.gd" id="8_gbfbk"]
 
 [sub_resource type="Sky" id="Sky_pkg7o"]
 sky_material = ExtResource("1_036b0")
@@ -133,36 +134,6 @@ size = Vector2(2, 2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pkg7o"]
 
-[sub_resource type="GDScript" id="GDScript_pkg7o"]
-script/source = "extends CodeEdit
-var _past_line: int
-
-func _ready() -> void:
-	set_line_background_color(10, Color(1,1,1))
-	set_line_background_color(10, Color(0,0,0,0))
-	
-
-
-
-func _process(delta: float) -> void:
-	pass
-
-
-func _on_simple_serial_controller_serial_data_received(data: String) -> void:
-	var _current_line: int = data.get_slice('$', 1).to_int()
-	print(\"Current:\" + str(_current_line))
-	if data.begins_with('$'):
-		set_line_background_color(_past_line - 1, Color(0,0,0,0))
-		set_line_background_color(_current_line - 1, Color(0,0.6,0,0.3))
-		_past_line = _current_line
-	if data.begins_with('()'):
-		pass
-		#set_line_background_color(data.get_slice('', 1).to_int(), Color(0,0.6,0,0.3))
-		
-
-		
-"
-
 [node name="World" type="Node3D"]
 
 [node name="SimpleSerialController" type="Node" parent="."]
@@ -272,7 +243,7 @@ indent_use_spaces = true
 indent_automatic = true
 auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
-script = SubResource("GDScript_pkg7o")
+script = ExtResource("8_gbfbk")
 
 [connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_data_received"]
 [connection signal="SerialDataReceived" from="SimpleSerialController" to="CodeEdit" method="_on_simple_serial_controller_serial_data_received"]
