@@ -11,12 +11,20 @@ public partial class SimpleSerialController : Node
 	[Signal]
 	public delegate void SerialErrorEventHandler(string error);
 	private string _serialDataReceived;
+	private string[] _currentPorts;
+	private int _currentPortIndex;
 
 	public override void _Ready()
 	{
-		GD.Print(SerialPort.GetPortNames());
-		
-		string portName = "/dev/cu.usbmodem101"; 
+		_currentPorts = SerialPort.GetPortNames();
+		for (int i = 0; i < SerialPort.GetPortNames().Length; i++)
+		{
+			GD.Print(i +": " + _currentPorts[i]);
+		}
+		GD.Print("Which port would you like to open?");
+		//_currentPortIndex = Console.ReadLine().ToInt();
+
+		string portName = "/dev/cu.usbmodem11301";
 		int baudRate = 115200;
 		
 
