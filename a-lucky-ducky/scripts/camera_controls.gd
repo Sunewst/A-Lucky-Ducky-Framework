@@ -15,6 +15,7 @@ var _forwardVec: Vector3
 @onready var _snap_space := global_transform
 
 var camera_animation_running: bool = true
+var _in_focus: bool = true
 
 
 # Called when the node enters the scene tree for the first time.
@@ -39,20 +40,20 @@ func _process(delta: float) -> void:
 		_cam.h_offset = snap_error.x
 		_cam.v_offset = snap_error.y
 	
-	if Input.is_action_pressed("Left"):
+	if Input.is_action_pressed("Left") and _in_focus == true:
 		#rotation.y += rotation_speed * delta
 		_cam.position.x -= movement_speed * delta
-	if Input.is_action_pressed("Right"):
+	if Input.is_action_pressed("Right") and _in_focus == true:
 		#rotation.y -= rotation_speed * delta
 		_cam.position.x += movement_speed * delta
 
 		
-	if Input.is_action_pressed("Up"):
+	if Input.is_action_pressed("Up") and _in_focus == true:
 		#rotation.x += rotation_speed * delta
 		_cam.position.y += movement_speed * delta
 		
 
-	if Input.is_action_pressed("Down"):
+	if Input.is_action_pressed("Down") and _in_focus == true:
 		#rotation.x -= rotation_speed * delta
 		_cam.position.y -= movement_speed * delta
 
@@ -82,3 +83,14 @@ func _rotate_camera(direction: float):
 func _getMoveVectors():
 	var offset: Vector3 = _cam.global_position - global_position
 	_rightVec = _cam.transform
+
+
+func _on_code_edit_focus_entered() -> void:
+	if _in_focus == true:
+		_in_focus = false
+		
+
+
+func _on_code_edit_focus_exited() -> void:
+	if _in_focus == false:
+		_in_focus= true

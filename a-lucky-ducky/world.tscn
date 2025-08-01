@@ -139,6 +139,12 @@ script/source = "extends CodeEdit
 func _ready() -> void:
 	set_line_as_bookmarked(0, true)
 	print('Executing')
+	insert_line_at(0, \"Hello World!\")
+	set_line_background_color(0, Color(1,0,0,0.3))
+	
+	
+func _process(delta: float) -> void:
+	pass
 "
 
 [node name="World" type="Node3D"]
@@ -233,3 +239,5 @@ script = SubResource("GDScript_pkg7o")
 
 [connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_data_received"]
 [connection signal="SerialError" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_error"]
+[connection signal="focus_entered" from="CodeEdit" to="SubViewportContainer/SubViewport/CameraControls" method="_on_code_edit_focus_entered"]
+[connection signal="focus_exited" from="CodeEdit" to="SubViewportContainer/SubViewport/CameraControls" method="_on_code_edit_focus_exited"]
