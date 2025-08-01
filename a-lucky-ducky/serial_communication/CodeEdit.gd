@@ -3,8 +3,7 @@ var _past_line: int
 
 func _ready() -> void:
 	set_line_background_color(10, Color(1,1,1))
-	set_line_background_color(10, Color(0,0,0,0))
-	
+	set_line_background_color(10, Color(0,0,0,0))	
 
 
 
