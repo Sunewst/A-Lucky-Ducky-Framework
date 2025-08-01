@@ -138,25 +138,27 @@ script/source = "extends CodeEdit
 var _past_line: int
 
 func _ready() -> void:
-	set_line_as_bookmarked(0, true)
-	print('Executing')
-	insert_line_at(0, \"Hello World!\")
-	set_line_background_color(0, Color(1,0,0,0.3))
+	set_line_background_color(10, Color(1,1,1))
+	set_line_background_color(10, Color(0,0,0,0))
 	
-	
-	
+
+
+
 func _process(delta: float) -> void:
 	pass
 
 
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
-	var _current_line: int
+	var _current_line: int = data.get_slice('$', 1).to_int()
+	print(\"Current:\" + str(_current_line))
 	if data.begins_with('$'):
-		set_line_background_color(_past_line, Color(0,0,0,0))
-		set_line_background_color(data.get_slice('$', 1).to_int(), Color(0,0.6,0,0.3))
+		set_line_background_color(_past_line - 1, Color(0,0,0,0))
+		set_line_background_color(_current_line - 1, Color(0,0.6,0,0.3))
 		_past_line = _current_line
 	if data.begins_with('()'):
-		set_line_background_color(data.get_slice('$', 1).to_int(), Color(0,0.6,0,0.3))
+		pass
+		#set_line_background_color(data.get_slice('', 1).to_int(), Color(0,0.6,0,0.3))
+		
 
 		
 "
@@ -237,7 +239,28 @@ offset_right = 374.0
 offset_bottom = 359.5
 grow_vertical = 2
 theme = ExtResource("7_pkg7o")
-text = "#Include Arduino.h"
+text = "void setup() {
+  Serial.begin(115200);
+  //PinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+  Serial.println(\"$8\");
+  Serial.println(\"Hello \");
+
+  Serial.println(\"$11\");
+  delay(3000);
+
+  Serial1.println(\"$14\");
+  //digitalWriteFast(LED_BUILTIN, HIGH);
+
+  Serial.println(\"$17\");
+  delay(1000);
+
+  Serial.println(\"$20\");
+  delay(1000);
+
+}"
 scroll_smooth = true
 minimap_draw = true
 caret_blink = true

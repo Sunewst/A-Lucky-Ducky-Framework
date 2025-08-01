@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Threading;
 using System.IO.Ports;
 
 public partial class SimpleSerialController : Node
@@ -15,8 +16,8 @@ public partial class SimpleSerialController : Node
 	{
 		GD.Print(SerialPort.GetPortNames());
 		
-		string portName = "/dev/cu.usbmodem1301"; 
-		int baudRate = 9600;
+		string portName = "/dev/cu.usbmodem101"; 
+		int baudRate = 115200;
 		
 
 		_serialPort = new SerialPort(portName, baudRate);
@@ -24,6 +25,8 @@ public partial class SimpleSerialController : Node
 		try
 		{
 			_serialPort.Open();
+			_serialPort.DtrEnable = true;
+			Thread.Sleep(150);
 			GD.Print($"Successfully opened port {portName}.");
 		}
 		catch (Exception ex)
