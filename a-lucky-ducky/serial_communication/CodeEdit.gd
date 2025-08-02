@@ -1,10 +1,11 @@
 extends CodeEdit
 var _past_line: int
+var thread: Thread
+
 
 func _ready() -> void:
-	set_line_background_color(10, Color(1,1,1))
-	set_line_background_color(10, Color(0,0,0,0))	
-
+	thread = Thread.new()
+	thread.start(_thread_function.bind())
 
 
 func _process(delta: float) -> void:
@@ -21,3 +22,12 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 	if data.begins_with('()'):
 		pass
 		#set_line_background_color(data.get_slice('', 1).to_int(), Color(0,0.6,0,0.3))
+		
+
+func _thread_function():
+	var args = ['board', 'list']
+	var path = "C:\\Users\\boccs\\OneDrive\\Documents\\GitHub\\A-Lucky-Ducky-Framework\\a-lucky-ducky\\arduino-cli.exe"
+	var blocking = false
+	var output = []
+	OS.execute(path, args, output, false, false)
+	print(output)
