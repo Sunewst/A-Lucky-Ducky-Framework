@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cvmjlwn0k5vjv"]
+[gd_scene load_steps=21 format=3 uid="uid://cvmjlwn0k5vjv"]
 
 [ext_resource type="Material" uid="uid://wyikf3yxoy6x" path="res://addons/DayNightCycle/Sky_Day.tres" id="1_036b0"]
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/camera_controls.gd" id="1_fj7yv"]
@@ -148,6 +148,12 @@ size = Vector2(2, 2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pkg7o"]
 
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_ioo17"]
+number_color = Color(1, 0.965066, 0.626509, 1)
+symbol_color = Color(0.512084, 0.935619, 0.967737, 1)
+function_color = Color(0.714173, 0.808775, 0.997722, 1)
+member_variable_color = Color(0.541722, 0.690846, 1, 1)
+
 [node name="World" type="Node3D"]
 
 [node name="SimpleSerialController" type="Node" parent="."]
@@ -158,8 +164,6 @@ texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_right = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -217,39 +221,60 @@ skeleton = NodePath("../../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_pkg7o")
 
 [node name="CodeEdit" type="CodeEdit" parent="."]
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -359.5
-offset_right = 374.0
-offset_bottom = 359.5
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 509.0
 grow_vertical = 2
 theme = ExtResource("7_pkg7o")
-text = "void setup() {
+text = "#include <Arduino_APDS9960.h>
+
+void setup() {
   Serial.begin(115200);
-  //PinMode(LED_BUILTIN, OUTPUT);
+  while (!Serial);
+
+  if (!APDS.begin()) {
+    Serial.println(\"Error initializing APDS-9960 sensor!\");
+  }
+  APDS.setGestureSensitivity(80);
+
+  Serial.println(\"Detecting gestures ...\");
 }
-
 void loop() {
-  Serial.println(\"$8\");
-  Serial.println(\"Hello \");
+  if (APDS.gestureAvailable()) {
+    // a gesture was detected, read and print to Serial Monitor
+    Serial.println(\"$18\");
+    int gesture = APDS.readGesture();
 
-  Serial.println(\"$11\");
-  delay(3000);
+    switch (gesture) {
+      case GESTURE_UP:
+        Serial.println(\"$23\");
+        Serial.println(\"Detected UP gesture\");
+        break;
 
-  Serial1.println(\"$14\");
-  //digitalWriteFast(LED_BUILTIN, HIGH);
+      case GESTURE_DOWN:
+        Serial.println(\"$28\");
+        Serial.println(\"Detected DOWN gesture\");
+        break;
 
-  Serial.println(\"$17\");
-  delay(1000);
+      case GESTURE_LEFT:
+        Serial.println(\"$33\");
+        Serial.println(\"Detected LEFT gesture\");
+        break;
 
-  Serial.println(\"$20\");
-  delay(1000);
+      case GESTURE_RIGHT:
+        Serial.println(\"$38\");
+        Serial.println(\"Detected RIGHT gesture\");
+        break;
 
+      default:
+        break;
+    }
+  }
 }"
 scroll_smooth = true
 minimap_draw = true
 caret_blink = true
+syntax_highlighter = SubResource("CodeHighlighter_ioo17")
 gutters_draw_breakpoints_gutter = true
 gutters_draw_bookmarks = true
 gutters_draw_executing_lines = true
@@ -260,5 +285,9 @@ auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
 script = ExtResource("8_gbfbk")
 
+[connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_data_received"]
+[connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/CameraControls" method="_on_simple_serial_controller_serial_data_received"]
+[connection signal="SerialDataReceived" from="SimpleSerialController" to="CodeEdit" method="_on_simple_serial_controller_serial_data_received"]
+[connection signal="SerialError" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_error"]
 [connection signal="focus_entered" from="CodeEdit" to="SubViewportContainer/SubViewport/CameraControls" method="_on_code_edit_focus_entered"]
 [connection signal="focus_exited" from="CodeEdit" to="SubViewportContainer/SubViewport/CameraControls" method="_on_code_edit_focus_exited"]

@@ -94,3 +94,10 @@ func _on_code_edit_focus_entered() -> void:
 func _on_code_edit_focus_exited() -> void:
 	if _in_focus == false:
 		_in_focus= true
+
+
+func _on_simple_serial_controller_serial_data_received(data: String) -> void:
+	if data.contains("LEFT"):
+		_rotate_camera(-camera_rotation_amount)
+	if data.contains("RIGHT"):
+		_rotate_camera(camera_rotation_amount)

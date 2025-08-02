@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c08b7b05-79c8-424c-9bde-e038408dbf5b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/SimpleSerialController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/SimpleSerialController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/camera_controls.gd" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/camera_controls.gd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/testCubeScript.gd" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/testCubeScript.gd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serial_communication/CodeEdit.gd" beforeDir="false" afterPath="$PROJECT_DIR$/serial_communication/CodeEdit.gd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/world.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/world.tscn" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -130,6 +132,9 @@
       <workItem from="1754034330954" duration="11000" />
       <workItem from="1754034633649" duration="8000" />
       <workItem from="1754034717779" duration="388000" />
+      <workItem from="1754035117725" duration="3104000" />
+      <workItem from="1754081259589" duration="28000" />
+      <workItem from="1754083553350" duration="3062000" />
     </task>
     <servers />
   </component>
