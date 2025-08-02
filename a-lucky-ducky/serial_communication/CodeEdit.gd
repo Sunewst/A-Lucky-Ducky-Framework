@@ -4,8 +4,9 @@ var thread: Thread
 
 
 func _ready() -> void:
-	thread = Thread.new()
-	thread.start(_thread_function.bind())
+	if OS.get_name() == "Windows":
+		thread = Thread.new()
+		thread.start(_thread_function.bind())
 
 
 func _process(delta: float) -> void:
