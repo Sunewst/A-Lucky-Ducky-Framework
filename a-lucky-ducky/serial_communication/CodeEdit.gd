@@ -4,7 +4,6 @@ var thread: Thread
 
 
 func _ready() -> void:
-	pass
 	#print(OS.get_name())
 	#if OS.get_name() == "Windows":
 	thread = Thread.new()
