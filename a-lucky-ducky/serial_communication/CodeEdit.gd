@@ -7,8 +7,8 @@ func _ready() -> void:
 	pass
 	#print(OS.get_name())
 	#if OS.get_name() == "Windows":
-	#thread = Thread.new()
-	#thread.start(_thread_function.bind())
+	thread = Thread.new()
+	thread.start(_thread_function.bind())
 
 
 func _process(delta: float) -> void:
@@ -30,11 +30,13 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 func _thread_function():
 	var args = ['board', 'list']
 	var path
-	if OS.get_name() == "MacOS":
+	if OS.get_name().contains("mac"):
+		print("Using MacOS")
 		#path = ProjectSettings.globalize_path("res//arduino-cli")
 		path = "/Users/sunewst/Documents/GitHub/A-Lucky-Ducky-Framework/a-lucky-ducky/arduino-cli"
 	else:
 		path = "C:\\Users\\boccs\\OneDrive\\Documents\\GitHub\\A-Lucky-Ducky-Framework\\a-lucky-ducky\\arduino-cli.exe"
+		print("Using Windows")
 	var blocking = false
 	var output = []
 	OS.execute(path, args, output, false, false)
