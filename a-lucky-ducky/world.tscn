@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/camera_controls.gd" id="1_fj7yv"]
 [ext_resource type="Script" uid="uid://beim58nabgtiv" path="res://serial_communication/SimpleSerialController.cs" id="1_pkg7o"]
 [ext_resource type="Script" uid="uid://d4iis7cs4sqni" path="res://addons/DayNightCycle/DayNightCycle.gd" id="2_dwbse"]
-[ext_resource type="Script" path="res://scripts/EdgeDetectionCompositor.gd" id="3_ioo17"]
+[ext_resource type="Script" uid="uid://dofuopbsiko3m" path="res://scripts/EdgeDetectionCompositor.gd" id="3_ioo17"]
 [ext_resource type="Script" uid="uid://cpuluk7oqp7pi" path="res://scripts/testCubeScript.gd" id="6_ioo17"]
 [ext_resource type="PackedScene" uid="uid://cge0nru84n28c" path="res://land2.tscn" id="6_wse8f"]
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="7_pkg7o"]

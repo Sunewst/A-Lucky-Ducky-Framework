@@ -40,34 +40,34 @@ func _process(delta: float) -> void:
 		_cam.h_offset = snap_error.x
 		_cam.v_offset = snap_error.y
 	
-	if Input.is_action_pressed("Left") and _in_focus == true:
+	if Input.is_action_pressed("left") and _in_focus == true:
 		#rotation.y += rotation_speed * delta
 		_cam.position.x -= movement_speed * delta
-	if Input.is_action_pressed("Right") and _in_focus == true:
+	if Input.is_action_pressed("right") and _in_focus == true:
 		#rotation.y -= rotation_speed * delta
 		_cam.position.x += movement_speed * delta
 
 		
-	if Input.is_action_pressed("Up") and _in_focus == true:
+	if Input.is_action_pressed("up") and _in_focus == true:
 		#rotation.x += rotation_speed * delta
 		_cam.position.y += movement_speed * delta
 		
 
-	if Input.is_action_pressed("Down") and _in_focus == true:
+	if Input.is_action_pressed("down") and _in_focus == true:
 		#rotation.x -= rotation_speed * delta
 		_cam.position.y -= movement_speed * delta
 
-	if Input.is_action_just_pressed("Arrow_right"):
+	if Input.is_action_just_pressed("arrow_right"):
 		_rotate_camera(camera_rotation_amount)
 
 
-	if Input.is_action_just_pressed("Arrow_left"):
+	if Input.is_action_just_pressed("arrow_left"):
 		_rotate_camera(-camera_rotation_amount)
 		
-	if Input.is_action_just_pressed("Scroll_up"):
+	if Input.is_action_just_pressed("scroll_up"):
 		_cam.size -= 1
 		
-	if Input.is_action_just_pressed("Scroll_down"):
+	if Input.is_action_just_pressed("scroll_down"):
 		_cam.size += 1
 	
 
