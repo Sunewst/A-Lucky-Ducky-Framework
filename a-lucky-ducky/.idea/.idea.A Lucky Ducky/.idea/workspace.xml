@@ -5,10 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c08b7b05-79c8-424c-9bde-e038408dbf5b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/camera_controls.gd" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/camera_controls.gd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/testCubeScript.gd" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/testCubeScript.gd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/serial_communication/CodeEdit.gd" beforeDir="false" afterPath="$PROJECT_DIR$/serial_communication/CodeEdit.gd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/world.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/world.tscn" afterDir="false" />
     </list>
@@ -135,6 +131,7 @@
       <workItem from="1754035117725" duration="3104000" />
       <workItem from="1754081259589" duration="28000" />
       <workItem from="1754083553350" duration="3062000" />
+      <workItem from="1754204334987" duration="45000" />
     </task>
     <servers />
   </component>
