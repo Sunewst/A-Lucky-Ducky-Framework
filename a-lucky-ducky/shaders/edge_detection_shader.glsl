@@ -101,7 +101,7 @@ void main() {
 		vec3 n_offset = NormalRoughnessCompatibility(GetNormal(uv_offsets[i], mask)).rgb;
 		normal_difference += NormalEdgeIndicator(normal_edge_bias, normal, n_offset, depth_difference);
 	}
-	normal_difference = smoothstep(0.2, 0.2, normal_difference);
+	normal_difference = smoothstep(0.2, 0.25, normal_difference);
 	normal_difference = clamp(normal_difference - inv_depth_difference, 0.0, 1.0);
 
 

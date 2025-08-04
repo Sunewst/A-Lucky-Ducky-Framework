@@ -17,7 +17,7 @@ var _ignore_keywords = [
 	"else if ",
 	"default ",
 	"int ",
-	"default:"
+	"default:",
 ]
 
 
@@ -44,7 +44,7 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 		#set_line_background_color(data.get_slice('', 1).to_int(), Color(0,0.6,0,0.3))
 		
 
-func _thread_function():
+func _thread_function(_compiled_code: String):
 	var args = ['board', 'list']
 	var path
 	if OS.get_name().contains("mac"):
@@ -76,12 +76,13 @@ func _compile_code(userCode: CodeEdit):
 				print("Not Valid: " + str(_current_line))
 			_compiled_code.insert_line_at(_compiled_code.get_line_count() - 1, _current_line)
 	print("Your compiled code is ready")
-	set_text(_compiled_code.get_text())
+	#_thread_function(_compiled_code.get_text())
+	#set_text(_compiled_code.get_text())
 		
 
 func _check_for_validity(line: String):
 	line = line.get_slice("//", 0).strip_edges()
 	for ignore_keyword in _ignore_keywords:
-		if line.contains(ignore_keyword) or line.is_empty():
+		if line.begins_with(ignore_keyword) or line.ends_with(ignore_keyword) or line.is_empty():
 			return false
 	return true
