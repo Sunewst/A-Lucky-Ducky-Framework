@@ -32,9 +32,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
-
-
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 	var _current_line: int = data.get_slice('$', 1).to_int()
 	print("Current:" + str(_current_line))
@@ -52,7 +49,6 @@ func _thread_function():
 	var path
 	if OS.get_name().contains("mac"):
 		print("Using MacOS")
-		#path = ProjectSettings.globalize_path("res//arduino-cli")
 		path = "/Users/sunewst/Documents/GitHub/A-Lucky-Ducky-Framework/a-lucky-ducky/arduino-cli"
 	else:
 		path = "C:\\Users\\boccs\\OneDrive\\Documents\\GitHub\\A-Lucky-Ducky-Framework\\a-lucky-ducky\\arduino-cli.exe"
@@ -73,7 +69,6 @@ func _compile_code(userCode: CodeEdit):
 			if debug_messages:
 				print("Valid " + str(i + 1) + ": " + str(_current_line))
 			_compiled_code.insert_line_at(_current_line_count - 1, _current_line)
-			#_compiled_code.insert_line_at(_compiled_code.get_line_count() - 2, _current_line + " DEBUG")
 			_compiled_code.insert_line_at(_current_line_count - 2, "Serial.println('$" + str(_current_line_count + 1) + "');")
 			#FileAccess.open("res://hello_world.ino",FileAccess.WRITE)
 		else:
@@ -88,6 +83,5 @@ func _check_for_validity(line: String):
 	line = line.get_slice("//", 0).strip_edges()
 	for ignore_keyword in _ignore_keywords:
 		if line.contains(ignore_keyword) or line.is_empty():
-			#print(line + " contains: " + ignore_keyword)
 			return false
 	return true
