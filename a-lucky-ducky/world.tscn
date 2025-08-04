@@ -192,7 +192,7 @@ nightLight = NodePath("DirectionalLight3D")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 light_energy = 3.83499e-05
 
-[node name="land2" parent="SubViewportContainer/SubViewport" instance=ExtResource("6_wse8f")]
+[node name="land" parent="SubViewportContainer/SubViewport" instance=ExtResource("6_wse8f")]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 
 [node name="Cube" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]

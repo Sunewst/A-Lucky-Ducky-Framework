@@ -7,11 +7,21 @@ func _ready() -> void:
 	#print(OS.get_name())
 	#if OS.get_name() == "Windows":
 	thread = Thread.new()
-	thread.start(_thread_function.bind())
+	thread.start(_thread_function.bind())	
 
 
 func _process(delta: float) -> void:
 	pass
+
+
+
+func _compile_code(userCode: CodeEdit):
+	for i in range(userCode.get_line_count()):
+		userCode
+		var _currentLine = userCode.get_line(i)
+		if not _currentLine.begins_with("void") or _currentLine.begins_with("#include"):
+			pass
+
 
 
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
