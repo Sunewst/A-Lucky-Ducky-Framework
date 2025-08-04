@@ -1,26 +1,32 @@
 extends CodeEdit
 var _past_line: int
 var thread: Thread
+var _ignore_keywords = [
+	"{",
+	"}",
+	"#include",
+	"case",
+	"switch",
+	"for",
+	"if",
+	"while",
+	"else if",
+	"default",
+	"//"
+]
 
 
 func _ready() -> void:
 	#print(OS.get_name())
 	#if OS.get_name() == "Windows":
 	thread = Thread.new()
-	thread.start(_thread_function.bind())	
+	thread.start(_thread_function.bind())
+	_compile_code($".")
 
 
 func _process(delta: float) -> void:
 	pass
 
-
-
-func _compile_code(userCode: CodeEdit):
-	for i in range(userCode.get_line_count()):
-		userCode
-		var _currentLine = userCode.get_line(i)
-		if not _currentLine.begins_with("void") or _currentLine.begins_with("#include"):
-			pass
 
 
 
@@ -50,3 +56,20 @@ func _thread_function():
 	var output = []
 	OS.execute(path, args, output, false, false)
 	print(output)
+
+
+func _compile_code(userCode: CodeEdit):
+	for i in range(userCode.get_line_count()):
+		userCode
+		var _currentLine = userCode.get_line(i)
+		if _check_for_validity(_currentLine):
+			print("Valid: " + str(_currentLine))
+		else:
+			print("Not Valid: " + str(_currentLine))
+		
+
+func _check_for_validity(line: String, ):
+	for ignore_keyword in _ignore_keywords:
+		if line.contains(ignore_keyword) or line == "":
+			return false
+	return true
