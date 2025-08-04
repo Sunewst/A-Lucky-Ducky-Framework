@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/camera_controls.gd" id="1_fj7yv"]
 [ext_resource type="Script" uid="uid://beim58nabgtiv" path="res://serial_communication/SimpleSerialController.cs" id="1_pkg7o"]
 [ext_resource type="Script" uid="uid://d4iis7cs4sqni" path="res://addons/DayNightCycle/DayNightCycle.gd" id="2_dwbse"]
-[ext_resource type="Script" uid="uid://dofuopbsiko3m" path="res://scripts/EdgeDetectionCompositor.gd" id="3_ioo17"]
+[ext_resource type="Script" path="res://scripts/EdgeDetectionCompositor.gd" id="3_ioo17"]
 [ext_resource type="Script" uid="uid://cpuluk7oqp7pi" path="res://scripts/testCubeScript.gd" id="6_ioo17"]
 [ext_resource type="PackedScene" uid="uid://cge0nru84n28c" path="res://land2.tscn" id="6_wse8f"]
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="7_pkg7o"]
@@ -226,51 +226,19 @@ anchor_bottom = 1.0
 offset_right = 509.0
 grow_vertical = 2
 theme = ExtResource("7_pkg7o")
-text = "#include <Arduino_APDS9960.h>
-
-void setup() {
-  Serial.begin(115200);
-  while (!Serial);
-
-  if (!APDS.begin()) {
-    Serial.println(\"Error initializing APDS-9960 sensor!\");
-  }
-  APDS.setGestureSensitivity(80);
-
-  Serial.println(\"Detecting gestures ...\");
+text = "void setup() {
+  // initialize digital pin LED_BUILTIN as an output.
+  pinMode(LED_BUILTIN, OUTPUT);
 }
+
+// the loop function runs over and over again forever
 void loop() {
-  if (APDS.gestureAvailable()) {
-    // a gesture was detected, read and print to Serial Monitor
-    Serial.println(\"$18\");
-    int gesture = APDS.readGesture();
-
-    switch (gesture) {
-      case GESTURE_UP:
-        Serial.println(\"$23\");
-        Serial.println(\"Detected UP gesture\");
-        break;
-
-      case GESTURE_DOWN:
-        Serial.println(\"$28\");
-        Serial.println(\"Detected DOWN gesture\");
-        break;
-
-      case GESTURE_LEFT:
-        Serial.println(\"$33\");
-        Serial.println(\"Detected LEFT gesture\");
-        break;
-
-      case GESTURE_RIGHT:
-        Serial.println(\"$38\");
-        Serial.println(\"Detected RIGHT gesture\");
-        break;
-
-      default:
-        break;
-    }
-  }
-}"
+  digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
+  delay(1000);                      // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
+  delay(1000);                      // wait for a second
+}
+"
 placeholder_text = "Enter your Arduino code here"
 scroll_smooth = true
 minimap_draw = true
@@ -285,6 +253,7 @@ indent_automatic = true
 auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
 script = ExtResource("8_gbfbk")
+debug_messages = true
 
 [connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_data_received"]
 [connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/CameraControls" method="_on_simple_serial_controller_serial_data_received"]
