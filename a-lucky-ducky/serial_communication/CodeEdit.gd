@@ -65,14 +65,16 @@ func _thread_function():
 
 func _compile_code(userCode: CodeEdit):
 	var _compiled_code = CodeEdit.new()
+	var _current_line_count: int
 	for i in range(userCode.get_line_count()):
 		var _current_line: String = userCode.get_line(i)
+		_current_line_count = _compiled_code.get_line_count()
 		if _check_for_validity(_current_line):
 			if debug_messages:
 				print("Valid " + str(i + 1) + ": " + str(_current_line))
-			_compiled_code.insert_line_at(_compiled_code.get_line_count() - 1, _current_line)
-			_compiled_code.insert_line_at(_compiled_code.get_line_count() - 2, "Serial.println('$" + str(i) + "');")
-			i += 1
+			_compiled_code.insert_line_at(_current_line_count - 1, _current_line)
+			#_compiled_code.insert_line_at(_compiled_code.get_line_count() - 2, _current_line + " DEBUG")
+			_compiled_code.insert_line_at(_current_line_count - 2, "Serial.println('$" + str(_current_line_count + 1) + "');")
 			#FileAccess.open("res://hello_world.ino",FileAccess.WRITE)
 		else:
 			if debug_messages:
