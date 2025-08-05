@@ -1,16 +1,16 @@
 [gd_scene load_steps=18 format=3 uid="uid://cvmjlwn0k5vjv"]
 
-[ext_resource type="Material" uid="uid://wyikf3yxoy6x" path="res://addons/DayNightCycle/Sky_Day.tres" id="1_036b0"]
-[ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/camera_controls.gd" id="1_fj7yv"]
-[ext_resource type="Script" uid="uid://beim58nabgtiv" path="res://serial_communication/SimpleSerialController.cs" id="1_pkg7o"]
-[ext_resource type="Script" uid="uid://d4iis7cs4sqni" path="res://addons/DayNightCycle/DayNightCycle.gd" id="2_dwbse"]
-[ext_resource type="Script" uid="uid://cpuluk7oqp7pi" path="res://scripts/testCubeScript.gd" id="6_ioo17"]
-[ext_resource type="PackedScene" uid="uid://cge0nru84n28c" path="res://land2.tscn" id="6_wse8f"]
-[ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="7_pkg7o"]
-[ext_resource type="Script" uid="uid://c8facwd4t0bu3" path="res://serial_communication/CodeEdit.gd" id="8_gbfbk"]
+[ext_resource type="Script" uid="uid://beim58nabgtiv" path="res://serial_communication/SimpleSerialController.cs" id="1_4mrxx"]
+[ext_resource type="Material" uid="uid://wyikf3yxoy6x" path="res://addons/DayNightCycle/Sky_Day.tres" id="2_7r4gi"]
+[ext_resource type="Script" uid="uid://d4iis7cs4sqni" path="res://addons/DayNightCycle/DayNightCycle.gd" id="3_w7kh3"]
+[ext_resource type="PackedScene" uid="uid://cge0nru84n28c" path="res://scenes/land2.tscn" id="4_e3hyu"]
+[ext_resource type="Script" uid="uid://cpuluk7oqp7pi" path="res://scripts/test_cube.gd" id="5_q5onr"]
+[ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/camera_controls.gd" id="6_jhx03"]
+[ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="7_o8fc1"]
+[ext_resource type="Script" uid="uid://c8facwd4t0bu3" path="res://serial_communication/code_editor.gd" id="8_xo05s"]
 
 [sub_resource type="Sky" id="Sky_pkg7o"]
-sky_material = ExtResource("1_036b0")
+sky_material = ExtResource("2_7r4gi")
 
 [sub_resource type="Environment" id="Environment_fj7yv"]
 background_mode = 2
@@ -146,7 +146,7 @@ member_variable_color = Color(0.541722, 0.690846, 1, 1)
 [node name="World" type="Node3D"]
 
 [node name="SimpleSerialController" type="Node" parent="."]
-script = ExtResource("1_pkg7o")
+script = ExtResource("1_4mrxx")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
@@ -172,7 +172,7 @@ environment = SubResource("Environment_fj7yv")
 transform = Transform3D(1, 0, 0, 0, -0.855251, 0.518213, 0, -0.518213, -0.855251, 0.00352669, 1.47208, -3.78418)
 light_energy = 0.999617
 shadow_enabled = true
-script = ExtResource("2_dwbse")
+script = ExtResource("3_w7kh3")
 worldEnvironment = NodePath("../WorldEnvironment")
 nightLight = NodePath("DirectionalLight3D")
 
@@ -180,18 +180,18 @@ nightLight = NodePath("DirectionalLight3D")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 light_energy = 3.83499e-05
 
-[node name="land" parent="SubViewportContainer/SubViewport" instance=ExtResource("6_wse8f")]
+[node name="land" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_e3hyu")]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 
 [node name="Cube" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(0.652125, 0, 0.758112, 0, 1, 0, -0.758112, 0, 0.652125, -1.71668, 1.53491, -3.48008)
 mesh = SubResource("BoxMesh_f3sb7")
 surface_material_override/0 = SubResource("ORMMaterial3D_pkg7o")
-script = ExtResource("6_ioo17")
+script = ExtResource("5_q5onr")
 
 [node name="CameraControls" type="Node3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -0.000476569, 0.46578, -0.423462)
-script = ExtResource("1_fj7yv")
+script = ExtResource("6_jhx03")
 snap = false
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraControls"]
@@ -214,7 +214,7 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 509.0
 grow_vertical = 2
-theme = ExtResource("7_pkg7o")
+theme = ExtResource("7_o8fc1")
 text = "// constants won't change. They're used here to set pin numbers:
 const int buttonPin = 2;  // the number of the pushbutton pin
 const int ledPin = 13;    // the number of the LED pin
@@ -257,7 +257,7 @@ indent_use_spaces = true
 indent_automatic = true
 auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
-script = ExtResource("8_gbfbk")
+script = ExtResource("8_xo05s")
 
 [connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_data_received"]
 [connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/CameraControls" method="_on_simple_serial_controller_serial_data_received"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://coekjl2kiqtcb"]
 
-[ext_resource type="PackedScene" uid="uid://cohdgm7bb65i" path="res://Land3.glb" id="1_np348"]
+[ext_resource type="PackedScene" uid="uid://cohdgm7bb65i" path="res://graphics/Land3.glb" id="1_np348"]
 [ext_resource type="Shader" uid="uid://dafgg205ko6ba" path="res://shaders/water.gdshader" id="2_not33"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_e0rxj"]
