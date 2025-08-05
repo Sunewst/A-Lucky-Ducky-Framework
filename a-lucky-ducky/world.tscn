@@ -17,6 +17,7 @@ sky_material = ExtResource("1_036b0")
 background_mode = 2
 sky = SubResource("Sky_pkg7o")
 tonemap_mode = 2
+glow_enabled = true
 fog_mode = 1
 fog_density = 1.0
 
@@ -37,6 +38,8 @@ compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_wse8
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_pkg7o"]
 albedo_color = Color(0.247059, 0.180392, 1, 1)
+emission = Color(1.6, 0.126, 0.481, 1)
+emission_energy_multiplier = 16.0
 
 [sub_resource type="Shader" id="Shader_fj7yv"]
 code = "shader_type spatial;
@@ -196,7 +199,7 @@ light_energy = 3.83499e-05
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 
 [node name="Cube" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(0.652125, 0, 0.758112, 0, 1, 0, -0.758112, 0, 0.652125, -1.71668, 1.4981, -3.48008)
+transform = Transform3D(0.652125, 0, 0.758112, 0, 1, 0, -0.758112, 0, 0.652125, -1.71668, 1.53491, -3.48008)
 mesh = SubResource("BoxMesh_f3sb7")
 surface_material_override/0 = SubResource("ORMMaterial3D_pkg7o")
 script = ExtResource("6_ioo17")
@@ -208,7 +211,7 @@ snap = false
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraControls"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, -0.39914, 49.5709)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.73743, 2.57483, 44.4198)
 projection = 1
 size = 8.0
 far = 200.0
@@ -221,6 +224,7 @@ skeleton = NodePath("../../../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_pkg7o")
 
 [node name="CodeEdit" type="CodeEdit" parent="."]
+visible = false
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 509.0
