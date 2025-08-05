@@ -19,7 +19,7 @@ public partial class SimpleSerialController : Node
 		_currentPorts = SerialPort.GetPortNames();
 		for (int i = 0; i < SerialPort.GetPortNames().Length; i++)
 		{
-			GD.Print(i +": " + _currentPorts[i]);
+			//GD.Print(i +": " + _currentPorts[i]);
 		}
 		GD.Print("Which port would you like to open?");
 		//_currentPortIndex = Console.ReadLine().ToInt();
@@ -39,7 +39,7 @@ public partial class SimpleSerialController : Node
 		}
 		catch (Exception ex)
 		{
-			GD.PrintErr($"Could not open serial port: {ex.Message}");
+			//GD.PrintErr($"Could not open serial port: {ex.Message}");
 			EmitSignal(SignalName.SerialError, ex.Message);
 		}
 	}

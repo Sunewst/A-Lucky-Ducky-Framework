@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c08b7b05-79c8-424c-9bde-e038408dbf5b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/serial_communication/CodeEdit.gd" beforeDir="false" afterPath="$PROJECT_DIR$/serial_communication/CodeEdit.gd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/world.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/world.tscn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serial_communication/SimpleSerialController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/serial_communication/SimpleSerialController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,6 +137,7 @@
       <workItem from="1754338447244" duration="17000" />
       <workItem from="1754338515543" duration="59000" />
       <workItem from="1754356203088" duration="520000" />
+      <workItem from="1754357487381" duration="51000" />
     </task>
     <servers />
   </component>
