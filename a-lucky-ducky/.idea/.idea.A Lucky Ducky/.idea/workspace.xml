@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c08b7b05-79c8-424c-9bde-e038408dbf5b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/libraries/GdSdk_Master.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/libraries/GdSdk_Master.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/serial_communication/CodeEdit.gd" beforeDir="false" afterPath="$PROJECT_DIR$/serial_communication/CodeEdit.gd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shaders/edge_detection_shader.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/edge_detection_shader.glsl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/world.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/world.tscn" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,9 +68,9 @@
       <method v="2" />
     </configuration>
     <configuration name="Editor" type="RunExe" factoryName=".NET Executable">
-      <option name="EXE_PATH" value="$USER_HOME$/Downloads/Godot_v4.4.1-stable_mono_win64/Godot_v4.4.1-stable_mono_win64/Godot_v4.4.1-stable_mono_win64.exe" />
+      <option name="EXE_PATH" value="/Applications/Godot_mono.app/Contents/MacOS/Godot" />
       <option name="PROGRAM_PARAMETERS" value="--path &quot;./&quot; --editor" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\boccs\OneDrive\Documents\GitHub\A-Lucky-Ducky-Framework\a-lucky-ducky" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="ENV_FILE_PATHS" value="" />
@@ -89,9 +86,9 @@
       </method>
     </configuration>
     <configuration name="Player" type="RunExe" factoryName=".NET Executable">
-      <option name="EXE_PATH" value="$USER_HOME$/Downloads/Godot_v4.4.1-stable_mono_win64/Godot_v4.4.1-stable_mono_win64/Godot_v4.4.1-stable_mono_win64.exe" />
+      <option name="EXE_PATH" value="/Applications/Godot_mono.app/Contents/MacOS/Godot" />
       <option name="PROGRAM_PARAMETERS" value="--path &quot;./&quot;" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\boccs\OneDrive\Documents\GitHub\A-Lucky-Ducky-Framework\a-lucky-ducky" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="ENV_FILE_PATHS" value="" />
@@ -140,6 +137,7 @@
       <workItem from="1754336294911" duration="2000" />
       <workItem from="1754338447244" duration="17000" />
       <workItem from="1754338515543" duration="59000" />
+      <workItem from="1754356203088" duration="520000" />
     </task>
     <servers />
   </component>

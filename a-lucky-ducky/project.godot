@@ -18,6 +18,10 @@ boot_splash/bg_color=Color(0.551888, 1, 0.816689, 1)
 boot_splash/image="uid://exf78fotfxwu"
 config/icon="uid://exf78fotfxwu"
 
+[debug]
+
+settings/stdout/verbose_stdout=true
+
 [display]
 
 window/size/viewport_width=1280

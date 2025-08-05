@@ -1,10 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://cvmjlwn0k5vjv"]
+[gd_scene load_steps=18 format=3 uid="uid://cvmjlwn0k5vjv"]
 
 [ext_resource type="Material" uid="uid://wyikf3yxoy6x" path="res://addons/DayNightCycle/Sky_Day.tres" id="1_036b0"]
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/camera_controls.gd" id="1_fj7yv"]
 [ext_resource type="Script" uid="uid://beim58nabgtiv" path="res://serial_communication/SimpleSerialController.cs" id="1_pkg7o"]
 [ext_resource type="Script" uid="uid://d4iis7cs4sqni" path="res://addons/DayNightCycle/DayNightCycle.gd" id="2_dwbse"]
-[ext_resource type="Script" uid="uid://dofuopbsiko3m" path="res://scripts/EdgeDetectionCompositor.gd" id="3_ioo17"]
 [ext_resource type="Script" uid="uid://cpuluk7oqp7pi" path="res://scripts/testCubeScript.gd" id="6_ioo17"]
 [ext_resource type="PackedScene" uid="uid://cge0nru84n28c" path="res://land2.tscn" id="6_wse8f"]
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="7_pkg7o"]
@@ -20,19 +19,6 @@ tonemap_mode = 2
 glow_enabled = true
 fog_mode = 1
 fog_density = 1.0
-
-[sub_resource type="CompositorEffect" id="CompositorEffect_wse8f"]
-resource_local_to_scene = false
-resource_name = ""
-enabled = true
-effect_callback_type = 4
-needs_motion_vectors = false
-needs_normal_roughness = true
-script = ExtResource("3_ioo17")
-metadata/_custom_type_script = "uid://dofuopbsiko3m"
-
-[sub_resource type="Compositor" id="Compositor_gbfbk"]
-compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_wse8f")])
 
 [sub_resource type="BoxMesh" id="BoxMesh_f3sb7"]
 
@@ -181,7 +167,6 @@ render_target_update_mode = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
 environment = SubResource("Environment_fj7yv")
-compositor = SubResource("Compositor_gbfbk")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("worldEnvironment", "nightLight")]
 transform = Transform3D(1, 0, 0, 0, -0.855251, 0.518213, 0, -0.518213, -0.855251, 0.00352669, 1.47208, -3.78418)
@@ -273,7 +258,6 @@ indent_automatic = true
 auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
 script = ExtResource("8_gbfbk")
-debug_messages = true
 
 [connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_data_received"]
 [connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/CameraControls" method="_on_simple_serial_controller_serial_data_received"]
