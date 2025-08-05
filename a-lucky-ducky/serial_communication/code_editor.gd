@@ -22,11 +22,12 @@ var _ignore_keywords = [
 
 
 func _ready() -> void:
+	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
+	#serial_data.SerialDataRecevied.connect(get_parent()._on_simple_serial_controller_serial_data_received)
 	#print(OS.get_name())
 	#if OS.get_name() == "Windows":
 	thread = Thread.new()
 	thread.start(_thread_function.bind())
-	_compile_code($".")
 
 
 func _process(delta: float) -> void:
@@ -86,3 +87,7 @@ func _check_for_validity(line: String):
 		if line.begins_with(ignore_keyword) or line.ends_with(ignore_keyword) or line.is_empty():
 			return false
 	return true
+
+
+func _on_button_pressed() -> void:
+	_compile_code($".")

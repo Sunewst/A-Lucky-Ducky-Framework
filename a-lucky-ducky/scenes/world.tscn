@@ -1,13 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://cvmjlwn0k5vjv"]
+[gd_scene load_steps=13 format=3 uid="uid://cvmjlwn0k5vjv"]
 
-[ext_resource type="Script" uid="uid://beim58nabgtiv" path="res://serial_communication/SimpleSerialController.cs" id="1_4mrxx"]
 [ext_resource type="Material" uid="uid://wyikf3yxoy6x" path="res://addons/DayNightCycle/Sky_Day.tres" id="2_7r4gi"]
 [ext_resource type="Script" uid="uid://d4iis7cs4sqni" path="res://addons/DayNightCycle/DayNightCycle.gd" id="3_w7kh3"]
 [ext_resource type="PackedScene" uid="uid://cge0nru84n28c" path="res://scenes/land2.tscn" id="4_e3hyu"]
-[ext_resource type="Script" uid="uid://cpuluk7oqp7pi" path="res://scripts/test_cube.gd" id="5_q5onr"]
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/camera_controls.gd" id="6_jhx03"]
-[ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="7_o8fc1"]
-[ext_resource type="Script" uid="uid://c8facwd4t0bu3" path="res://serial_communication/code_editor.gd" id="8_xo05s"]
+[ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor.tscn" id="7_i7141"]
 
 [sub_resource type="Sky" id="Sky_pkg7o"]
 sky_material = ExtResource("2_7r4gi")
@@ -22,10 +19,8 @@ fog_density = 1.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_f3sb7"]
 
-[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_pkg7o"]
-albedo_color = Color(0.247059, 0.180392, 1, 1)
-emission = Color(1.6, 0.126, 0.481, 1)
-emission_energy_multiplier = 16.0
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_7r4gi"]
+albedo_color = Color(1, 0.439216, 0.380392, 1)
 
 [sub_resource type="Shader" id="Shader_fj7yv"]
 code = "shader_type spatial;
@@ -135,18 +130,7 @@ material = SubResource("ShaderMaterial_fj7yv")
 flip_faces = true
 size = Vector2(2, 2)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pkg7o"]
-
-[sub_resource type="CodeHighlighter" id="CodeHighlighter_ioo17"]
-number_color = Color(1, 0.965066, 0.626509, 1)
-symbol_color = Color(0.512084, 0.935619, 0.967737, 1)
-function_color = Color(0.714173, 0.808775, 0.997722, 1)
-member_variable_color = Color(0.541722, 0.690846, 1, 1)
-
 [node name="World" type="Node3D"]
-
-[node name="SimpleSerialController" type="Node" parent="."]
-script = ExtResource("1_4mrxx")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
@@ -186,8 +170,7 @@ transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 [node name="Cube" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(0.652125, 0, 0.758112, 0, 1, 0, -0.758112, 0, 0.652125, -1.71668, 1.53491, -3.48008)
 mesh = SubResource("BoxMesh_f3sb7")
-surface_material_override/0 = SubResource("ORMMaterial3D_pkg7o")
-script = ExtResource("5_q5onr")
+surface_material_override/0 = SubResource("ORMMaterial3D_7r4gi")
 
 [node name="CameraControls" type="Node3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -0.000476569, 0.46578, -0.423462)
@@ -206,62 +189,5 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_tlwt5")
 skeleton = NodePath("../../../../..")
-surface_material_override/0 = SubResource("ShaderMaterial_pkg7o")
 
-[node name="CodeEdit" type="CodeEdit" parent="."]
-visible = false
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 509.0
-grow_vertical = 2
-theme = ExtResource("7_o8fc1")
-text = "// constants won't change. They're used here to set pin numbers:
-const int buttonPin = 2;  // the number of the pushbutton pin
-const int ledPin = 13;    // the number of the LED pin
-
-// variables will change:
-int buttonState = 0;  // variable for reading the pushbutton status
-
-void setup() {
-  // initialize the LED pin as an output:
-  pinMode(ledPin, OUTPUT);
-  // initialize the pushbutton pin as an input:
-  pinMode(buttonPin, INPUT);
-
-}
-
-void loop() {
-  // read the state of the pushbutton value:
-  buttonState = digitalRead(buttonPin);
-
-  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
-  if (buttonState == HIGH) {
-    // turn LED on:
-    digitalWrite(ledPin, HIGH);
-  } else {
-    // turn LED off:
-    digitalWrite(ledPin, LOW);
-  }
-}
-"
-placeholder_text = "Enter your Arduino code here"
-scroll_smooth = true
-minimap_draw = true
-caret_blink = true
-syntax_highlighter = SubResource("CodeHighlighter_ioo17")
-gutters_draw_breakpoints_gutter = true
-gutters_draw_bookmarks = true
-gutters_draw_executing_lines = true
-gutters_draw_line_numbers = true
-indent_use_spaces = true
-indent_automatic = true
-auto_brace_completion_enabled = true
-auto_brace_completion_highlight_matching = true
-script = ExtResource("8_xo05s")
-
-[connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_data_received"]
-[connection signal="SerialDataReceived" from="SimpleSerialController" to="SubViewportContainer/SubViewport/CameraControls" method="_on_simple_serial_controller_serial_data_received"]
-[connection signal="SerialDataReceived" from="SimpleSerialController" to="CodeEdit" method="_on_simple_serial_controller_serial_data_received"]
-[connection signal="SerialError" from="SimpleSerialController" to="SubViewportContainer/SubViewport/Cube" method="_on_simple_serial_controller_serial_error"]
-[connection signal="focus_entered" from="CodeEdit" to="SubViewportContainer/SubViewport/CameraControls" method="_on_code_edit_focus_entered"]
-[connection signal="focus_exited" from="CodeEdit" to="SubViewportContainer/SubViewport/CameraControls" method="_on_code_edit_focus_exited"]
+[node name="code_editor" parent="." instance=ExtResource("7_i7141")]

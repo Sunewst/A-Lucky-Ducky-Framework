@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c08b7b05-79c8-424c-9bde-e038408dbf5b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scenes/world.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/scenes/world.tscn" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/serial_communication/SimpleSerialController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/serial_communication/SimpleSerialController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shaders/edge_outlines.gdshader" beforeDir="false" afterPath="$PROJECT_DIR$/shaders/edge_outlines.gdshader" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,6 +142,7 @@
       <workItem from="1754338515543" duration="59000" />
       <workItem from="1754356203088" duration="520000" />
       <workItem from="1754357487381" duration="51000" />
+      <workItem from="1754375280303" duration="2918000" />
     </task>
     <servers />
   </component>

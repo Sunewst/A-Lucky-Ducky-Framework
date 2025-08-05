@@ -18,14 +18,15 @@ boot_splash/bg_color=Color(0.551888, 1, 0.816689, 1)
 boot_splash/image="uid://exf78fotfxwu"
 config/icon="uid://exf78fotfxwu"
 
-[debug]
+[autoload]
 
-settings/stdout/verbose_stdout=true
+SerialController="*res://serial_communication/SimpleSerialController.cs"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/always_on_top=true
 
 [dotnet]
 

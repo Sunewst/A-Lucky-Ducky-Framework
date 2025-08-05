@@ -22,7 +22,6 @@ public partial class SimpleSerialController : Node
 			//GD.Print(i +": " + _currentPorts[i]);
 		}
 		GD.Print("Which port would you like to open?");
-		//_currentPortIndex = Console.ReadLine().ToInt();
 
 		string portName = "/dev/cu.usbmodem11301";
 		int baudRate = 115200;
@@ -70,4 +69,15 @@ public partial class SimpleSerialController : Node
 			_serialPort.Close();
 		}
 	}
+	
+	public static string[] _GetAllPorts()
+	{
+		return SerialPort.GetPortNames();
+	}
+
+	
+	
+	
+	
 }
+

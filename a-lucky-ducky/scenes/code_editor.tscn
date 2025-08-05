@@ -1,0 +1,83 @@
+[gd_scene load_steps=4 format=3 uid="uid://ci3ugvvfqe1qy"]
+
+[ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="1_i4sis"]
+[ext_resource type="Script" uid="uid://c8facwd4t0bu3" path="res://serial_communication/code_editor.gd" id="2_xqpb2"]
+
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_cctyv"]
+number_color = Color(1, 0.965066, 0.626509, 1)
+symbol_color = Color(0.512084, 0.935619, 0.967737, 1)
+function_color = Color(0.714173, 0.808775, 0.997722, 1)
+member_variable_color = Color(0.541722, 0.690846, 1, 1)
+
+[node name="code_editor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CodeEdit" type="CodeEdit" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 509.0
+grow_vertical = 2
+theme = ExtResource("1_i4sis")
+text = "// constants won't change. They're used here to set pin numbers:
+const int buttonPin = 2;  // the number of the pushbutton pin
+const int ledPin = 13;    // the number of the LED pin
+
+// variables will change:
+int buttonState = 0;  // variable for reading the pushbutton status
+
+void setup() {
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);
+  // initialize the pushbutton pin as an input:
+  pinMode(buttonPin, INPUT);
+
+}
+
+void loop() {
+  // read the state of the pushbutton value:
+  buttonState = digitalRead(buttonPin);
+
+  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  if (buttonState == HIGH) {
+    // turn LED on:
+    digitalWrite(ledPin, HIGH);
+  } else {
+    // turn LED off:
+    digitalWrite(ledPin, LOW);
+  }
+}
+"
+placeholder_text = "Enter your Arduino code here"
+scroll_smooth = true
+minimap_draw = true
+caret_blink = true
+syntax_highlighter = SubResource("CodeHighlighter_cctyv")
+gutters_draw_breakpoints_gutter = true
+gutters_draw_bookmarks = true
+gutters_draw_executing_lines = true
+gutters_draw_line_numbers = true
+indent_use_spaces = true
+indent_automatic = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+script = ExtResource("2_xqpb2")
+debug_messages = true
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -59.5
+offset_right = 59.5
+offset_bottom = 33.0
+grow_horizontal = 2
+text = "Compile Code"
+
+[connection signal="pressed" from="Button" to="CodeEdit" method="_on_button_pressed"]
