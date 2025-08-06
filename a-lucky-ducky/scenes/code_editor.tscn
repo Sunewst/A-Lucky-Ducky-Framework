@@ -5,9 +5,14 @@
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_cctyv"]
 number_color = Color(1, 0.965066, 0.626509, 1)
-symbol_color = Color(0.512084, 0.935619, 0.967737, 1)
+symbol_color = Color(0.490519, 0.724227, 0.937673, 1)
 function_color = Color(0.714173, 0.808775, 0.997722, 1)
-member_variable_color = Color(0.541722, 0.690846, 1, 1)
+member_variable_color = Color(0.00143379, 0.0882818, 0.466729, 1)
+keyword_colors = {
+"digitalWrite": Color(0.98095, 0.236868, 0.693399, 1),
+"loop": Color(0.51955, 0.277284, 0.918448, 1),
+"setup": Color(0.922494, 0.399349, 0.149759, 1)
+}
 
 [node name="code_editor" type="Control"]
 layout_mode = 3
@@ -58,6 +63,7 @@ scroll_smooth = true
 minimap_draw = true
 caret_blink = true
 syntax_highlighter = SubResource("CodeHighlighter_cctyv")
+highlight_all_occurrences = true
 gutters_draw_breakpoints_gutter = true
 gutters_draw_bookmarks = true
 gutters_draw_executing_lines = true
