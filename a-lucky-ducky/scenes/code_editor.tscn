@@ -6,12 +6,18 @@
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_cctyv"]
 number_color = Color(1, 0.965066, 0.626509, 1)
 symbol_color = Color(0.490519, 0.724227, 0.937673, 1)
-function_color = Color(0.714173, 0.808775, 0.997722, 1)
-member_variable_color = Color(0.322552, 0.908388, 0.472402, 1)
+function_color = Color(0.745189, 0.355621, 0.728521, 1)
+member_variable_color = Color(0.80684, 0.724336, 0.985604, 1)
 keyword_colors = {
+"": Color(0, 0, 0, 1),
+"analogRead": Color(0.262745, 0.933333, 0.952941, 1),
+"analogWrite": Color(0.262745, 0.933333, 0.952941, 1),
 "delay": Color(0.775528, 0.193263, 0.240471, 1),
-"digitalWrite": Color(0.98095, 0.236868, 0.693399, 1),
+"digitalRead": Color(0.262745, 0.933333, 0.952941, 1),
+"digitalWrite": Color(0.262745, 0.933333, 0.952941, 1),
+"int": Color(0.999083, 0.539086, 0.531603, 1),
 "loop": Color(0.421494, 0.996586, 0.387074, 1),
+"pinMode": Color(0.262745, 0.933333, 0.952941, 1),
 "setup": Color(0.981709, 0.535612, 0.350285, 1)
 }
 color_regions = {
@@ -72,6 +78,7 @@ gutters_draw_breakpoints_gutter = true
 gutters_draw_bookmarks = true
 gutters_draw_executing_lines = true
 gutters_draw_line_numbers = true
+indent_size = 2
 indent_use_spaces = true
 indent_automatic = true
 auto_brace_completion_enabled = true
