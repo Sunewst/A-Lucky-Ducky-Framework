@@ -9,9 +9,13 @@ symbol_color = Color(0.490519, 0.724227, 0.937673, 1)
 function_color = Color(0.714173, 0.808775, 0.997722, 1)
 member_variable_color = Color(0.00143379, 0.0882818, 0.466729, 1)
 keyword_colors = {
+"delay": Color(0.775528, 0.193263, 0.240471, 1),
 "digitalWrite": Color(0.98095, 0.236868, 0.693399, 1),
 "loop": Color(0.51955, 0.277284, 0.918448, 1),
 "setup": Color(0.922494, 0.399349, 0.149759, 1)
+}
+color_regions = {
+"//": Color(0.681994, 0.942753, 0.991644, 0.617)
 }
 
 [node name="code_editor" type="Control"]
