@@ -12,6 +12,7 @@ keyword_colors = {
 "": Color(0, 0, 0, 1),
 "analogRead": Color(0.262745, 0.933333, 0.952941, 1),
 "analogWrite": Color(0.262745, 0.933333, 0.952941, 1),
+"const": Color(1, 0.537255, 0.533333, 1),
 "delay": Color(0.775528, 0.193263, 0.240471, 1),
 "digitalRead": Color(0.262745, 0.933333, 0.952941, 1),
 "digitalWrite": Color(0.262745, 0.933333, 0.952941, 1),
