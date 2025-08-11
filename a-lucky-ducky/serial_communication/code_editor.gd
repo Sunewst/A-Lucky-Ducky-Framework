@@ -61,27 +61,27 @@ func _thread_function(_compiled_code: String):
 
 
 func _compile_code(userCode: CodeEdit):
-	var _compiled_code = CodeEdit.new()
-	var _current_line_count: int
+	var compiled_code = CodeEdit.new()
+	var compiled_line_count: int
+	var current_line: String
+
 	for i in range(userCode.get_line_count()):
-		var _current_line: String = userCode.get_line(i)
-		_current_line_count = _compiled_code.get_line_count()
-		if _check_for_validity(_current_line):
+		current_line = userCode.get_line(i)
+		compiled_line_count = compiled_code.get_line_count()
+		if check_for_validity(current_line):
 			if debug_messages:
-				print("Valid " + str(i + 1) + ": " + str(_current_line))
-			_compiled_code.insert_line_at(_current_line_count - 1, _current_line)
-			_compiled_code.insert_line_at(_current_line_count - 2, "Serial.println('$" + str(_current_line_count + 1) + "');")
-			#FileAccess.open("res://hello_world.ino",FileAccess.WRITE)
+				print("Valid " + str(i + 1) + ": " + str(current_line))
+
+			compiled_code.insert_line_at(compiled_line_count - 1, current_line)
+			compiled_code.insert_line_at(compiled_line_count - 2, "Serial.println('$" + str(compiled_line_count + 1) + "');")
 		else:
 			if debug_messages:
-				print("Not Valid: " + str(_current_line))
-			_compiled_code.insert_line_at(_compiled_code.get_line_count() - 1, _current_line)
-	print("Your compiled code is ready")
-	#_thread_function(_compiled_code.get_text())
-	#set_text(_compiled_code.get_text())
-		
+				print("Not Valid: " + str(i + 1) + ": " + str(current_line))
 
-func _check_for_validity(line: String):
+			compiled_code.insert_line_at(compiled_code.get_line_count() - 1, current_line)
+	print("Your compiled code is ready")
+
+func check_for_validity(line: String):
 	line = line.get_slice("//", 0).strip_edges()
 	for ignore_keyword in _ignore_keywords:
 		if line.begins_with(ignore_keyword) or line.ends_with(ignore_keyword) or line.is_empty():
