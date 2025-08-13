@@ -3,6 +3,9 @@ extends CodeEdit
 @export var debug_messages: bool
 
 var thread: Thread
+var semaphore: Semaphore
+var exit_loop: bool
+
 
 var _past_line: int
 var _ignore_keywords = [
@@ -24,9 +27,11 @@ var _ignore_keywords = [
 func _ready() -> void:
 	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
 
-	thread = Thread.new()
-	thread.start(_thread_function.bind())
+	semaphore = Semaphore.new()
+	exit_loop = false
 
+	thread = Thread.new()
+	thread.start(_thread_function)
 
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 	var _current_line: int = data.get_slice('$', 1).to_int()
@@ -38,6 +43,11 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 
 
 func _thread_function():
+	while true:
+		semaphore.wait()
+		if exit_loop:
+			break
+		
 	var args = ['board', 'list']
 	var path
 	if OS.get_name().contains("mac"):
@@ -74,6 +84,9 @@ func _compile_code(userCode: CodeEdit):
 
 			compiled_code.insert_line_at(compiled_code.get_line_count() - 1, current_line)
 	print("Your compiled code is ready")
+	semaphore.post() 
+
+
 
 func check_for_validity(line: String):
 	line = line.get_slice("//", 0).strip_edges()
@@ -82,6 +95,10 @@ func check_for_validity(line: String):
 			return false
 	return true
 
+func _exit_tree() -> void:
+	exit_loop = true
+	semaphore.post()
+	thread.wait_to_finish()
 
 func _on_button_pressed() -> void:
 	_compile_code($".")
