@@ -28,7 +28,7 @@ public partial class SimpleSerialController : Node
 		
 
 		_serialPort = new SerialPort(portName, baudRate);
-		_serialPort.ReadTimeout = 10; 
+		_serialPort.ReadTimeout = 10;
 		try
 		{
 			_serialPort.Open();
@@ -38,7 +38,7 @@ public partial class SimpleSerialController : Node
 		}
 		catch (Exception ex)
 		{
-			//GD.PrintErr($"Could not open serial port: {ex.Message}");
+			GD.PrintErr($"Could not open serial port: {ex.Message}");
 			EmitSignal(SignalName.SerialError, ex.Message);
 		}
 	}

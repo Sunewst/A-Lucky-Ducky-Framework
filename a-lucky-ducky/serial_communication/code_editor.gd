@@ -23,15 +23,10 @@ var _ignore_keywords = [
 
 func _ready() -> void:
 	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
-	#serial_data.SerialDataRecevied.connect(get_parent()._on_simple_serial_controller_serial_data_received)
-	#print(OS.get_name())
-	#if OS.get_name() == "Windows":
+
 	thread = Thread.new()
 	thread.start(_thread_function.bind())
 
-
-func _process(delta: float) -> void:
-	pass
 
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 	var _current_line: int = data.get_slice('$', 1).to_int()
@@ -40,20 +35,19 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 		set_line_background_color(_past_line - 1, Color(0,0,0,0))
 		set_line_background_color(_current_line - 1, Color(0,0.6,0,0.3))
 		_past_line = _current_line
-	if data.begins_with('()'):
-		pass
-		#set_line_background_color(data.get_slice('', 1).to_int(), Color(0,0.6,0,0.3))
-		
 
-func _thread_function(_compiled_code: String):
+
+func _thread_function():
 	var args = ['board', 'list']
 	var path
 	if OS.get_name().contains("mac"):
 		print("Using MacOS")
-		path = "/Users/sunewst/Documents/GitHub/A-Lucky-Ducky-Framework/a-lucky-ducky/arduino-cli"
+		path = ProjectSettings.globalize_path("res://arduino-cli")
+
 	else:
-		path = "C:\\Users\\boccs\\OneDrive\\Documents\\GitHub\\A-Lucky-Ducky-Framework\\a-lucky-ducky\\arduino-cli.exe"
 		print("Using Windows")
+		path = ProjectSettings.globalize_path("res://arduino-cli.exe")
+
 	var blocking = false
 	var output = []
 	OS.execute(path, args, output, false, false)
