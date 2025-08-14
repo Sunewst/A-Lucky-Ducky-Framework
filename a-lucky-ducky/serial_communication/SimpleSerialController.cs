@@ -17,14 +17,14 @@ public partial class SimpleSerialController : Node
 	public override void _Ready()
 	{
 		currentPorts = SerialPort.GetPortNames();
-		for (int i = 0; i < SerialPort.GetPortNames().Length; i++)
+		for (var i = 0; i < SerialPort.GetPortNames().Length; i++)
 		{
 			//GD.Print(i +": " + _currentPorts[i]);
 		}
 		GD.Print("Which port would you like to open?");
 
 		string portName = "/dev/cu.usbmodem11301";
-		int baudRate = 115200;
+		var baudRate = 115200;
 		
 
 		serialPort = new SerialPort(portName, baudRate);
@@ -70,7 +70,7 @@ public partial class SimpleSerialController : Node
 		}
 	}
 	
-	public static string[] _GetAllPorts()
+	private static string[] _GetAllPorts()
 	{
 		return SerialPort.GetPortNames();
 	}

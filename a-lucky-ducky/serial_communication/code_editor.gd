@@ -59,7 +59,7 @@ func _thread_function():
 		path = ProjectSettings.globalize_path("res://arduino-cli.exe")
 
 	var output: Array[Variant] = []
-	OS.execute(path, args, output, false, false)
+	#OS.execute(path, args, output, false, false)
 	print(output)
 
 

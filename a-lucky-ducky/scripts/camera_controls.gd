@@ -79,10 +79,6 @@ func _rotate_camera(direction: float):
 	
 	#camera_animation_running = tween.is_running()
 	
-	
-func _getMoveVectors():
-	var offset: Vector3 = _cam.global_position - global_position
-	_rightVec = _cam.transform
 
 
 func _on_code_edit_focus_entered() -> void:
