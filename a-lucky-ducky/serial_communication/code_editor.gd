@@ -47,7 +47,7 @@ func _thread_function():
 		semaphore.wait()
 		if exit_loop:
 			break
-		
+
 	var args = ['board', 'list']
 	var path
 	if OS.get_name().contains("mac"):
@@ -58,7 +58,6 @@ func _thread_function():
 		print("Using Windows")
 		path = ProjectSettings.globalize_path("res://arduino-cli.exe")
 
-	var blocking = false
 	var output = []
 	OS.execute(path, args, output, false, false)
 	print(output)
@@ -84,7 +83,6 @@ func _compile_code(userCode: CodeEdit):
 
 			compiled_code.insert_line_at(compiled_code.get_line_count() - 1, current_line)
 	print("Your compiled code is ready")
-	semaphore.post() 
 
 
 
@@ -96,6 +94,7 @@ func check_for_validity(line: String):
 	return true
 
 func _exit_tree() -> void:
+	print(thread.is_alive())
 	exit_loop = true
 	semaphore.post()
 	thread.wait_to_finish()
