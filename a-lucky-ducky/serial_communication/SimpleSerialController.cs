@@ -5,18 +5,18 @@ using System.IO.Ports;
 
 public partial class SimpleSerialController : Node
 {
-	private SerialPort _serialPort;
+	private SerialPort serialPort;
 	[Signal] 
 	public delegate void SerialDataReceivedEventHandler(string data);
 	[Signal]
 	public delegate void SerialErrorEventHandler(string error);
-	private string _serialDataReceived;
-	private string[] _currentPorts;
-	private int _currentPortIndex;
+	private string serialDataReceived;
+	private string[] currentPorts;
+	private int currentPortIndex;
 
 	public override void _Ready()
 	{
-		_currentPorts = SerialPort.GetPortNames();
+		currentPorts = SerialPort.GetPortNames();
 		for (int i = 0; i < SerialPort.GetPortNames().Length; i++)
 		{
 			//GD.Print(i +": " + _currentPorts[i]);
@@ -27,12 +27,12 @@ public partial class SimpleSerialController : Node
 		int baudRate = 115200;
 		
 
-		_serialPort = new SerialPort(portName, baudRate);
-		_serialPort.ReadTimeout = 10;
+		serialPort = new SerialPort(portName, baudRate);
+		serialPort.ReadTimeout = 10;
 		try
 		{
-			_serialPort.Open();
-			_serialPort.DtrEnable = true;
+			serialPort.Open();
+			serialPort.DtrEnable = true;
 			Thread.Sleep(150);
 			GD.Print($"Successfully opened port {portName}.");
 		}
@@ -45,15 +45,15 @@ public partial class SimpleSerialController : Node
 
 	public override void _Process(double delta)
 	{
-		if (_serialPort != null && _serialPort.IsOpen)
+		if (serialPort != null && serialPort.IsOpen)
 		{
 			try
 			{
-				if (_serialPort.BytesToRead > 0)
+				if (serialPort.BytesToRead > 0)
 				{
-					_serialDataReceived = _serialPort.ReadLine();
-					GD.Print(_serialDataReceived);
-					EmitSignal(SignalName.SerialDataReceived, _serialDataReceived);
+					serialDataReceived = serialPort.ReadLine();
+					GD.Print(serialDataReceived);
+					EmitSignal(SignalName.SerialDataReceived, serialDataReceived);
 				}
 			}
 			catch (TimeoutException)
@@ -64,9 +64,9 @@ public partial class SimpleSerialController : Node
 
 	public override void _ExitTree()
 	{
-		if (_serialPort != null && _serialPort.IsOpen)
+		if (serialPort != null && serialPort.IsOpen)
 		{
-			_serialPort.Close();
+			serialPort.Close();
 		}
 	}
 	

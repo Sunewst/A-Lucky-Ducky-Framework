@@ -8,7 +8,7 @@ var exit_loop: bool
 
 
 var _past_line: int
-var _ignore_keywords = [
+var _ignore_keywords: Array[Variant] = [
 	"{",
 	"}",
 	"#include ",
@@ -48,7 +48,7 @@ func _thread_function():
 		if exit_loop:
 			break
 
-	var args = ['board', 'list']
+	var args: Array[Variant] = ['board', 'list']
 	var path
 	if OS.get_name().contains("mac"):
 		print("Using MacOS")
@@ -58,7 +58,7 @@ func _thread_function():
 		print("Using Windows")
 		path = ProjectSettings.globalize_path("res://arduino-cli.exe")
 
-	var output = []
+	var output: Array[Variant] = []
 	OS.execute(path, args, output, false, false)
 	print(output)
 
@@ -86,7 +86,7 @@ func _compile_code(userCode: CodeEdit):
 
 
 
-func check_for_validity(line: String):
+func check_for_validity(line: String) -> bool:
 	line = line.get_slice("//", 0).strip_edges()
 	for ignore_keyword in _ignore_keywords:
 		if line.begins_with(ignore_keyword) or line.ends_with(ignore_keyword) or line.is_empty():

@@ -73,7 +73,7 @@ func _process(delta: float) -> void:
 
 func _rotate_camera(direction: float):
 	camera_animation_running = false
-	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
+	var tween: Tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
 	current_rotation += direction
 	tween.tween_property(self, "rotation:y", current_rotation, camera_rotation_speed)
 	
