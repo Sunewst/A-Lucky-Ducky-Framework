@@ -74,10 +74,5 @@ public partial class SimpleSerialController : Node
 	{
 		return SerialPort.GetPortNames();
 	}
-
-	
-	
-	
-	
 }
 

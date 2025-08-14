@@ -43,11 +43,8 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 
 
 func _thread_function():
-	while true:
-		semaphore.wait()
-		if exit_loop:
-			break
-
+	semaphore.wait()
+	
 	var args: Array[Variant] = ['board', 'list']
 	var path
 	if OS.get_name().contains("mac"):
@@ -59,7 +56,7 @@ func _thread_function():
 		path = ProjectSettings.globalize_path("res://arduino-cli.exe")
 
 	var output: Array[Variant] = []
-	#OS.execute(path, args, output, false, false)
+	OS.execute(path, args, output, false, false)
 	print(output)
 
 
@@ -83,6 +80,8 @@ func _compile_code(userCode: CodeEdit):
 
 			compiled_code.insert_line_at(compiled_code.get_line_count() - 1, current_line)
 	print("Your compiled code is ready")
+	compiled_code.queue_free()
+	semaphore.post()
 
 
 
@@ -95,7 +94,6 @@ func check_for_validity(line: String) -> bool:
 
 func _exit_tree() -> void:
 	print(thread.is_alive())
-	exit_loop = true
 	semaphore.post()
 	thread.wait_to_finish()
 
