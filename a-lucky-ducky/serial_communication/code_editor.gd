@@ -43,7 +43,6 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 
 
 func _thread_function():
-	
 	var args: Array[Variant] = ['board', 'list']
 	var path
 	if OS.get_name().contains("mac"):
@@ -79,10 +78,8 @@ func _compile_code(userCode: CodeEdit):
 
 			compiled_code.insert_line_at(compiled_code.get_line_count() - 1, current_line)
 	print("Your compiled code is ready")
-	compiled_code.queue_free()
 	create_thread()
-	#semaphore.post()
-
+	compiled_code.queue_free()
 
 
 func check_for_validity(line: String) -> bool:
