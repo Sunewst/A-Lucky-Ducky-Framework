@@ -30,8 +30,8 @@ func _ready() -> void:
 	semaphore = Semaphore.new()
 	exit_loop = false
 
-	thread = Thread.new()
-	thread.start(_thread_function)
+	#thread = Thread.new()
+	#thread.start(_thread_function)
 
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 	var _current_line: int = data.get_slice('$', 1).to_int()
@@ -43,7 +43,6 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 
 
 func _thread_function():
-	semaphore.wait()
 	
 	var args: Array[Variant] = ['board', 'list']
 	var path
@@ -81,7 +80,8 @@ func _compile_code(userCode: CodeEdit):
 			compiled_code.insert_line_at(compiled_code.get_line_count() - 1, current_line)
 	print("Your compiled code is ready")
 	compiled_code.queue_free()
-	semaphore.post()
+	create_thread()
+	#semaphore.post()
 
 
 
@@ -92,10 +92,21 @@ func check_for_validity(line: String) -> bool:
 			return false
 	return true
 
-func _exit_tree() -> void:
-	print(thread.is_alive())
-	semaphore.post()
-	thread.wait_to_finish()
 
 func _on_button_pressed() -> void:
 	_compile_code($".")
+
+
+
+func _exit_tree() -> void:
+	print(thread.is_alive())
+	semaphore.post()
+	#thread.wait_to_finish()
+	
+func create_thread() -> void:
+	if thread.is_alive():
+		return
+	thread = Thread.new()
+	thread.start(_thread_function)
+	thread.wait_to_finish()
+

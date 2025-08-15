@@ -7,7 +7,6 @@
     <list default="true" id="c08b7b05-79c8-424c-9bde-e038408dbf5b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/libraries/GdSdk.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/libraries/GdSdk.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serial_communication/SimpleSerialController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/serial_communication/SimpleSerialController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/serial_communication/code_editor.gd" beforeDir="false" afterPath="$PROJECT_DIR$/serial_communication/code_editor.gd" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,9 +75,9 @@
       <method v="2" />
     </configuration>
     <configuration name="Editor" type="RunExe" factoryName=".NET Executable">
-      <option name="EXE_PATH" value="/Applications/Godot_mono.app/Contents/MacOS/Godot" />
+      <option name="EXE_PATH" value="$USER_HOME$/Downloads/Godot_v4.4.1-stable_mono_win64/Godot_v4.4.1-stable_mono_win64/Godot_v4.4.1-stable_mono_win64.exe" />
       <option name="PROGRAM_PARAMETERS" value="--path &quot;./&quot; --editor" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\boccs\OneDrive\Documents\GitHub\A-Lucky-Ducky-Framework\a-lucky-ducky" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="ENV_FILE_PATHS" value="" />
@@ -94,9 +93,9 @@
       </method>
     </configuration>
     <configuration name="Player" type="RunExe" factoryName=".NET Executable">
-      <option name="EXE_PATH" value="/Applications/Godot_mono.app/Contents/MacOS/Godot" />
+      <option name="EXE_PATH" value="$USER_HOME$/Downloads/Godot_v4.4.1-stable_mono_win64/Godot_v4.4.1-stable_mono_win64/Godot_v4.4.1-stable_mono_win64.exe" />
       <option name="PROGRAM_PARAMETERS" value="--path &quot;./&quot;" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\boccs\OneDrive\Documents\GitHub\A-Lucky-Ducky-Framework\a-lucky-ducky" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="ENV_FILE_PATHS" value="" />
@@ -157,6 +156,8 @@
       <workItem from="1755201736828" duration="42000" />
       <workItem from="1755202002175" duration="36000" />
       <workItem from="1755206306421" duration="2769000" />
+      <workItem from="1755211356144" duration="127000" />
+      <workItem from="1755212545957" duration="2210000" />
     </task>
     <servers />
   </component>
