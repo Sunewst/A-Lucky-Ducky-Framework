@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c08b7b05-79c8-424c-9bde-e038408dbf5b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/libraries/GdSdk.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/libraries/GdSdk.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/camera_controls.gd" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/camera_controls.gd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/serial_communication/code_editor.gd" beforeDir="false" afterPath="$PROJECT_DIR$/serial_communication/code_editor.gd" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,25 +45,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Executable.Editor.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Executable.Player.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C#&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Executable.Editor.executor": "Run",
+    ".NET Executable.Player.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Executable.Player">
     <configuration name="Player GDScript" type="GDSCRIPT_DEBUG_RUN_CONFIGURATION" factoryName="GdScriptRunFactory" show_console_on_std_err="false" show_console_on_std_out="false" port="6006">
       <option name="address" value="127.0.0.1" />
@@ -163,6 +165,10 @@
       <workItem from="1755225937283" duration="28000" />
       <workItem from="1755226274343" duration="37000" />
       <workItem from="1755237921331" duration="849000" />
+      <workItem from="1755289969576" duration="151000" />
+      <workItem from="1755295422316" duration="996000" />
+      <workItem from="1755299318126" duration="411000" />
+      <workItem from="1755299845660" duration="2057000" />
     </task>
     <servers />
   </component>

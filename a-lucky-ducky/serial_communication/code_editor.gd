@@ -20,6 +20,7 @@ var _ignore_keywords: Array[Variant] = [
 	"default ",
 	"int ",
 	"default:",
+	"const"
 ]
 
 
@@ -43,7 +44,7 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 
 
 func _thread_function():
-	var args: Array[Variant] = ['board', 'list']
+	var args: Array[Variant] = ['lib', 'search', 'debouncer']
 	var path
 	if OS.get_name().contains("mac"):
 		print("Using MacOS")
@@ -78,8 +79,11 @@ func _compile_code(userCode: CodeEdit):
 
 			compiled_code.insert_line_at(compiled_code.get_line_count() - 1, current_line)
 	print("Your compiled code is ready")
+	
+	var arduino_file = FileAccess.open("res://hello_world.ino", FileAccess.WRITE)
+	arduino_file.store_string(compiled_code.get_text())
 	create_thread()
-	compiled_code.queue_free()
+	#compiled_code.queue_free()
 
 
 func check_for_validity(line: String) -> bool:
@@ -94,14 +98,6 @@ func _on_button_pressed() -> void:
 	_compile_code($".")
 
 
-
-func _exit_tree() -> void:
-	print(thread.is_alive())
-	thread.wait_to_finish()
-
-
-
-
 func create_thread() -> void:
 	if not thread.is_alive():
 		thread.wait_to_finish() 
@@ -111,3 +107,6 @@ func create_thread() -> void:
 	thread = Thread.new()
 	thread.start(_thread_function)
 
+func _exit_tree() -> void:
+	print(thread.is_alive())
+	thread.wait_to_finish()

@@ -25,20 +25,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if global_rotation != _prev_rotation:
-		_prev_rotation = global_rotation
-		_snap_space = global_transform
-	var texel_size = _cam.size / 180.0
-	# camera position in snap space
-	var snap_space_position := global_position * _snap_space
-	# snap!
-	var snapped_snap_space_position := snap_space_position.snapped(Vector3.ONE * texel_size)
-	# how much we snapped (in snap space)
-	var snap_error := snapped_snap_space_position - snap_space_position
-	if snap:
-		# apply camera offset as to not affect the actual transform
-		_cam.h_offset = snap_error.x
-		_cam.v_offset = snap_error.y
 	
 	if Input.is_action_pressed("left") and _in_focus == true:
 		#rotation.y += rotation_speed * delta
