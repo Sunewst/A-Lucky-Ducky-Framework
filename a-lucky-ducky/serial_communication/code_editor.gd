@@ -31,7 +31,6 @@ func _ready() -> void:
 	exit_loop = false
 
 	thread = Thread.new()
-	#thread.start(_thread_function)
 
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 	var _past_line: int
@@ -44,7 +43,7 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 
 
 func _thread_function():
-	var args: Array[Variant] = ['lib', 'search', 'debouncer']
+	var args: Array[Variant] = ['board', 'list']
 	var path
 	if OS.get_name().contains("mac"):
 		print("Using MacOS")
@@ -80,10 +79,10 @@ func _compile_code(userCode: CodeEdit):
 			compiled_code.insert_line_at(compiled_code.get_line_count() - 1, current_line)
 	print("Your compiled code is ready")
 	
-	var arduino_file = FileAccess.open("res://hello_world.ino", FileAccess.WRITE)
-	arduino_file.store_string(compiled_code.get_text())
+	#var arduino_file = FileAccess.open("res://hello_world.ino", FileAccess.WRITE)
+	#arduino_file.store_string(compiled_code.get_text())
 	create_thread()
-	#compiled_code.queue_free()
+	compiled_code.queue_free()
 
 
 func check_for_validity(line: String) -> bool:
