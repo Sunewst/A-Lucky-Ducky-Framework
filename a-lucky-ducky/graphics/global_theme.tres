@@ -1,11 +1,14 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://etxhywncatso"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://etxhywncatso"]
 
 [ext_resource type="FontFile" uid="uid://bu2y6rrhr31rx" path="res://graphics/fonts/JetBrainsMonoNL-Regular.ttf" id="1_kwb7i"]
+[ext_resource type="Texture2D" uid="uid://0a8gtwqx2ly1" path="res://graphics/icon.svg" id="2_677li"]
 
 [resource]
 CodeEdit/colors/background_color = Color(2.63215e-09, 0.0132744, 0.0266347, 0.91)
 CodeEdit/colors/caret_color = Color(0.926832, 0.861473, 0.981657, 0.74902)
 CodeEdit/colors/current_line_color = Color(0.25098, 0.72549, 0.258824, 0.8)
+CodeEdit/colors/line_number_color = Color(0.527, 0.999, 0.869, 0.623)
 CodeEdit/constants/outline_size = 1
 CodeEdit/font_sizes/font_size = 12
 CodeEdit/fonts/font = ExtResource("1_kwb7i")
+CodeEdit/icons/track = ExtResource("2_677li")

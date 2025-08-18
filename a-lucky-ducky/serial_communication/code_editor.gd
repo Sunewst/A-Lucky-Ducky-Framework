@@ -6,7 +6,6 @@ var thread: Thread
 var semaphore: Semaphore
 var exit_loop: bool
 
-
 var _ignore_keywords: Array[Variant] = [
 	"{",
 	"}",
