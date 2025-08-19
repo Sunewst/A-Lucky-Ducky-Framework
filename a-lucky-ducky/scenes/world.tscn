@@ -195,26 +195,3 @@ skeleton = NodePath("../../../../..")
 
 [node name="code_editor" parent="." instance=ExtResource("7_i7141")]
 visible = false
-
-[node name="GraphEdit" type="GraphEdit" parent="."]
-offset_left = 160.0
-offset_top = 18.0
-offset_right = 1203.0
-offset_bottom = 724.0
-scroll_offset = Vector2(-40, -40)
-
-[node name="GraphElement" type="GraphElement" parent="GraphEdit"]
-layout_mode = 0
-offset_left = 491.0
-offset_top = 205.0
-offset_right = 754.0
-offset_bottom = 408.0
-position_offset = Vector2(451, 165)
-
-[node name="GraphNode" type="GraphNode" parent="GraphEdit"]
-layout_mode = 0
-offset_left = 40.0
-offset_top = 40.0
-offset_right = 373.0
-offset_bottom = 241.0
-mouse_filter = 1
