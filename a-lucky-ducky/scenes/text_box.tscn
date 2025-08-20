@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=3 uid="uid://cslpsxebfw6qf"]
+
+[ext_resource type="FontFile" uid="uid://bu2y6rrhr31rx" path="res://graphics/fonts/JetBrainsMonoNL-Regular.ttf" id="1_wscpg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0dhrm"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+
+[node name="textBox" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -85.0
+offset_right = 236.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.389)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 25.0
+offset_right = 287.0
+offset_bottom = 145.0
+theme_override_fonts/normal_font = ExtResource("1_wscpg")
+text = "Enter dialog here"
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 407.0
+offset_top = 278.0
+offset_right = 530.0
+offset_bottom = 442.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 404.0
+offset_top = 243.0
+offset_right = 876.0
+offset_bottom = 275.0
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect3"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 464.0
+offset_bottom = 31.0
+theme_override_fonts/normal_font = ExtResource("1_wscpg")
+bbcode_enabled = true
+text = "Enter Title Here"
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -236.0
+offset_top = -85.0
+offset_right = 236.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0dhrm")
