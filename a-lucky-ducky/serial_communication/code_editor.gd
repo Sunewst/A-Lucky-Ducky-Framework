@@ -42,7 +42,7 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 
 
 func _thread_function():
-	var args: Array[Variant] = ['board', 'list']
+	var args: Array[Variant] = ['core', 'search', 'uno']
 	var path
 	if OS.get_name().contains("mac"):
 		print("Using MacOS")

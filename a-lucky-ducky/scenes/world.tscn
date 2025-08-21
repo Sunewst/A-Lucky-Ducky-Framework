@@ -194,4 +194,3 @@ mesh = SubResource("QuadMesh_tlwt5")
 skeleton = NodePath("../../../../..")
 
 [node name="code_editor" parent="." instance=ExtResource("7_i7141")]
-visible = false
