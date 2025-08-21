@@ -3,7 +3,7 @@ using System;
 using System.Threading;
 using System.IO.Ports;
 
-public partial class SimpleSerialController : Node
+public partial class SerialController : Node
 {
 	private SerialPort serialPort;
 	[Signal] 

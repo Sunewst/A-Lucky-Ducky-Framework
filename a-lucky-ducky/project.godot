@@ -20,7 +20,7 @@ config/icon="uid://exf78fotfxwu"
 
 [autoload]
 
-SerialController="*res://serial_communication/SimpleSerialController.cs"
+SerialController="*res://serial_communication/SerialController.cs"
 
 [display]
 
