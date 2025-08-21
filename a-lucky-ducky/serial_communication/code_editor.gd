@@ -1,6 +1,7 @@
 extends CodeEdit
 
 @export var debug_messages: bool
+@export var cli_arguments: Array[String]
 
 var thread: Thread
 var semaphore: Semaphore
@@ -42,7 +43,7 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 
 
 func _thread_function():
-	var args: Array[Variant] = ['core', 'search', 'uno']
+	var args: Array[String] = ['core', 'search', 'uno']
 	var path
 	if OS.get_name().contains("mac"):
 		print("Using MacOS")
@@ -53,7 +54,7 @@ func _thread_function():
 		path = ProjectSettings.globalize_path("res://arduino-cli.exe")
 
 	var output: Array[Variant] = []
-	OS.execute(path, args, output, false, false)
+	OS.execute(path, cli_arguments, output, false, false)
 	print(output)
 
 
