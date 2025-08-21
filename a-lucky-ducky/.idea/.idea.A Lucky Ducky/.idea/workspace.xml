@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c08b7b05-79c8-424c-9bde-e038408dbf5b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.A Lucky Ducky/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyHello/MyHello.ino" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scenes/code_editor.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/scenes/code_editor.tscn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serial_communication/code_editor.gd" beforeDir="false" afterPath="$PROJECT_DIR$/serial_communication/code_editor.gd" afterDir="false" />
-    </list>
+    <list default="true" id="c08b7b05-79c8-424c-9bde-e038408dbf5b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -172,6 +167,7 @@
       <workItem from="1755308979212" duration="1945000" />
       <workItem from="1755738679621" duration="2226000" />
       <workItem from="1755758435809" duration="1029000" />
+      <workItem from="1755759542441" duration="772000" />
     </task>
     <servers />
   </component>
