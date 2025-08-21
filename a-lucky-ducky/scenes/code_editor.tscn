@@ -87,7 +87,7 @@ auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
 script = ExtResource("2_xqpb2")
 debug_messages = true
-cli_arguments = Array[String](["compile", "--fqbn", "arduino:avr:uno", "MyHello"])
+cli_arguments = Array[String](["compile", "--fqbn", "arduino:avr:uno", "Alterna"])
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
