@@ -1,7 +1,8 @@
 extends CodeEdit
 
 @export var debug_messages: bool
-@export var cli_arguments: Array[String]
+@export var compile_arguments: Array[String]
+@export var upload_arguments: Array[String]
 
 var thread: Thread
 var semaphore: Semaphore
@@ -29,12 +30,12 @@ func _ready() -> void:
 
 	semaphore = Semaphore.new()
 	exit_loop = false
-
 	thread = Thread.new()
 
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 	var _past_line: int
 	var _current_line: int = data.get_slice('$', 1).to_int()
+	
 	print("Current:" + str(_current_line))
 	if data.begins_with('$'):
 		set_line_background_color(_past_line - 1, Color(0,0,0,0))
@@ -42,7 +43,7 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 		_past_line = _current_line
 
 
-func _thread_function():
+func _thread_function(cli_arguments: Array[String]):
 	var path
 	if OS.get_name().contains("mac"):
 		print("Using MacOS")
@@ -57,11 +58,11 @@ func _thread_function():
 	print(output)
 
 
-func _compile_code(userCode: CodeEdit):
+func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var compiled_code = CodeEdit.new()
 	var compiled_line_count: int
 	var current_line: String
-
+	
 	for i in range(userCode.get_line_count()):
 		current_line = userCode.get_line(i)
 		compiled_line_count = compiled_code.get_line_count()
@@ -80,7 +81,7 @@ func _compile_code(userCode: CodeEdit):
 	
 	var arduino_file = FileAccess.open("res://Alterna/Alterna.ino", FileAccess.WRITE)
 	arduino_file.store_string(compiled_code.get_text())
-	create_thread()
+	create_thread(cli_arguments)
 	compiled_code.queue_free()
 
 func check_for_validity(line: String) -> bool:
@@ -90,20 +91,23 @@ func check_for_validity(line: String) -> bool:
 			return false
 	return true
 
-
-func _on_button_pressed() -> void:
-	_compile_code($".")
-
-
-func create_thread() -> void:
+func create_thread(cli_arguments: Array[String]) -> void:
 	if not thread.is_alive():
 		thread.wait_to_finish() 
 	else:
 		return
 	
 	thread = Thread.new()
-	thread.start(_thread_function)
+	thread.start(_thread_function.bind(cli_arguments))
 
 func _exit_tree() -> void:
 	print(thread.is_alive())
 	thread.wait_to_finish()
+
+
+
+func _on_button_pressed() -> void:
+	_compile_code($".", compile_arguments)
+
+func _on_button_pressed2() -> void:
+	_compile_code($".", upload_arguments)

@@ -70,7 +70,7 @@ public partial class SerialController : Node
 		}
 	}
 	
-	private static string[] _GetAllPorts()
+	public static string[] _GetAllPorts()
 	{
 		return SerialPort.GetPortNames();
 	}

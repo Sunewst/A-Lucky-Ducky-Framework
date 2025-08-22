@@ -87,9 +87,10 @@ auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
 script = ExtResource("2_xqpb2")
 debug_messages = true
-cli_arguments = Array[String](["compile", "--fqbn", "arduino:avr:uno", "Alterna"])
+compile_arguments = Array[String](["compile", "--fqbn", "arduino:avr:uno", "Alterna"])
+upload_arguments = Array[String](["upload", "-p", "/dev/cu.usbmodem11301", " --fqbn", "arduino:avr:uno", "Alterna"])
 
-[node name="Button" type="Button" parent="."]
+[node name="Compile" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -100,4 +101,19 @@ offset_bottom = 33.0
 grow_horizontal = 2
 text = "Compile Code"
 
-[connection signal="pressed" from="Button" to="CodeEdit" method="_on_button_pressed"]
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -59.5
+offset_top = -33.0
+offset_right = 59.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Upload"
+
+[connection signal="pressed" from="Compile" to="CodeEdit" method="_on_button_pressed"]
+[connection signal="pressed" from="Button" to="CodeEdit" method="_on_button_pressed2"]
