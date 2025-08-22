@@ -40,7 +40,7 @@ public partial class SerialController : Node
 				if (serialPort.BytesToRead > 0)
 				{
 					serialDataReceived = serialPort.ReadLine();
-					GD.Print(serialDataReceived);
+					//GD.Print(serialDataReceived);
 					EmitSignal(SignalName.SerialDataReceived, serialDataReceived);
 				}
 			}
