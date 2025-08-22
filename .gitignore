@@ -17,3 +17,5 @@ mono_crash.*.json
 a-lucky-ducky/.DS_Store
 a-lucky-ducky/.DS_Store
 .DS_Store
+/a-lucky-ducky/Alterna
+a-lucky-ducky/Alterna/Alterna.ino

@@ -40,35 +40,17 @@ anchor_bottom = 1.0
 offset_right = 509.0
 grow_vertical = 2
 theme = ExtResource("1_i4sis")
-text = "// constants won't change. They're used here to set pin numbers:
-const int buttonPin = 2;  // the number of the pushbutton pin
-const int ledPin = 13;    // the number of the LED pin
-
-// variables will change:
-int buttonState = 0;  // variable for reading the pushbutton status
-
-void setup() {
-  // initialize the LED pin as an output:
-  pinMode(ledPin, OUTPUT);
-  // initialize the pushbutton pin as an input:
-  pinMode(buttonPin, INPUT);
-
+text = "void setup() {
+	Serial.begin(115200);
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
-  // read the state of the pushbutton value:
-  buttonState = digitalRead(buttonPin);
-
-  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
-  if (buttonState == HIGH) {
-    // turn LED on:
-    digitalWrite(ledPin, HIGH);
-  } else {
-    // turn LED off:
-    digitalWrite(ledPin, LOW);
-  }
-}
-"
+  digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
+  delay(1000);                      // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
+  delay(1000);                      // wait for a second
+}"
 placeholder_text = "Enter your Arduino code here"
 scroll_smooth = true
 minimap_draw = true
@@ -88,7 +70,7 @@ auto_brace_completion_highlight_matching = true
 script = ExtResource("2_xqpb2")
 debug_messages = true
 compile_arguments = Array[String](["compile", "--fqbn", "arduino:avr:uno", "Alterna"])
-upload_arguments = Array[String](["upload", "-p", "/dev/cu.usbmodem11301", " --fqbn", "arduino:avr:uno", "Alterna"])
+upload_arguments = Array[String](["upload", "-p", "/dev/cu.usbmodem1401", "--fqbn", "arduino:avr:uno", "Alterna"])
 
 [node name="Compile" type="Button" parent="."]
 layout_mode = 1

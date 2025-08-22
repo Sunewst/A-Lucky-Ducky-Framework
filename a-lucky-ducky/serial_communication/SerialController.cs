@@ -13,7 +13,9 @@ public partial class SerialController : Node
 	private string serialDataReceived;
 	private string[] currentPorts;
 	private int currentPortIndex;
-
+	
+	string portName = "/dev/cu.usbmodem1401";
+	int baudRate = 115200;
 	public override void _Ready()
 	{
 		currentPorts = SerialPort.GetPortNames();
@@ -23,24 +25,10 @@ public partial class SerialController : Node
 		}
 		GD.Print("Which port would you like to open?");
 
-		string portName = "/dev/cu.usbmodem11301";
-		var baudRate = 115200;
-		
+
 
 		serialPort = new SerialPort(portName, baudRate);
 		serialPort.ReadTimeout = 10;
-		try
-		{
-			serialPort.Open();
-			serialPort.DtrEnable = true;
-			Thread.Sleep(150);
-			GD.Print($"Successfully opened port {portName}.");
-		}
-		catch (Exception ex)
-		{
-			GD.PrintErr($"Could not open serial port: {ex.Message}");
-			EmitSignal(SignalName.SerialError, ex.Message);
-		}
 	}
 
 	public override void _Process(double delta)
@@ -74,5 +62,27 @@ public partial class SerialController : Node
 	{
 		return SerialPort.GetPortNames();
 	}
+
+	public void _OpenPort()
+	{
+		try
+		{
+			serialPort.Open();
+			serialPort.DtrEnable = true;
+			Thread.Sleep(150);
+			GD.Print($"Successfully opened port {portName}.");
+		}
+		catch (Exception ex)
+		{
+			GD.PrintErr($"Could not open serial port: {ex.Message}");
+			EmitSignal(SignalName.SerialError, ex.Message);
+		}	
+	}
+
+	public void _ClosePort()
+	{
+		serialPort.Close();
+	}
+	
 }
 

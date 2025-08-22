@@ -21,7 +21,8 @@ var _ignore_keywords: Array[Variant] = [
 	"default ",
 	"int ",
 	"default:",
-	"const"
+	"Serial",
+	"begin"
 ]
 
 
@@ -36,7 +37,7 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 	var _past_line: int
 	var _current_line: int = data.get_slice('$', 1).to_int()
 	
-	print("Current:" + str(_current_line))
+	#print("Current:" + str(_current_line))
 	if data.begins_with('$'):
 		set_line_background_color(_past_line - 1, Color(0,0,0,0))
 		set_line_background_color(_current_line - 1, Color(0,0.6,0,0.3))
@@ -45,6 +46,8 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 
 func _thread_function(cli_arguments: Array[String]):
 	var path
+	if cli_arguments[0].contains('upload'):
+		SerialController._ClosePort()
 	if OS.get_name().contains("mac"):
 		print("Using MacOS")
 		path = ProjectSettings.globalize_path("res://arduino-cli")
@@ -55,7 +58,10 @@ func _thread_function(cli_arguments: Array[String]):
 
 	var output: Array[Variant] = []
 	OS.execute(path, cli_arguments, output, false, false)
+	
 	print(output)
+	if cli_arguments[0].contains('upload'):
+		SerialController._OpenPort()
 
 
 func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
@@ -71,7 +77,7 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 				print("Valid " + str(i + 1) + ": " + str(current_line))
 
 			compiled_code.insert_line_at(compiled_line_count - 1, current_line)
-			compiled_code.insert_line_at(compiled_line_count - 2, "Serial.println('$" + str(compiled_line_count + 1) + "');")
+			compiled_code.insert_line_at(compiled_line_count - 1, "Serial.println(\"$" + str(compiled_line_count + 1) + "\");")
 		else:
 			if debug_messages:
 				print("Not Valid: " + str(i + 1) + ": " + str(current_line))
@@ -80,6 +86,7 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	print("Your compiled code is ready")
 	
 	var arduino_file = FileAccess.open("res://Alterna/Alterna.ino", FileAccess.WRITE)
+	
 	arduino_file.store_string(compiled_code.get_text())
 	create_thread(cli_arguments)
 	compiled_code.queue_free()
