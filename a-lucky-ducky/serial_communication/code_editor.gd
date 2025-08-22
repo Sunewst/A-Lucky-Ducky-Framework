@@ -9,6 +9,8 @@ var semaphore: Semaphore
 var exit_loop: bool
 
 var _past_line: int
+var _past_line_added: int
+var _lines_added: int = 0
 
 var _ignore_keywords: Array[Variant] = [
 	"{",
@@ -23,8 +25,7 @@ var _ignore_keywords: Array[Variant] = [
 	"default ",
 	"int ",
 	"default:",
-	"Serial",
-	"begin"
+	"Serial.begin",
 ]
 
 
@@ -39,14 +40,12 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 	
 	if data.begins_with('$'):
 		var _current_line: int = data.get_slice('$', 1).to_int()
-		var _lines_added: int = data.get_slice('$', 2).to_int()
+		set_line_background_color(_past_line - _lines_added - 1, Color(0,0,0,0))
 
-		set_line_background_color(_past_line - _lines_added, Color(0,0,0,0))
-		print(str(_past_line - _lines_added) + ": Removeing Highlighting")
-		set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
-		print(str(_current_line - _lines_added - 1) + ": Highlighting")
-		_past_line = _current_line
+		_lines_added = data.get_slice('$', 2).to_int()
 		
+		set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
+		_past_line = _current_line
 
 func _thread_function(cli_arguments: Array[String]):
 	var path
