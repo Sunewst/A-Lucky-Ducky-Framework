@@ -8,7 +8,7 @@ var thread: Thread
 var semaphore: Semaphore
 var exit_loop: bool
 
-var lines_added: int = 1
+var _past_line: int
 
 var _ignore_keywords: Array[Variant] = [
 	"{",
@@ -36,15 +36,17 @@ func _ready() -> void:
 	thread = Thread.new()
 	
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
-	var _past_line: int
-	var _current_line: int = data.get_slice('$', 1).to_int()
 	
-	#print("Current:" + str(_current_line))
 	if data.begins_with('$'):
-		set_line_background_color(_past_line - lines_added, Color(0,0,0,0))
-		set_line_background_color(_current_line - lines_added, Color(0,0.6,0,0.3))
-		_past_line = _current_line
+		var _current_line: int = data.get_slice('$', 1).to_int()
+		var _lines_added: int = data.get_slice('$', 2).to_int()
 
+		set_line_background_color(_past_line - _lines_added, Color(0,0,0,0))
+		print(str(_past_line - _lines_added) + ": Removeing Highlighting")
+		set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
+		print(str(_current_line - _lines_added - 1) + ": Highlighting")
+		_past_line = _current_line
+		
 
 func _thread_function(cli_arguments: Array[String]):
 	var path
@@ -70,10 +72,9 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var compiled_code = CodeEdit.new()
 	var compiled_line_count: int
 	var current_line: String
-	
-	if lines_added > 1:
-		lines_added = 1
-	
+	var lines_added: int = 0
+
+
 	for i in range(userCode.get_line_count()):
 		current_line = userCode.get_line(i)
 		compiled_line_count = compiled_code.get_line_count()
@@ -81,8 +82,8 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 			if debug_messages:
 				print("Valid " + str(i + 1) + ": " + str(current_line))
 			compiled_code.insert_line_at(compiled_line_count - 1, current_line)
-			compiled_code.insert_line_at(compiled_line_count - 1, "Serial.println(\"$" + str(compiled_line_count + 1) + "\");")
 			lines_added += 1
+			compiled_code.insert_line_at(compiled_line_count - 1, "Serial.println(\"$" + str(compiled_line_count + 1) + "$" + str(lines_added) + "\");")
 		else:
 			if debug_messages:
 				print("Not Valid: " + str(i + 1) + ": " + str(current_line))
