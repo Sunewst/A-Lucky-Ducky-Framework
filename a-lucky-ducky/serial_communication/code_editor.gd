@@ -1,4 +1,6 @@
-extends CodeEdit
+extends Control
+
+signal currently_typing 
 
 @export var debug_messages: bool
 @export var compile_arguments: Array[String]
@@ -11,6 +13,8 @@ var exit_loop: bool
 var _past_line: int
 var _past_line_added: int
 var _lines_added: int = 0
+
+var code_editor
 
 var _ignore_keywords: Array[Variant] = [
 	"{",
@@ -30,7 +34,9 @@ var _ignore_keywords: Array[Variant] = [
 
 
 func _ready() -> void:
+	code_editor = %CodeEdit
 	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
+	
 
 	semaphore = Semaphore.new()
 	exit_loop = false
@@ -40,11 +46,11 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 	
 	if data.begins_with('$'):
 		var _current_line: int = data.get_slice('$', 1).to_int()
-		set_line_background_color(_past_line - _lines_added - 1, Color(0,0,0,0))
+		code_editor.set_line_background_color(_past_line - _lines_added - 1, Color(0,0,0,0))
 
 		_lines_added = data.get_slice('$', 2).to_int()
 		
-		set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
+		code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
 		_past_line = _current_line
 
 func _thread_function(cli_arguments: Array[String]):
@@ -123,3 +129,10 @@ func _on_button_pressed() -> void:
 
 func _on_button_pressed2() -> void:
 	_compile_code($".", upload_arguments)
+
+func _on_code_edit_focus_entered() -> void:
+	emit_signal("currently_typing", true)
+
+
+func _on_code_edit_focus_exited() -> void:
+	emit_signal("currently_typing", false)

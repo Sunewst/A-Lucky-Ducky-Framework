@@ -194,3 +194,6 @@ mesh = SubResource("QuadMesh_tlwt5")
 skeleton = NodePath("../../../../..")
 
 [node name="code_editor" parent="." instance=ExtResource("7_i7141")]
+offset_right = -770.0
+
+[connection signal="currently_typing" from="code_editor" to="SubViewportContainer/SubViewport/CameraControls" method="_on_code_editor_currently_typing"]

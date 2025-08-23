@@ -19,7 +19,7 @@ var _in_focus: bool = true
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func _ready() -> void:	
 	_cam = %Camera3D
 
 
@@ -76,3 +76,11 @@ func _on_code_edit_focus_entered() -> void:
 func _on_code_edit_focus_exited() -> void:
 	if _in_focus == false:
 		_in_focus= true
+
+
+func _on_code_editor_currently_typing(status: bool) -> void:
+	if status:
+		_in_focus = false
+	else:
+		_in_focus = true
+	
