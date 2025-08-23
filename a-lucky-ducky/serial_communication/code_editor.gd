@@ -3,15 +3,14 @@ extends Control
 signal currently_typing 
 
 @export var debug_messages: bool
-@export var compile_arguments: Array[String]
-@export var upload_arguments: Array[String]
+@export var compile_arguments: Array[String] = ['compile', '--fqbn', 'arduino:avr:uno', 'Alterna']
+@export var upload_arguments: Array[String] = ['upload', '-p', '/dev/cu.usbmodem1401', '--fqbn', 'arduino:avr:uno', 'Alterna']
 
 var thread: Thread
 var semaphore: Semaphore
 var exit_loop: bool
 
 var _past_line: int
-var _past_line_added: int
 var _lines_added: int = 0
 
 var code_editor
@@ -124,11 +123,11 @@ func _exit_tree() -> void:
 
 
 
-func _on_button_pressed() -> void:
-	_compile_code($".", compile_arguments)
+func _on_compile_pressed() -> void:
+	_compile_code(code_editor, compile_arguments)
 
-func _on_button_pressed2() -> void:
-	_compile_code($".", upload_arguments)
+func _on_upload_pressed() -> void:
+	_compile_code(code_editor, upload_arguments)
 
 func _on_code_edit_focus_entered() -> void:
 	emit_signal("currently_typing", true)
