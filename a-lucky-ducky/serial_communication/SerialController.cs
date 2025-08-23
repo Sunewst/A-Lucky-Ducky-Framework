@@ -21,11 +21,8 @@ public partial class SerialController : Node
 		currentPorts = SerialPort.GetPortNames();
 		for (var i = 0; i < SerialPort.GetPortNames().Length; i++)
 		{
-			//GD.Print(i +": " + _currentPorts[i]);
+			GD.Print(i +": " + currentPorts[i]);
 		}
-		GD.Print("Which port would you like to open?");
-
-
 
 		serialPort = new SerialPort(portName, baudRate);
 		serialPort.ReadTimeout = 10;
