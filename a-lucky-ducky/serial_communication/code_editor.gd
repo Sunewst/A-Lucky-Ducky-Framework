@@ -7,8 +7,6 @@ signal currently_typing
 @export var upload_arguments: Array[String] = ['upload', '-p', '/dev/cu.usbmodem1401', '--fqbn', 'arduino:avr:uno', 'Alterna']
 
 var thread: Thread
-var semaphore: Semaphore
-var exit_loop: bool
 
 var _past_line: int
 var _lines_added: int = 0
@@ -56,6 +54,7 @@ func _thread_function(cli_arguments: Array[String]):
 	var path
 	if cli_arguments[0].contains('upload'):
 		SerialController._ClosePort()
+		
 	if OS.get_name().contains("mac"):
 		print("Using MacOS")
 		path = ProjectSettings.globalize_path("res://arduino-cli")
@@ -76,7 +75,6 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var compiled_code = CodeEdit.new()
 	var compiled_line_count: int
 	var current_line: String
-	var lines_added: int = 0
 
 
 	for i in range(userCode.get_line_count()):
@@ -86,7 +84,6 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 			if debug_messages:
 				print("Valid " + str(i + 1) + ": " + str(current_line))
 			compiled_code.insert_line_at(compiled_line_count - 1, current_line)
-			lines_added += 1
 			compiled_code.insert_line_at(compiled_line_count - 1, "Serial.println(\"$" + str(compiled_line_count + 1) + "$" + str(lines_added) + "\");")
 		else:
 			if debug_messages:
