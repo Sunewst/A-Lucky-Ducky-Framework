@@ -35,8 +35,6 @@ func _ready() -> void:
 	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
 	
 
-	semaphore = Semaphore.new()
-	exit_loop = false
 	thread = Thread.new()
 	
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
@@ -75,8 +73,8 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var compiled_code = CodeEdit.new()
 	var compiled_line_count: int
 	var current_line: String
-
-
+	var lines_added: int
+	
 	for i in range(userCode.get_line_count()):
 		current_line = userCode.get_line(i)
 		compiled_line_count = compiled_code.get_line_count()
@@ -85,6 +83,7 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 				print("Valid " + str(i + 1) + ": " + str(current_line))
 			compiled_code.insert_line_at(compiled_line_count - 1, current_line)
 			compiled_code.insert_line_at(compiled_line_count - 1, "Serial.println(\"$" + str(compiled_line_count + 1) + "$" + str(lines_added) + "\");")
+			lines_added += 1
 		else:
 			if debug_messages:
 				print("Not Valid: " + str(i + 1) + ": " + str(current_line))
