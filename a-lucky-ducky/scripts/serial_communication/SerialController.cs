@@ -58,6 +58,7 @@ public partial class SerialController : Node
 	public static string[] _GetAllPorts()
 	{
 		return SerialPort.GetPortNames();
+		//Only works on Mac
 	}
 
 	public void _OpenPort()
