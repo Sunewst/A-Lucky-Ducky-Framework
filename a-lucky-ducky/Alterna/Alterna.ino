@@ -12,5 +12,5 @@ Serial.println("$11$3");
 Serial.println("$13$4");
   digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
 Serial.println("$15$5");
-  delay(1000);                      // wait for a second
+  delay(3000);                      // wait for a second
 }

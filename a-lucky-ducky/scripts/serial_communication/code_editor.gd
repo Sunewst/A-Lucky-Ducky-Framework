@@ -1,6 +1,6 @@
 extends Control
 
-signal currently_typing 
+signal currently_typing
 
 @export var debug_messages: bool
 @export var compile_arguments: Array[String] = ['compile', '--fqbn', 'arduino:avr:uno', 'Alterna']
@@ -11,7 +11,7 @@ var thread: Thread
 var _past_line: int
 var _lines_added: int = 0
 
-var code_editor
+var code_editor: CodeEdit
 
 var _ignore_keywords: Array[Variant] = [
 	"{",
@@ -37,6 +37,12 @@ func _ready() -> void:
 
 	thread = Thread.new()
 	
+	
+	code_editor.text_changed.connect(code_request_code_completion)
+	code_editor.code_completion_enabled = true
+
+
+
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 	
 	if data.begins_with('$'):
@@ -73,7 +79,7 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var compiled_code = CodeEdit.new()
 	var compiled_line_count: int
 	var current_line: String
-	var lines_added: int
+	var lines_added: int = 0
 	
 	for i in range(userCode.get_line_count()):
 		current_line = userCode.get_line(i)
@@ -82,8 +88,8 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 			if debug_messages:
 				print("Valid " + str(i + 1) + ": " + str(current_line))
 			compiled_code.insert_line_at(compiled_line_count - 1, current_line)
-			compiled_code.insert_line_at(compiled_line_count - 1, "Serial.println(\"$" + str(compiled_line_count + 1) + "$" + str(lines_added) + "\");")
 			lines_added += 1
+			compiled_code.insert_line_at(compiled_line_count - 1, "Serial.println(\"$" + str(compiled_line_count + 1) + "$" + str(lines_added) + "\");")
 		else:
 			if debug_messages:
 				print("Not Valid: " + str(i + 1) + ": " + str(current_line))
@@ -106,7 +112,7 @@ func check_for_validity(line: String) -> bool:
 
 func create_thread(cli_arguments: Array[String]) -> void:
 	if not thread.is_alive():
-		thread.wait_to_finish() 
+		thread.wait_to_finish()
 	else:
 		return
 	
@@ -131,3 +137,9 @@ func _on_code_edit_focus_entered() -> void:
 
 func _on_code_edit_focus_exited() -> void:
 	emit_signal("currently_typing", false)
+
+
+func code_request_code_completion():
+	code_editor.add_code_completion_option(CodeEdit.KIND_FUNCTION, "Serial", "Serial.begin()")
+	code_editor.add_code_completion_option(CodeEdit.KIND_FUNCTION, "Serial", "Serial.begin()")
+	code_editor.update_code_completion_options(true)

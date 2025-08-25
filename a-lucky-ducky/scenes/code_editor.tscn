@@ -65,6 +65,7 @@ gutters_draw_breakpoints_gutter = true
 gutters_draw_bookmarks = true
 gutters_draw_executing_lines = true
 gutters_draw_line_numbers = true
+code_completion_enabled = true
 indent_size = 2
 indent_use_spaces = true
 indent_automatic = true
