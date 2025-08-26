@@ -5,8 +5,8 @@ signal currently_typing
 var code_editor: CodeEdit
 
 @export var board_info: board_resource
-
 @export var debug_messages: bool
+
 var compile_arguments: Array[String]
 var upload_arguments: Array[String]
 
