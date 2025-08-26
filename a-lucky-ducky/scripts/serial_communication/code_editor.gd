@@ -72,7 +72,7 @@ func _thread_function(cli_arguments: Array[String]):
 		path = ProjectSettings.globalize_path("res://arduino-cli.exe")
 
 	var output: Array[Variant] = []
-	OS.execute(path, cli_arguments, output, false, false)
+	OS.execute(path, cli_arguments, output, true, false)
 	
 	print(output)
 	if cli_arguments[0].contains('upload'):
