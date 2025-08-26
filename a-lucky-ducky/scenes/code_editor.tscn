@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ci3ugvvfqe1qy"]
 
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="1_i4sis"]
-[ext_resource type="Resource" uid="uid://cqwrnue4ejuti" path="res://resources/arduino_uno.tres" id="2_cctyv"]
+[ext_resource type="Resource" uid="uid://cqwrnue4ejuti" path="res://resources/boards/arduino_uno.tres" id="2_cctyv"]
 [ext_resource type="Script" uid="uid://c8facwd4t0bu3" path="res://scripts/serial_communication/code_editor.gd" id="2_xqpb2"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_cctyv"]
