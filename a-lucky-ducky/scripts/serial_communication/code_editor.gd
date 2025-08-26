@@ -2,16 +2,19 @@ extends Control
 
 signal currently_typing
 
+var code_editor: CodeEdit
+
+@export var board_info: board_resource
+
 @export var debug_messages: bool
-@export var compile_arguments: Array[String] = ['compile', '--fqbn', 'arduino:avr:uno', 'Alterna']
-@export var upload_arguments: Array[String] = ['upload', '-p', '/dev/cu.usbmodem1401', '--fqbn', 'arduino:avr:uno', 'Alterna']
+var compile_arguments: Array[String]
+var upload_arguments: Array[String]
 
 var thread: Thread
 
 var _past_line: int
 var _lines_added: int = 0
 
-var code_editor: CodeEdit
 
 var _ignore_keywords: Array[Variant] = [
 	"{",
@@ -31,13 +34,14 @@ var _ignore_keywords: Array[Variant] = [
 
 
 func _ready() -> void:
+	compile_arguments = ['compile', '--fqbn', board_info.board_FQBN, 'Alterna']
+	upload_arguments = ['upload', '-p', '/dev/cu.usbmodem1401', '--fqbn', board_info.board_FQBN, 'Alterna']
 	code_editor = %CodeEdit
+
 	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
-	
 
 	thread = Thread.new()
-	
-	
+
 	code_editor.text_changed.connect(code_request_code_completion)
 	code_editor.code_completion_enabled = true
 
@@ -140,6 +144,7 @@ func _on_code_edit_focus_exited() -> void:
 
 
 func code_request_code_completion():
-	code_editor.add_code_completion_option(CodeEdit.KIND_FUNCTION, "Serial", "Serial.begin()")
-	code_editor.add_code_completion_option(CodeEdit.KIND_FUNCTION, "Serial", "Serial.begin()")
+	code_editor.add_code_completion_option(CodeEdit.KIND_FUNCTION, "Serial.begin", "Serial.begin()")
+	code_editor.add_code_completion_option(CodeEdit.KIND_FUNCTION, "Serial.print", "Serial.print()")
+	
 	code_editor.update_code_completion_options(true)
