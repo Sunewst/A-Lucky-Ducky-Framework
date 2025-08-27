@@ -43,11 +43,11 @@ func _process(delta: float) -> void:
 		#rotation.x -= rotation_speed * delta
 		_cam.position.y -= movement_speed * delta
 
-	if Input.is_action_just_pressed("arrow_right"):
+	if Input.is_action_just_pressed("arrow_right") and _in_focus:
 		_rotate_camera(camera_rotation_amount)
 
 
-	if Input.is_action_just_pressed("arrow_left"):
+	if Input.is_action_just_pressed("arrow_left") and _in_focus:
 		_rotate_camera(-camera_rotation_amount)
 		
 	if Input.is_action_just_pressed("scroll_up") and _in_focus:

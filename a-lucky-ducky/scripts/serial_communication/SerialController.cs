@@ -5,6 +5,8 @@ using System.IO.Ports;
 
 public partial class SerialController : Node
 {
+	public static SerialController Instance { get; private set; }
+	
 	private SerialPort serialPort;
 	[Signal] 
 	public delegate void SerialDataReceivedEventHandler(string data);
@@ -13,19 +15,13 @@ public partial class SerialController : Node
 	private string serialDataReceived;
 	private string[] currentPorts;
 	private int currentPortIndex;
-	
-	string portName = "/dev/cu.usbmodem1401";
-	int baudRate = 115200;
+	private int baudRate = 115200;
+
+	public string portName { get; set; }
+
 	public override void _Ready()
 	{
-		currentPorts = SerialPort.GetPortNames();
-		for (var i = 0; i < SerialPort.GetPortNames().Length; i++)
-		{
-			GD.Print(i +": " + currentPorts[i]);
-		}
-
-		serialPort = new SerialPort(portName, baudRate);
-		serialPort.ReadTimeout = 10;
+		Instance = this;
 	}
 
 	public override void _Process(double delta)
@@ -80,6 +76,19 @@ public partial class SerialController : Node
 	public void _ClosePort()
 	{
 		serialPort.Close();
+	}
+
+	public void _setConnectedPort(string portName)
+	{
+		this.portName = portName;
+		serialPort = new SerialPort(portName, baudRate);
+		serialPort.ReadTimeout = 10;
+		GD.Print("Now connected to port:" , portName);
+	}
+
+	public String _GetPort()
+	{
+		return portName;
 	}
 	
 }

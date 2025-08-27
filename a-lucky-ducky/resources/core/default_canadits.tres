@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="code_completion_resource" load_steps=2 format=3 uid="uid://cn38a3o2u65yq"]
+
+[ext_resource type="Script" uid="uid://bk571ij27ski5" path="res://resources/core/code_completion_resource.gd" id="1_o7167"]
+
+[resource]
+script = ExtResource("1_o7167")
+code_completion_canadits = Array[String](["delay()", "Serial.begin()", "Serial.print()", "digitalWrite()", "pinMode", "digitalRead()"])
+metadata/_custom_type_script = "uid://bk571ij27ski5"

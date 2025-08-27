@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://ci3ugvvfqe1qy"]
+[gd_scene load_steps=8 format=3 uid="uid://ci3ugvvfqe1qy"]
 
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="1_i4sis"]
 [ext_resource type="Resource" uid="uid://cqwrnue4ejuti" path="res://resources/boards/arduino_uno.tres" id="2_cctyv"]
 [ext_resource type="Script" uid="uid://c8facwd4t0bu3" path="res://scripts/serial_communication/code_editor.gd" id="2_xqpb2"]
+[ext_resource type="Resource" uid="uid://cn38a3o2u65yq" path="res://resources/core/default_canadits.tres" id="2_y6fiy"]
+[ext_resource type="Script" uid="uid://bbxla4qvxkyl2" path="res://scripts/serial_communication/port_list.gd" id="4_cctyv"]
+[ext_resource type="FontFile" uid="uid://bu2y6rrhr31rx" path="res://graphics/fonts/JetBrainsMonoNL-Regular.ttf" id="4_ys1v0"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_cctyv"]
 number_color = Color(1, 0.965066, 0.626509, 1)
@@ -35,6 +38,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_xqpb2")
+default_code_completion_canadits = ExtResource("2_y6fiy")
 board_info = ExtResource("2_cctyv")
 
 [node name="CodeEdit" type="CodeEdit" parent="."]
@@ -46,15 +50,11 @@ offset_right = 509.0
 grow_vertical = 2
 theme = ExtResource("1_i4sis")
 text = "void setup() {
-	Serial.begin(115200);
-  pinMode(LED_BUILTIN, OUTPUT);
+
 }
 
 void loop() {
-  digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
-  delay(3000);                      // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
-  delay(3000);                      // wait for a second
+
 }"
 placeholder_text = "Enter your Arduino code here"
 scroll_smooth = true
@@ -101,7 +101,20 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Upload"
 
+[node name="PortList" type="OptionButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -270.0
+offset_bottom = 60.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("4_ys1v0")
+script = ExtResource("4_cctyv")
+
 [connection signal="focus_entered" from="CodeEdit" to="." method="_on_code_edit_focus_entered"]
 [connection signal="focus_exited" from="CodeEdit" to="." method="_on_code_edit_focus_exited"]
 [connection signal="pressed" from="Compile" to="." method="_on_compile_pressed"]
 [connection signal="pressed" from="Upload" to="." method="_on_upload_pressed"]
+[connection signal="item_selected" from="PortList" to="PortList" method="_on_item_selected"]
+[connection signal="pressed" from="PortList" to="PortList" method="_on_pressed"]
