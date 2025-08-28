@@ -1,28 +1,52 @@
-[gd_scene load_steps=13 format=3 uid="uid://cvmjlwn0k5vjv"]
+[gd_scene load_steps=12 format=3 uid="uid://3rxmiqb15771"]
 
-[ext_resource type="Material" uid="uid://wyikf3yxoy6x" path="res://addons/DayNightCycle/Sky_Day.tres" id="2_7r4gi"]
-[ext_resource type="Script" uid="uid://d4iis7cs4sqni" path="res://addons/DayNightCycle/DayNightCycle.gd" id="3_w7kh3"]
-[ext_resource type="PackedScene" uid="uid://cge0nru84n28c" path="res://scenes/land2.tscn" id="4_e3hyu"]
-[ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/world/camera_controls.gd" id="6_jhx03"]
-[ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor.tscn" id="7_i7141"]
+[ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/world/camera_controls.gd" id="1_4h7al"]
+[ext_resource type="Shader" uid="uid://bu32bxcuo17mi" path="res://shaders/grid.gdshader" id="2_hvmvx"]
+[ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor.tscn" id="3_go7bl"]
 
-[sub_resource type="Sky" id="Sky_pkg7o"]
-sky_material = ExtResource("2_7r4gi")
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hvmvx"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 
-[sub_resource type="Environment" id="Environment_fj7yv"]
-background_mode = 2
-sky = SubResource("Sky_pkg7o")
+[sub_resource type="Sky" id="Sky_go7bl"]
+sky_material = SubResource("ProceduralSkyMaterial_hvmvx")
+
+[sub_resource type="Environment" id="Environment_yjqe1"]
+background_mode = 1
+background_color = Color(0.0646965, 0.0646965, 0.0646965, 1)
+sky = SubResource("Sky_go7bl")
 tonemap_mode = 2
 glow_enabled = true
-fog_mode = 1
-fog_density = 1.0
 
-[sub_resource type="BoxMesh" id="BoxMesh_f3sb7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjqe1"]
+render_priority = 0
+shader = ExtResource("2_hvmvx")
+shader_parameter/subdivisions = 32.0
+shader_parameter/grid_width = 0.02
+shader_parameter/background_color = Color(0.2, 0.2, 0.2, 1)
+shader_parameter/background_color_two = Color(0.1, 0.1, 0.1, 1)
+shader_parameter/grid_color = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/dashed_scale_x = 0.5
+shader_parameter/dashed_scale_y = 0.5
+shader_parameter/dashed_count_x = 1.0
+shader_parameter/dashed_count_y = 1.0
+shader_parameter/point_width = 0.3
+shader_parameter/point_color = Color(0, 0, 0, 1)
+shader_parameter/point_scale_x = 0.05
+shader_parameter/point_scale_y = 0.05
+shader_parameter/inside_width = 0.01
+shader_parameter/inside_subdivisions = 6.0
+shader_parameter/inside_color = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/in_dashed_scale_x = 0.3
+shader_parameter/in_dashed_scale_y = 0.3
+shader_parameter/in_dashed_count_x = 6.0
+shader_parameter/in_dashed_count_y = 6.0
 
-[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_7r4gi"]
-albedo_color = Color(1, 0.439216, 0.380392, 1)
+[sub_resource type="BoxMesh" id="BoxMesh_sgue5"]
+material = SubResource("ShaderMaterial_yjqe1")
+size = Vector3(50, 0.2, 50)
 
-[sub_resource type="Shader" id="Shader_fj7yv"]
+[sub_resource type="Shader" id="Shader_hvmvx"]
 code = "shader_type spatial;
 render_mode unshaded;
 
@@ -114,9 +138,9 @@ void fragment() {
 	ALBEDO = mix(original, edge_mix, (depth_edge > 0.0 ? depth_edge : normal_edge));
 }"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_71j4m"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_go7bl"]
 render_priority = 0
-shader = SubResource("Shader_fj7yv")
+shader = SubResource("Shader_hvmvx")
 shader_parameter/depth_threshold = 0.05
 shader_parameter/reverse_depth_threshold = 0.25
 shader_parameter/normal_threshold = 0.6
@@ -125,12 +149,12 @@ shader_parameter/lighten_amount = 1.5
 shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
 shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
 
-[sub_resource type="QuadMesh" id="QuadMesh_tlwt5"]
-material = SubResource("ShaderMaterial_71j4m")
+[sub_resource type="QuadMesh" id="QuadMesh_yjqe1"]
+material = SubResource("ShaderMaterial_go7bl")
 flip_faces = true
 size = Vector2(2, 2)
 
-[node name="World" type="Node3D"]
+[node name="Pond" type="Node3D"]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
@@ -141,41 +165,28 @@ offset_left = 509.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-size_flags_vertical = 2
+size_flags_vertical = 3
 stretch = true
-stretch_shrink = 4
+stretch_shrink = 3
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(192, 180)
+size = Vector2i(257, 240)
 render_target_update_mode = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
-environment = SubResource("Environment_fj7yv")
+environment = SubResource("Environment_yjqe1")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("worldEnvironment", "nightLight")]
-transform = Transform3D(1, 0, 0, 0, -0.855251, 0.518213, 0, -0.518213, -0.855251, 0.00352669, 1.47208, -3.78418)
-light_energy = 0.999617
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.904542, 0.256533, 0.340579, 0.395049, 0.804772, 0.443034, -0.160436, 0.535288, -0.829293, 0, 6.46309, 0)
 shadow_enabled = true
-script = ExtResource("3_w7kh3")
-worldEnvironment = NodePath("../WorldEnvironment")
-nightLight = NodePath("DirectionalLight3D")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/DirectionalLight3D"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-light_energy = 3.83499e-05
-
-[node name="land" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_e3hyu")]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
-
-[node name="Cube" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(0.652125, 0, 0.758112, 0, 1, 0, -0.758112, 0, 0.652125, -1.71668, 1.53491, -3.48008)
-mesh = SubResource("BoxMesh_f3sb7")
-surface_material_override/0 = SubResource("ORMMaterial3D_7r4gi")
+[node name="Ground" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+mesh = SubResource("BoxMesh_sgue5")
 
 [node name="CameraControls" type="Node3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -0.000476569, 0.46578, -0.423462)
-script = ExtResource("6_jhx03")
+transform = Transform3D(0.933198, -0.179681, 0.311216, 0, 0.866025, 0.5, -0.359362, -0.466599, 0.808173, -0.000476569, 0.46578, -0.423462)
+script = ExtResource("1_4h7al")
 snap = false
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraControls"]
@@ -188,9 +199,9 @@ far = 200.0
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/CameraControls/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0.0500045, -0.175917)
 extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_tlwt5")
-skeleton = NodePath("../../../../..")
+mesh = SubResource("QuadMesh_yjqe1")
+skeleton = NodePath("../../../../../../..")
 
-[node name="code_editor" parent="." instance=ExtResource("7_i7141")]
+[node name="code_editor" parent="." instance=ExtResource("3_go7bl")]
 
 [connection signal="currently_typing" from="code_editor" to="SubViewportContainer/SubViewport/CameraControls" method="_on_code_editor_currently_typing"]

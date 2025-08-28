@@ -3,6 +3,7 @@ extends Control
 signal currently_typing
 
 var code_editor: CodeEdit
+
 @export var default_code_completion_canadits: code_completion_resource
 @export var board_info: board_resource
 @export var debug_messages: bool
@@ -17,7 +18,7 @@ var _past_line: int
 var _lines_added: int = 0
 
 
-var _ignore_keywords: Array[Variant] = [
+var _ignore_keywords: Array[String] = [
 	"{",
 	"}",
 	"#include ",
@@ -42,9 +43,9 @@ func _ready() -> void:
 	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
 
 	thread = Thread.new()
-
+	
+	code_editor.code_completion_enabled = false
 	code_editor.text_changed.connect(code_request_code_completion)
-
 
 
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
