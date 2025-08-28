@@ -5,6 +5,7 @@ signal currently_typing
 var code_editor: CodeEdit
 
 @export var default_code_completion_canadits: code_completion_resource
+@export var code_completion_canadits: Array[code_completion_resource]
 @export var board_info: board_resource
 @export var debug_messages: bool
 
@@ -143,10 +144,11 @@ func _on_code_edit_focus_entered() -> void:
 
 func _on_code_edit_focus_exited() -> void:
 	emit_signal("currently_typing", false)
+	
 
 
 func code_request_code_completion():
-	for canadit in default_code_completion_canadits.code_completion_canadits:
+	for canadit in code_completion_canadits[0].code_completion_canadits:
 		code_editor.add_code_completion_option(CodeEdit.KIND_FUNCTION, canadit, canadit)
 
 	

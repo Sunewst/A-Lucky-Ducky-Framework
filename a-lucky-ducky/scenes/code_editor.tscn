@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://ci3ugvvfqe1qy"]
+[gd_scene load_steps=9 format=3 uid="uid://ci3ugvvfqe1qy"]
 
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="1_i4sis"]
+[ext_resource type="Script" uid="uid://bk571ij27ski5" path="res://resources/core/code_completion_resource.gd" id="2_037gb"]
 [ext_resource type="Resource" uid="uid://cqwrnue4ejuti" path="res://resources/boards/arduino_uno.tres" id="2_cctyv"]
 [ext_resource type="Script" uid="uid://c8facwd4t0bu3" path="res://scripts/serial_communication/code_editor.gd" id="2_xqpb2"]
 [ext_resource type="Resource" uid="uid://cn38a3o2u65yq" path="res://resources/core/default_canadits.tres" id="2_y6fiy"]
@@ -38,7 +39,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_xqpb2")
-default_code_completion_canadits = ExtResource("2_y6fiy")
+code_completion_canadits = Array[ExtResource("2_037gb")]([ExtResource("2_y6fiy")])
 board_info = ExtResource("2_cctyv")
 
 [node name="CodeEdit" type="CodeEdit" parent="."]
