@@ -9,22 +9,22 @@
 [ext_resource type="FontFile" uid="uid://bu2y6rrhr31rx" path="res://graphics/fonts/JetBrainsMonoNL-Regular.ttf" id="4_ys1v0"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_cctyv"]
-number_color = Color(1, 0.965066, 0.626509, 1)
-symbol_color = Color(0.490519, 0.724227, 0.937673, 1)
-function_color = Color(0.745189, 0.355621, 0.728521, 1)
-member_variable_color = Color(0.80684, 0.724336, 0.985604, 1)
+number_color = Color(0.933333, 0.913725, 0.541176, 1)
+symbol_color = Color(0.266667, 0.388235, 0.454902, 1)
+function_color = Color(0.623529, 0.235294, 0.568627, 1)
+member_variable_color = Color(0.737255, 0.34902, 0.376471, 1)
 keyword_colors = {
 "": Color(0, 0, 0, 1),
-"analogRead": Color(0.262745, 0.933333, 0.952941, 1),
-"analogWrite": Color(0.262745, 0.933333, 0.952941, 1),
-"const": Color(1, 0.537255, 0.533333, 1),
-"delay": Color(0.775528, 0.193263, 0.240471, 1),
-"digitalRead": Color(0.262745, 0.933333, 0.952941, 1),
-"digitalWrite": Color(0.262745, 0.933333, 0.952941, 1),
-"int": Color(0.999083, 0.539086, 0.531603, 1),
-"loop": Color(0.421494, 0.996586, 0.387074, 1),
-"pinMode": Color(0.262745, 0.933333, 0.952941, 1),
-"setup": Color(0.981709, 0.535612, 0.350285, 1)
+"analogRead": Color(0.505882, 0.686275, 0.709804, 1),
+"analogWrite": Color(0.505882, 0.686275, 0.709804, 1),
+"const": Color(0.568627, 0.227451, 0.321569, 1),
+"delay": Color(0.568627, 0.227451, 0.321569, 1),
+"digitalRead": Color(0.505882, 0.686275, 0.709804, 1),
+"digitalWrite": Color(0.505882, 0.686275, 0.709804, 1),
+"int": Color(0.568627, 0.227451, 0.321569, 1),
+"loop": Color(0.364706, 0.654902, 0.364706, 1),
+"pinMode": Color(0.505882, 0.686275, 0.709804, 1),
+"setup": Color(0.933333, 0.913725, 0.541176, 1)
 }
 color_regions = {
 "//": Color(0.681994, 0.942753, 0.991644, 0.617)
