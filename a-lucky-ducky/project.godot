@@ -14,7 +14,7 @@ config/name="A Lucky Ducky"
 config/version="PRE-ALHPA"
 run/main_scene="uid://3rxmiqb15771"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
-boot_splash/bg_color=Color(0.551888, 1, 0.816689, 1)
+boot_splash/bg_color=Color(0.876302, 0.904547, 0.877131, 1)
 boot_splash/show_image=false
 
 [autoload]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://3rxmiqb15771"]
+[gd_scene load_steps=13 format=3 uid="uid://3rxmiqb15771"]
 
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/world/camera_controls.gd" id="1_4h7al"]
 [ext_resource type="Shader" uid="uid://bu32bxcuo17mi" path="res://shaders/grid.gdshader" id="2_hvmvx"]
 [ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor.tscn" id="3_go7bl"]
+[ext_resource type="PackedScene" uid="uid://bfj10dvdpxqbc" path="res://graphics/garden-board-model.gltf" id="4_yjqe1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hvmvx"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -178,11 +179,15 @@ render_target_update_mode = 4
 environment = SubResource("Environment_yjqe1")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(-0.904542, 0.256533, 0.340579, 0.395049, 0.804772, 0.443034, -0.160436, 0.535288, -0.829293, 0, 6.46309, 0)
+transform = Transform3D(0.0767869, 0.996376, 0.0365883, 0.57301, -0.0741313, 0.816189, 0.815943, -0.0417072, -0.576625, -4.7528, 8.03853, -8.90619)
 shadow_enabled = true
+shadow_normal_bias = 1.457
 
 [node name="Ground" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 mesh = SubResource("BoxMesh_sgue5")
+
+[node name="Board" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_yjqe1")]
+transform = Transform3D(-8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, -2.28833, 1.545, 1.20053)
 
 [node name="CameraControls" type="Node3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(0.933198, -0.179681, 0.311216, 0, 0.866025, 0.5, -0.359362, -0.466599, 0.808173, -0.000476569, 0.46578, -0.423462)
