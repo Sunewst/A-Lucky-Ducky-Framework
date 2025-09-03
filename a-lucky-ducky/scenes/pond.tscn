@@ -187,7 +187,7 @@ shadow_normal_bias = 1.457
 mesh = SubResource("BoxMesh_sgue5")
 
 [node name="Board" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_yjqe1")]
-transform = Transform3D(-8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, -2.28833, 1.545, 1.20053)
+transform = Transform3D(-8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, -2.28833, 2.76888, 1.20053)
 
 [node name="CameraControls" type="Node3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(0.933198, -0.179681, 0.311216, 0, 0.866025, 0.5, -0.359362, -0.466599, 0.808173, -0.000476569, 0.46578, -0.423462)

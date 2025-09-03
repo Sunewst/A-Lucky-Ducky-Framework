@@ -61,7 +61,6 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 		_past_line = _current_line
 
 func _thread_function(cli_arguments: Array[String]):
-	
 	var path
 	if cli_arguments[0].contains('upload'):
 		cli_arguments[2] = SerialController.portName
