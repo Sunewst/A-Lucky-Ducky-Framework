@@ -39,7 +39,14 @@ var _ignore_keywords: Array[String] = [
 func _ready() -> void:
 	compile_arguments = ['compile', '--fqbn', board_info.board_FQBN, 'Alterna']
 	upload_arguments = ['upload', '-p', SerialController.portName, '--fqbn', board_info.board_FQBN, 'Alterna']
+	
 	code_editor = %CodeEdit
+	
+	#code_editor.add_gutter()
+	#code_editor.set_gutter_type(2, TextEdit.GUTTER_TYPE_STRING)
+	#code_editor.set_line_gutter_text(2, 2, 'A')
+	#code_editor.set_gutter_clickable(2, true)
+	#code_editor.set_gutter_draw(2, true)
 
 	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
 
