@@ -41,7 +41,6 @@ mouse_filter = 2
 script = ExtResource("2_xqpb2")
 code_completion_canadits = Array[ExtResource("2_037gb")]([ExtResource("2_y6fiy")])
 board_info = ExtResource("2_cctyv")
-debug_messages = null
 
 [node name="CodeEdit" type="CodeEdit" parent="."]
 unique_name_in_owner = true

@@ -208,6 +208,5 @@ mesh = SubResource("QuadMesh_yjqe1")
 skeleton = NodePath("../../../../../../..")
 
 [node name="code_editor" parent="." instance=ExtResource("3_go7bl")]
-debug_messages = null
 
 [connection signal="currently_typing" from="code_editor" to="SubViewportContainer/SubViewport/CameraControls" method="_on_code_editor_currently_typing"]

@@ -12,8 +12,11 @@ var code_editor: CodeEdit
 var compile_arguments: Array[String]
 var upload_arguments: Array[String]
 
+var ino_file_path: String = 'res://Alterna/Alterna.ino'
 
 var thread: Thread
+
+var arduino_file: FileAccess
 
 var _past_line: int
 var _lines_added: int = 0
@@ -86,7 +89,6 @@ func _thread_function(cli_arguments: Array[String]):
 	OS.execute(path, cli_arguments, output, true, false)
 	
 	print(output[0])
-	print(output.size())
 	if output[0].contains("Error"):
 		_highlight_errors(output[0])
 	if cli_arguments[0].contains('upload'):
@@ -114,9 +116,8 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 			compiled_code.insert_line_at(compiled_code.get_line_count() - 1, current_line)
 		
 	print("Your compiled code is ready")
-	
-	var arduino_file = FileAccess.open("res://Alterna/Alterna.ino", FileAccess.WRITE)
-	
+	var arduino_file = FileAccess.open(ino_file_path, FileAccess.WRITE)
+
 	arduino_file.store_string(compiled_code.get_text())
 	create_thread(cli_arguments)
 	compiled_code.queue_free()
@@ -166,6 +167,23 @@ func code_request_code_completion():
 
 
 func _highlight_errors(cli_output: String):
+	var cli_output_array = cli_output.split("\n", true)
+	var cli_error
+	var cli_line_error
+
+	for cli_line in cli_output_array:
+		if cli_line.contains('error'):
+			cli_error = cli_line.substr(cli_line.find('.ino'))
+			cli_line_error = cli_error.get_slice(':', 1).to_int()
+			_total_lines_added(cli_line_error)
+			#code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
 	printerr("Failed to compile!")
+	#print(cli_output_array[0])
 	#cli_output.find()
 	#code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
+	
+	
+func _total_lines_added(from: int):
+	arduino_file = FileAccess.open(ino_file_path, FileAccess.READ)
+	var compiled_code = arduino_file.get_as_text()
+	print(compiled_code.count('Serial.print($', 0, from))
