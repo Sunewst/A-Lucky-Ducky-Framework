@@ -55,6 +55,7 @@ func _ready() -> void:
 
 	thread = Thread.new()
 	
+	
 	code_editor.code_completion_enabled = false
 	code_editor.text_changed.connect(code_request_code_completion)
 
@@ -100,6 +101,8 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var compiled_line_count: int
 	var current_line: String
 	var lines_added: int = 0
+	
+
 	
 	for i in range(userCode.get_line_count()):
 		current_line = userCode.get_line(i)
@@ -167,6 +170,7 @@ func code_request_code_completion():
 
 
 func _highlight_errors(cli_output: String):
+	
 	var cli_output_array = cli_output.split("\n", true)
 	var cli_error
 	var cli_line_error
@@ -175,15 +179,16 @@ func _highlight_errors(cli_output: String):
 		if cli_line.contains('error'):
 			cli_error = cli_line.substr(cli_line.find('.ino'))
 			cli_line_error = cli_error.get_slice(':', 1).to_int()
-			_total_lines_added(cli_line_error)
-			#code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
+			code_editor.set_line_background_color(cli_line_error - _total_lines_added(cli_error) - 1, Color(1,0,0,0.3))
 	printerr("Failed to compile!")
-	#print(cli_output_array[0])
-	#cli_output.find()
-	#code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
-	
-	
-func _total_lines_added(from: int):
+
+
+
+func _total_lines_added(text: String):
 	arduino_file = FileAccess.open(ino_file_path, FileAccess.READ)
 	var compiled_code = arduino_file.get_as_text()
-	print(compiled_code.count('Serial.print($', 0, from))
+	var error_string = text.get_slice("'", 1)
+	
+	return compiled_code.count('Serial.println(\"$', 0, compiled_code.find(error_string))
+
+	#print(compiled_code.count('Serial.println(\"$', 0, compiled_code.find(error_string)), ' current count')
