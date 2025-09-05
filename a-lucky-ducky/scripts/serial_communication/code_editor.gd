@@ -69,6 +69,7 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 
 func _thread_function(cli_arguments: Array[String]):
 	var path
+	
 	if cli_arguments[0].contains('upload'):
 		cli_arguments[2] = SerialController.portName
 		SerialController._ClosePort()
@@ -81,16 +82,18 @@ func _thread_function(cli_arguments: Array[String]):
 		print("Using Windows")
 		path = ProjectSettings.globalize_path("res://arduino-cli.exe")
 
-	var output: Array[Variant] = []
+	var output: Array[String] = []
 	OS.execute(path, cli_arguments, output, true, false)
 	
-	print(output)
+	print(output[0])
+	print(output.size())
+	if output[0].contains("Error"):
+		_highlight_errors(output[0])
 	if cli_arguments[0].contains('upload'):
 		SerialController._OpenPort()
 
 
 func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
-
 	var compiled_code = CodeEdit.new()
 	var compiled_line_count: int
 	var current_line: String
@@ -159,5 +162,10 @@ func code_request_code_completion():
 	for canadit in code_completion_canadits[0].code_completion_canadits:
 		code_editor.add_code_completion_option(CodeEdit.KIND_FUNCTION, canadit, canadit)
 
-	
 	code_editor.update_code_completion_options(true)
+
+
+func _highlight_errors(cli_output: String):
+	printerr("Failed to compile!")
+	#cli_output.find()
+	#code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
