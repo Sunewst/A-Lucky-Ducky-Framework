@@ -178,7 +178,10 @@ func _highlight_errors(cli_output: String):
 	for cli_line: String in cli_output_array:
 		if cli_line.contains('error'):
 			cli_error = cli_line.substr(cli_line.find(':'))
-			cli_line_error = cli_error.get_slice(':', 1).to_int()
+			if OS.get_name().contains('mac'):
+				cli_line_error = cli_error.get_slice(':', 1).to_int()
+			else:
+				cli_line_error = cli_error.get_slice(':', 2).to_int()
 			code_editor.set_line_background_color.call_deferred(cli_line_error - _total_lines_added(cli_line_error) - 1, Color(1,0,0,0.3))
 	printerr("Failed to compile!")
 
@@ -188,6 +191,7 @@ func _total_lines_added(error_line: int) -> int:
 	arduino_file = FileAccess.open(ino_file_path, FileAccess.READ)
 	var compiled_code: PackedStringArray = arduino_file.get_as_text().split("\n")
 	var total_added_lines: int = 0
+	
 	for i in error_line:
 		if compiled_code[i].contains('Serial.println(\"$'):
 			total_added_lines += 1
