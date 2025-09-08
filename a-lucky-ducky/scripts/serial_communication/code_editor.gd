@@ -101,8 +101,10 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var compiled_line_count: int
 	var current_line: String
 	var lines_added: int = 0
-	
 
+	for line in range (code_editor.get_line_count()):
+		print('Clearing line ', line)
+		code_editor.set_line_background_color(line, Color(0,0,0,0))
 	
 	for i in range(userCode.get_line_count()):
 		current_line = userCode.get_line(i)
