@@ -7,6 +7,7 @@ var code_editor: CodeEdit
 @export var default_code_completion_canadits: code_completion_resource
 @export var code_completion_canadits: Array[code_completion_resource]
 @export var board_info: board_resource
+@export var boards_info: Array[board_resource]
 @export var debug_messages: bool
 
 var compile_arguments: Array[String]
@@ -20,6 +21,8 @@ var arduino_file: FileAccess
 
 var _past_line: int
 var _lines_added: int = 0
+
+var board_menu = PopupMenu.new()
 
 
 var _ignore_keywords: Array[String] = [
@@ -44,6 +47,13 @@ func _ready() -> void:
 	upload_arguments = ['upload', '-p', SerialController.portName, '--fqbn', board_info.board_FQBN, 'Alterna']
 	
 	code_editor = %CodeEdit
+	
+	var code_editor_menu = code_editor.get_menu()
+
+	for i in boards_info.size():
+		board_menu.add_check_item(boards_info[i].board_FQBN)
+	
+	code_editor_menu.add_submenu_node_item("Boards", board_menu)
 	
 	#code_editor.add_gutter()
 	#code_editor.set_gutter_type(2, TextEdit.GUTTER_TYPE_STRING)

@@ -1,9 +1,8 @@
 void setup() {
-  pinMode(uint8_t pin, uint8_t mode)
-  
-
+Serial.println("$3$1");
+  dwadaw
 }
 
 void loop() {
-         // wait for a second
+  
 }

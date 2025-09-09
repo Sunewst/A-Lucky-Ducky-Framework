@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ci3ugvvfqe1qy"]
+[gd_scene load_steps=11 format=3 uid="uid://ci3ugvvfqe1qy"]
 
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="1_i4sis"]
 [ext_resource type="Script" uid="uid://bk571ij27ski5" path="res://resources/core/code_completion_resource.gd" id="2_037gb"]
@@ -7,6 +7,8 @@
 [ext_resource type="Resource" uid="uid://cn38a3o2u65yq" path="res://resources/core/default_canadits.tres" id="2_y6fiy"]
 [ext_resource type="Script" uid="uid://bbxla4qvxkyl2" path="res://scripts/serial_communication/port_list.gd" id="4_cctyv"]
 [ext_resource type="FontFile" uid="uid://bu2y6rrhr31rx" path="res://graphics/fonts/JetBrainsMonoNL-Regular.ttf" id="4_ys1v0"]
+[ext_resource type="Script" uid="uid://4as1lu3lsvt8" path="res://resources/boards/board_resource.gd" id="6_fq2oj"]
+[ext_resource type="Resource" uid="uid://6k38vih27ib6" path="res://resources/boards/rp2040_trinkey.tres" id="7_q003l"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_cctyv"]
 number_color = Color(0.933333, 0.913725, 0.541176, 1)
@@ -42,6 +44,7 @@ theme = ExtResource("1_i4sis")
 script = ExtResource("2_xqpb2")
 code_completion_canadits = Array[ExtResource("2_037gb")]([ExtResource("2_y6fiy")])
 board_info = ExtResource("2_cctyv")
+boards_info = Array[ExtResource("6_fq2oj")]([ExtResource("2_cctyv"), ExtResource("7_q003l")])
 
 [node name="CodeEdit" type="CodeEdit" parent="."]
 unique_name_in_owner = true

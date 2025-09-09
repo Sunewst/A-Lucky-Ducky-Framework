@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="board_resource" load_steps=2 format=3 uid="uid://6k38vih27ib6"]
+
+[ext_resource type="Script" uid="uid://4as1lu3lsvt8" path="res://resources/boards/board_resource.gd" id="1_dgk61"]
+
+[resource]
+script = ExtResource("1_dgk61")
+board_name = "Adafruit Trinkey QT2040 - RP2040"
+board_FQBN = "rp2040:rp2040:adafruit_trinkeyrp2040qt"
+board_core = "rp2040:rp2040"
+board_author = "Adafruit"
+board_url = "https://www.adafruit.com/product/5056"
+unique_code_completion = Array[String]([])
+metadata/_custom_type_script = "uid://4as1lu3lsvt8"
