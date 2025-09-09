@@ -2,7 +2,8 @@ extends Control
 
 signal currently_typing
 
-var code_editor: CodeEdit
+@onready var code_editor: CodeEdit = %CodeEdit
+@onready var current_board: String = boards_info[0].board_FQBN
 
 @export var default_code_completion_canadits: code_completion_resource
 @export var code_completion_canadits: Array[code_completion_resource]
@@ -13,6 +14,7 @@ var code_editor: CodeEdit
 var compile_arguments: Array[String]
 var upload_arguments: Array[String]
 
+
 var ino_file_path: String = 'res://Alterna/Alterna.ino'
 
 var thread: Thread
@@ -21,6 +23,8 @@ var arduino_file: FileAccess
 
 var _past_line: int
 var _lines_added: int = 0
+
+var code_editor_menu
 
 var board_menu = PopupMenu.new()
 
@@ -43,17 +47,17 @@ var _ignore_keywords: Array[String] = [
 
 
 func _ready() -> void:
-	compile_arguments = ['compile', '--fqbn', board_info.board_FQBN, 'Alterna']
-	upload_arguments = ['upload', '-p', SerialController.portName, '--fqbn', board_info.board_FQBN, 'Alterna']
+	compile_arguments = ['compile', '--fqbn', current_board, 'Alterna']
+	upload_arguments = ['upload', '-p', SerialController.portName, '--fqbn', current_board, 'Alterna']
 	
-	code_editor = %CodeEdit
-	
-	var code_editor_menu = code_editor.get_menu()
+	code_editor_menu = code_editor.get_menu()
 
 	for i in boards_info.size():
-		board_menu.add_check_item(boards_info[i].board_FQBN)
+		board_menu.add_item(boards_info[i].board_FQBN)
 	
 	code_editor_menu.add_submenu_node_item("Boards", board_menu)
+	
+	board_menu.id_pressed.connect(_on_board_clicked)
 	
 	#code_editor.add_gutter()
 	#code_editor.set_gutter_type(2, TextEdit.GUTTER_TYPE_STRING)
@@ -213,4 +217,10 @@ func _total_lines_added(error_line: int) -> int:
 	print(total_added_lines, ' current count')
 
 	return total_added_lines
+
+func _on_board_clicked(id: int):
+	current_board = board_menu.get_item_text(id)
+	compile_arguments[2] = current_board
+	print("Changed board to ", current_board )
+	
 	
