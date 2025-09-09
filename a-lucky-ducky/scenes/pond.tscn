@@ -168,11 +168,11 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
-stretch_shrink = 3
+stretch_shrink = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(257, 240)
+size = Vector2i(385, 360)
 render_target_update_mode = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]

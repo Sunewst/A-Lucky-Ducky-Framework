@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://0a8gtwqx2ly1" path="res://graphics/icon.svg" id="2_677li"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_677li"]
-bg_color = Color(0.0117647, 0.286275, 0.270588, 0.658824)
+bg_color = Color(0.234968, 0.246006, 0.26721, 0.658824)
 
 [resource]
 default_font = ExtResource("1_kwb7i")

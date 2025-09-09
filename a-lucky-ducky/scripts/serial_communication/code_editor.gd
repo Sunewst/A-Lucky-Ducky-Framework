@@ -19,7 +19,6 @@ var ino_file_path: String = 'res://Alterna/Alterna.ino'
 
 var thread: Thread
 
-var arduino_file: FileAccess
 
 var _past_line: int
 var _lines_added: int = 0
@@ -58,7 +57,8 @@ func _ready() -> void:
 	code_editor_menu.add_submenu_node_item("Boards", board_menu)
 	
 	board_menu.id_pressed.connect(_on_board_clicked)
-	
+
+
 	#code_editor.add_gutter()
 	#code_editor.set_gutter_type(2, TextEdit.GUTTER_TYPE_STRING)
 	#code_editor.set_line_gutter_text(2, 2, 'A')
@@ -69,8 +69,7 @@ func _ready() -> void:
 	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
 
 	thread = Thread.new()
-	
-	
+
 	code_editor.code_completion_enabled = false
 	code_editor.text_changed.connect(code_request_code_completion)
 	
@@ -206,7 +205,7 @@ func _highlight_errors(cli_output: String):
 
 
 func _total_lines_added(error_line: int) -> int:
-	arduino_file = FileAccess.open(ino_file_path, FileAccess.READ)
+	var arduino_file = FileAccess.open(ino_file_path, FileAccess.READ)
 	var compiled_code: PackedStringArray = arduino_file.get_as_text().split("\n")
 	var total_added_lines: int = 0
 	
@@ -222,5 +221,7 @@ func _on_board_clicked(id: int):
 	current_board = board_menu.get_item_text(id)
 	compile_arguments[2] = current_board
 	print("Changed board to ", current_board )
+	
+	
 	
 	
