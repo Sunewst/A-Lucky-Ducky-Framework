@@ -50,6 +50,7 @@ func _ready() -> void:
 	#code_editor.set_line_gutter_text(2, 2, 'A')
 	#code_editor.set_gutter_clickable(2, true)
 	#code_editor.set_gutter_draw(2, true)
+	
 
 	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
 
@@ -58,6 +59,7 @@ func _ready() -> void:
 	
 	code_editor.code_completion_enabled = false
 	code_editor.text_changed.connect(code_request_code_completion)
+	
 
 
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
@@ -201,3 +203,4 @@ func _total_lines_added(error_line: int) -> int:
 	print(total_added_lines, ' current count')
 
 	return total_added_lines
+	
