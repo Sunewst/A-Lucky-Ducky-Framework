@@ -90,6 +90,5 @@ public partial class SerialController : Node
 	{
 		return portName;
 	}
-	
 }
 

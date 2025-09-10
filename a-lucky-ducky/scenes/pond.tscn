@@ -14,7 +14,7 @@ sky_material = SubResource("ProceduralSkyMaterial_hvmvx")
 
 [sub_resource type="Environment" id="Environment_yjqe1"]
 background_mode = 1
-background_color = Color(0.0646965, 0.0646965, 0.0646965, 1)
+background_color = Color(0.0923971, 0.0923971, 0.092397, 1)
 sky = SubResource("Sky_go7bl")
 tonemap_mode = 2
 glow_enabled = true
@@ -205,7 +205,6 @@ far = 200.0
 transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0.0500045, -0.175917)
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_yjqe1")
-skeleton = NodePath("../../../../../../..")
 
 [node name="code_editor" parent="." instance=ExtResource("3_go7bl")]
 
