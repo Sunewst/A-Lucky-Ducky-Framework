@@ -83,7 +83,8 @@ public partial class SerialController : Node
 		this.portName = portName;
 		serialPort = new SerialPort(portName, baudRate);
 		serialPort.ReadTimeout = 10;
-		GD.Print("Now connected to port:" , portName);
+		serialPort.
+		GD.Print($"Now connected to port: {portName}.");
 	}
 
 	public String _GetPort()

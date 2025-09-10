@@ -1,8 +1,10 @@
 extends OptionButton
 
+var currentPorts
+
 func _on_pressed() -> void:
 	clear()
-	var currentPorts = SerialController._GetAllPorts()
+	currentPorts = SerialController._GetAllPorts()
 	for i in currentPorts.size():
 		add_item(currentPorts[i])
 
