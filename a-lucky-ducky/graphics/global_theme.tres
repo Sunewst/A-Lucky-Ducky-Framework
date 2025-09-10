@@ -1,10 +1,13 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://etxhywncatso"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://etxhywncatso"]
 
 [ext_resource type="FontFile" uid="uid://bu2y6rrhr31rx" path="res://graphics/fonts/JetBrainsMonoNL-Regular.ttf" id="1_kwb7i"]
 [ext_resource type="Texture2D" uid="uid://0a8gtwqx2ly1" path="res://graphics/icon.svg" id="2_677li"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_677li"]
 bg_color = Color(0.234968, 0.246006, 0.26721, 0.658824)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfsbo"]
+bg_color = Color(0.0386748, 0.0606196, 0.139953, 0.407843)
 
 [resource]
 default_font = ExtResource("1_kwb7i")
@@ -19,3 +22,4 @@ CodeEdit/icons/track = ExtResource("2_677li")
 PopupMenu/fonts/font = ExtResource("1_kwb7i")
 PopupMenu/fonts/title_font = ExtResource("1_kwb7i")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_677li")
+RichTextLabel/styles/normal = SubResource("StyleBoxFlat_sfsbo")

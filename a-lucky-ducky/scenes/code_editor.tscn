@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ci3ugvvfqe1qy"]
+[gd_scene load_steps=12 format=3 uid="uid://ci3ugvvfqe1qy"]
 
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="1_i4sis"]
 [ext_resource type="Script" uid="uid://bk571ij27ski5" path="res://resources/core/code_completion_resource.gd" id="2_037gb"]
@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://bu2y6rrhr31rx" path="res://graphics/fonts/JetBrainsMonoNL-Regular.ttf" id="4_ys1v0"]
 [ext_resource type="Script" uid="uid://4as1lu3lsvt8" path="res://resources/boards/board_resource.gd" id="6_fq2oj"]
 [ext_resource type="Resource" uid="uid://6k38vih27ib6" path="res://resources/boards/rp2040_trinkey.tres" id="7_q003l"]
+[ext_resource type="Script" uid="uid://ey5u33d4lbc3" path="res://scripts/serial_communication/serial_monitor.gd" id="10_yxof0"]
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_cctyv"]
 number_color = Color(0.933333, 0.913725, 0.541176, 1)
@@ -113,6 +114,21 @@ offset_bottom = 60.0
 grow_horizontal = 0
 theme_override_fonts/font = ExtResource("4_ys1v0")
 script = ExtResource("4_cctyv")
+
+[node name="SerialMonitor" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -160.0
+offset_bottom = 160.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_i4sis")
+script = ExtResource("10_yxof0")
 
 [connection signal="focus_entered" from="CodeEdit" to="." method="_on_code_edit_focus_entered"]
 [connection signal="focus_exited" from="CodeEdit" to="." method="_on_code_edit_focus_exited"]

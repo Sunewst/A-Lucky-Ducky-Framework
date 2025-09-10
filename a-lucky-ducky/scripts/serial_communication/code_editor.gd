@@ -221,7 +221,3 @@ func _on_board_clicked(id: int):
 	current_board = board_menu.get_item_text(id)
 	compile_arguments[2] = current_board
 	print("Changed board to ", current_board )
-	
-	
-	
-	
