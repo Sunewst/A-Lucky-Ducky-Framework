@@ -1,11 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://3rxmiqb15771"]
+[gd_scene load_steps=20 format=3 uid="uid://3rxmiqb15771"]
 
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/world/camera_controls.gd" id="1_4h7al"]
 [ext_resource type="Script" uid="uid://crviwgj8ijc24" path="res://scripts/world/pond.gd" id="1_sgue5"]
 [ext_resource type="Shader" uid="uid://bu32bxcuo17mi" path="res://shaders/grid.gdshader" id="2_hvmvx"]
 [ext_resource type="Shader" uid="uid://sl7rygw7j1bj" path="res://shaders/glitch.gdshader" id="2_jryt2"]
 [ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor.tscn" id="3_go7bl"]
-[ext_resource type="PackedScene" uid="uid://bfj10dvdpxqbc" path="res://graphics/garden-board-model.gltf" id="4_yjqe1"]
+[ext_resource type="PackedScene" uid="uid://dfo8jvyu1caoh" path="res://scenes/garden_mux.tscn" id="4_jryt2"]
+[ext_resource type="Script" uid="uid://4as1lu3lsvt8" path="res://resources/boards/board_resource.gd" id="7_n8bwo"]
+[ext_resource type="Resource" uid="uid://cqwrnue4ejuti" path="res://resources/boards/arduino_uno.tres" id="8_bpkyh"]
+[ext_resource type="Resource" uid="uid://6k38vih27ib6" path="res://resources/boards/rp2040_trinkey.tres" id="9_vud12"]
+[ext_resource type="Resource" uid="uid://m2dk08ne2po" path="res://resources/boards/garden_board.tres" id="10_p8mmv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7vlfm"]
 render_priority = 0
@@ -180,6 +184,9 @@ stretch_shrink = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
+physics_object_picking = true
+physics_object_picking_sort = true
+physics_object_picking_first_only = true
 size = Vector2i(385, 360)
 render_target_update_mode = 4
 
@@ -194,8 +201,8 @@ shadow_normal_bias = 1.457
 [node name="Ground" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 mesh = SubResource("BoxMesh_sgue5")
 
-[node name="Board" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_yjqe1")]
-transform = Transform3D(-8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, -2.28833, 2.76888, 1.20053)
+[node name="GardenMux" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_jryt2")]
+transform = Transform3D(-8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, -2.288, 2.769, 1.201)
 
 [node name="CameraControls" type="Node3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(0.933198, -0.179681, 0.311216, 0, 0.866025, 0.5, -0.359362, -0.466599, 0.808173, -0.000476569, 0.46578, -0.423462)
@@ -215,5 +222,7 @@ extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_yjqe1")
 
 [node name="code_editor" parent="." instance=ExtResource("3_go7bl")]
+boards_info = Array[ExtResource("7_n8bwo")]([ExtResource("8_bpkyh"), ExtResource("9_vud12"), ExtResource("10_p8mmv")])
 
+[connection signal="board_changed" from="code_editor" to="." method="_on_code_editor_board_changed"]
 [connection signal="currently_typing" from="code_editor" to="SubViewportContainer/SubViewport/CameraControls" method="_on_code_editor_currently_typing"]

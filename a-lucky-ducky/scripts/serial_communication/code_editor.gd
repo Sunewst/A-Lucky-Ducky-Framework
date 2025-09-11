@@ -1,6 +1,7 @@
 extends Control
 
 signal currently_typing
+signal board_changed
 
 @onready var code_editor: CodeEdit = %CodeEdit
 @onready var current_board: String = boards_info[0].board_FQBN
@@ -214,4 +215,6 @@ func _total_lines_added(error_line: int) -> int:
 func _on_board_clicked(id: int):
 	current_board = board_menu.get_item_text(id)
 	compile_arguments[2] = current_board
+	board_changed.emit(current_board)
 	print("Changed board to ", current_board )
+	

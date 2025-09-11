@@ -9,5 +9,7 @@ board_FQBN = "arduino:avr:uno"
 board_core = "arduino:avr"
 board_author = "Arduino"
 board_url = ""
+board_model = NodePath(".")
 unique_code_completion = Array[String]([])
+dynamic_parts = Array[String]([])
 metadata/_custom_type_script = "uid://4as1lu3lsvt8"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="board_resource" load_steps=2 format=3 uid="uid://m2dk08ne2po"]
+
+[ext_resource type="Script" uid="uid://4as1lu3lsvt8" path="res://resources/boards/board_resource.gd" id="1_4ic4b"]
+
+[resource]
+script = ExtResource("1_4ic4b")
+board_name = "Garden Board"
+board_FQBN = "garden_board:esp32:garden_board_esp32c6"
+board_core = "esp32"
+board_author = "Armando Martinez"
+board_url = ""
+unique_code_completion = Array[String]([])
+dynamic_parts = Array[String](["stemma0"])
+metadata/_custom_type_script = "uid://4as1lu3lsvt8"
