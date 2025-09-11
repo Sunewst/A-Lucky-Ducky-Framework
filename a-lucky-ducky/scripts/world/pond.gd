@@ -18,8 +18,6 @@ func _on_symbol_hovered(symbol: String, line: int, collumn: int):
 			part_hovered = true
 			print("Hovered!")
 			stemma_port.material_overlay = material
-			#code_editor.release_focus()
-			#print(code_editor.has_focus())
 			
 
 func _on_text_hovered():
@@ -28,6 +26,6 @@ func _on_text_hovered():
 		stemma_port.material_overlay = null
 		part_hovered = false
 		
-func _text_hovered():
+func _focus_entered():
 	print("Hovered")
 	
