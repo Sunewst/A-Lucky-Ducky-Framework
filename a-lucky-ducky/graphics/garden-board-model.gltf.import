@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/garden-board-model.gltf-c8f4b2ffe46c5cf3fd79d
 
 [params]
 
-nodes/root_type=""
+nodes/root_type="Node3D"
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

@@ -14,11 +14,9 @@ signal currently_typing
 var compile_arguments: Array[String]
 var upload_arguments: Array[String]
 
-
 var ino_file_path: String = 'res://Alterna/Alterna.ino'
 
 var thread: Thread
-
 
 var _past_line: int
 var _lines_added: int = 0
@@ -26,7 +24,6 @@ var _lines_added: int = 0
 var code_editor_menu
 
 var board_menu = PopupMenu.new()
-
 
 var _ignore_keywords: Array[String] = [
 	"{",
@@ -49,6 +46,7 @@ func _ready() -> void:
 	compile_arguments = ['compile', '--fqbn', current_board, 'Alterna']
 	upload_arguments = ['upload', '-p', SerialController.portName, '--fqbn', current_board, 'Alterna']
 	
+	
 	code_editor_menu = code_editor.get_menu()
 
 	for i in boards_info.size():
@@ -64,7 +62,7 @@ func _ready() -> void:
 	#code_editor.set_line_gutter_text(2, 2, 'A')
 	#code_editor.set_gutter_clickable(2, true)
 	#code_editor.set_gutter_draw(2, true)
-	
+
 
 	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
 
@@ -76,7 +74,6 @@ func _ready() -> void:
 
 
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
-	
 	if data.begins_with('$'):
 		var _current_line: int = data.get_slice('$', 1).to_int()
 		code_editor.set_line_background_color(_past_line - _lines_added - 1, Color(0,0,0,0))
@@ -162,8 +159,6 @@ func _exit_tree() -> void:
 	print(thread.is_alive())
 	thread.wait_to_finish()
 
-
-
 func _on_compile_pressed() -> void:
 	_compile_code(code_editor, compile_arguments)
 
@@ -187,7 +182,6 @@ func code_request_code_completion():
 
 
 func _highlight_errors(cli_output: String):
-	
 	var cli_output_array: PackedStringArray = cli_output.split("\n", true)
 	var cli_error
 	var cli_line_error

@@ -1,9 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://3rxmiqb15771"]
+[gd_scene load_steps=16 format=3 uid="uid://3rxmiqb15771"]
 
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/world/camera_controls.gd" id="1_4h7al"]
+[ext_resource type="Script" uid="uid://crviwgj8ijc24" path="res://scripts/world/pond.gd" id="1_sgue5"]
 [ext_resource type="Shader" uid="uid://bu32bxcuo17mi" path="res://shaders/grid.gdshader" id="2_hvmvx"]
+[ext_resource type="Shader" uid="uid://sl7rygw7j1bj" path="res://shaders/glitch.gdshader" id="2_jryt2"]
 [ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor.tscn" id="3_go7bl"]
 [ext_resource type="PackedScene" uid="uid://bfj10dvdpxqbc" path="res://graphics/garden-board-model.gltf" id="4_yjqe1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7vlfm"]
+render_priority = 0
+shader = ExtResource("2_jryt2")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hvmvx"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -156,6 +162,8 @@ flip_faces = true
 size = Vector2(2, 2)
 
 [node name="Pond" type="Node3D"]
+script = ExtResource("1_sgue5")
+material = SubResource("ShaderMaterial_7vlfm")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
