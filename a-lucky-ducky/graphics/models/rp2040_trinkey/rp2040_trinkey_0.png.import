@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dewslxcojhm3d"
-path.s3tc="res://.godot/imported/rp2040_trinkey_0.png-1b57744853fa522db99ec99ec0ee7c34.s3tc.ctex"
+uid="uid://ct2eajqx73814"
+path.s3tc="res://.godot/imported/rp2040_trinkey_0.png-85c6a941c6f6ebb6dc885e55581eaedd.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://graphics/models/rp2040_trinkey_0.png"
-dest_files=["res://.godot/imported/rp2040_trinkey_0.png-1b57744853fa522db99ec99ec0ee7c34.s3tc.ctex"]
+source_file="res://graphics/models/rp2040_trinkey/rp2040_trinkey_0.png"
+dest_files=["res://.godot/imported/rp2040_trinkey_0.png-85c6a941c6f6ebb6dc885e55581eaedd.s3tc.ctex"]
 
 [params]
 

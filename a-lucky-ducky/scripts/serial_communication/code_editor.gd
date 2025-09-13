@@ -4,7 +4,7 @@ signal currently_typing
 signal board_changed
 
 @onready var code_editor: CodeEdit = %CodeEdit
-@onready var current_board: String = boards_info[0].board_FQBN
+@onready var current_board: String = boards_info[1].board_FQBN
 
 @export var default_code_completion_canadits: code_completion_resource
 @export var code_completion_canadits: Array[code_completion_resource]
@@ -47,7 +47,6 @@ func _ready() -> void:
 	compile_arguments = ['compile', '--fqbn', current_board, 'Alterna']
 	upload_arguments = ['upload', '-p', SerialController.portName, '--fqbn', current_board, 'Alterna']
 	
-	
 	code_editor_menu = code_editor.get_menu()
 
 	for i in boards_info.size():
@@ -86,7 +85,7 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 
 func _thread_function(cli_arguments: Array[String]):
 	var path
-	
+
 	if cli_arguments[0].contains('upload'):
 		cli_arguments[2] = SerialController.portName
 		SerialController._ClosePort()
@@ -116,7 +115,6 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var lines_added: int = 0
 
 	for line in range (code_editor.get_line_count()):
-		print('Clearing line ', line)
 		code_editor.set_line_background_color(line, Color(0,0,0,0))
 	
 	for i in range(userCode.get_line_count()):

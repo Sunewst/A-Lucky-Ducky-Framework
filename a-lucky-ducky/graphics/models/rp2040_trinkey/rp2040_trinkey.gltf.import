@@ -4,19 +4,19 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://je15asofcksw"
-path="res://.godot/imported/rp2040_trinkey.gltf-52f2c9c162b6b958e7605d325a32f8af.scn"
+path="res://.godot/imported/rp2040_trinkey.gltf-a37b74641cc67ac02eb82a187012b1ca.scn"
 
 [deps]
 
-source_file="res://graphics/models/rp2040_trinkey.gltf"
-dest_files=["res://.godot/imported/rp2040_trinkey.gltf-52f2c9c162b6b958e7605d325a32f8af.scn"]
+source_file="res://graphics/models/rp2040_trinkey/rp2040_trinkey.gltf"
+dest_files=["res://.godot/imported/rp2040_trinkey.gltf-a37b74641cc67ac02eb82a187012b1ca.scn"]
 
 [params]
 
 nodes/root_type=""
-nodes/root_name=""
+nodes/root_name="rp2040_trinkey"
 nodes/apply_root_scale=true
-nodes/root_scale=1.0
+nodes/root_scale=2.0
 nodes/import_as_skeleton_bones=false
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
