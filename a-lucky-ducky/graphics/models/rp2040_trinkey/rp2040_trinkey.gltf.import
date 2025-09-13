@@ -14,6 +14,7 @@ dest_files=["res://.godot/imported/rp2040_trinkey.gltf-a37b74641cc67ac02eb82a187
 [params]
 
 nodes/root_type=""
+<<<<<<< HEAD:a-lucky-ducky/graphics/models/rp2040_trinkey/rp2040_trinkey.gltf.import
 nodes/root_name="rp2040_trinkey"
 nodes/apply_root_scale=true
 nodes/root_scale=2.0
