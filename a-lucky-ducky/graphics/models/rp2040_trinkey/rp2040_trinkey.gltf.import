@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://je15asofcksw"
+uid="uid://bddqrjaljqs3q"
 path="res://.godot/imported/rp2040_trinkey.gltf-a37b74641cc67ac02eb82a187012b1ca.scn"
 
 [deps]
@@ -14,15 +14,9 @@ dest_files=["res://.godot/imported/rp2040_trinkey.gltf-a37b74641cc67ac02eb82a187
 [params]
 
 nodes/root_type=""
-<<<<<<< HEAD:a-lucky-ducky/graphics/models/rp2040_trinkey/rp2040_trinkey.gltf.import
 nodes/root_name="rp2040_trinkey"
 nodes/apply_root_scale=true
 nodes/root_scale=2.0
-=======
-nodes/root_name="trinkey_rp2040"
-nodes/apply_root_scale=true
-nodes/root_scale=3.0
->>>>>>> f98bb79b9e7f93e4579adf18c4ba35bd744365de:a-lucky-ducky/graphics/models/rp2040_trinkey.gltf.import
 nodes/import_as_skeleton_bones=false
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
@@ -39,5 +33,5 @@ animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
-gltf/naming_version=1
+gltf/naming_version=0
 gltf/embedded_image_handling=1
