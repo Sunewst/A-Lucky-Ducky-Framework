@@ -17,6 +17,11 @@ nodes/root_type=""
 nodes/root_name="rp2040_trinkey"
 nodes/apply_root_scale=true
 nodes/root_scale=2.0
+=======
+nodes/root_name="trinkey_rp2040"
+nodes/apply_root_scale=true
+nodes/root_scale=3.0
+>>>>>>> f98bb79b9e7f93e4579adf18c4ba35bd744365de:a-lucky-ducky/graphics/models/rp2040_trinkey.gltf.import
 nodes/import_as_skeleton_bones=false
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
