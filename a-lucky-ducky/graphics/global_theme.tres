@@ -11,7 +11,7 @@ bg_color = Color(0.0386748, 0.0606196, 0.139953, 0.407843)
 
 [resource]
 default_font = ExtResource("1_kwb7i")
-CodeEdit/colors/background_color = Color(0.001, 0.021, 0.038, 1)
+CodeEdit/colors/background_color = Color(0.000470945, 0.00988705, 0.0178907, 1)
 CodeEdit/colors/caret_color = Color(0.926832, 0.861473, 0.981657, 0.74902)
 CodeEdit/colors/current_line_color = Color(0.364706, 0.654902, 0.364706, 1)
 CodeEdit/colors/line_number_color = Color(0.247059, 0.627451, 0.643137, 1)
@@ -19,7 +19,5 @@ CodeEdit/constants/outline_size = 1
 CodeEdit/font_sizes/font_size = 12
 CodeEdit/fonts/font = ExtResource("1_kwb7i")
 CodeEdit/icons/track = ExtResource("2_677li")
-PopupMenu/fonts/font = ExtResource("1_kwb7i")
-PopupMenu/fonts/title_font = ExtResource("1_kwb7i")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_677li")
 RichTextLabel/styles/normal = SubResource("StyleBoxFlat_sfsbo")
