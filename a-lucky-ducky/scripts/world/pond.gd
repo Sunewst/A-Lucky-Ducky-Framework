@@ -21,9 +21,6 @@ func _ready() -> void:
 	stemma_port_collision.mouse_exited.connect(_on_static_body_3d_mouse_exited)
 	
 
-
-
-
 func _on_symbol_hovered(symbol: String, line: int, collumn: int):
 	match symbol:
 		"stemma0":
