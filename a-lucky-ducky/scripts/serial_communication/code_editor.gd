@@ -132,10 +132,11 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 			compiled_code.insert_line_at(compiled_code.get_line_count() - 1, current_line)
 		
 	print("Your compiled code is ready")
-	var arduino_file = FileAccess.open(ino_file_path, FileAccess.WRITE)
+	var arduino_file: FileAccess = FileAccess.open(ino_file_path, FileAccess.WRITE)
 
 	arduino_file.store_string(compiled_code.get_text())
 	create_thread(cli_arguments)
+	
 	compiled_code.queue_free()
 
 func check_for_validity(line: String) -> bool:
@@ -153,11 +154,7 @@ func create_thread(cli_arguments: Array[String]) -> void:
 	
 	thread = Thread.new()
 	thread.start(_thread_function.bind(cli_arguments))
-
-func _exit_tree() -> void:
-	print(thread.is_alive())
-	thread.wait_to_finish()
-
+	
 func _on_compile_pressed() -> void:
 	_compile_code(code_editor, compile_arguments)
 
@@ -198,7 +195,7 @@ func _highlight_errors(cli_output: String):
 
 
 func _total_lines_added(error_line: int) -> int:
-	var arduino_file = FileAccess.open(ino_file_path, FileAccess.READ)
+	var arduino_file: FileAccess = FileAccess.open(ino_file_path, FileAccess.READ)
 	var compiled_code: PackedStringArray = arduino_file.get_as_text().split("\n")
 	var total_added_lines: int = 0
 	
@@ -206,8 +203,6 @@ func _total_lines_added(error_line: int) -> int:
 		if compiled_code[i].contains('Serial.println(\"$'):
 			total_added_lines += 1
 		
-	print(total_added_lines, ' current count')
-
 	return total_added_lines
 
 func _on_board_clicked(id: int):
@@ -216,3 +211,5 @@ func _on_board_clicked(id: int):
 	board_changed.emit(current_board)
 	print("Changed board to ", current_board )
 	
+func _exit_tree() -> void:
+	thread.wait_to_finish()
