@@ -2,7 +2,7 @@ extends Node3D
 
 @export var material: Material
 
-@onready var board_model_scene = preload("res://graphics/models/rp2040_trinkey/rp2040_trinkey.tscn").instantiate()
+@onready var board_model_scene: Node = preload("res://graphics/models/rp2040_trinkey/rp2040_trinkey.tscn").instantiate()
 
 @onready var stemma_port: MeshInstance3D = board_model_scene.find_child("stemma0")
 @onready var stemma_port_collision: StaticBody3D = stemma_port.get_child(0)
