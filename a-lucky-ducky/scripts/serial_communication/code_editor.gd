@@ -10,6 +10,7 @@ signal board_changed
 @export var code_completion_canadits: Array[code_completion_resource]
 @export var board_info: board_resource
 @export var boards_info: Array[board_resource]
+
 @export var debug_messages: bool
 
 var compile_arguments: Array[String]
@@ -57,11 +58,9 @@ func _ready() -> void:
 	board_menu.id_pressed.connect(_on_board_clicked)
 
 
-	#code_editor.add_gutter()
-	#code_editor.set_gutter_type(2, TextEdit.GUTTER_TYPE_STRING)
+	code_editor.add_gutter(2)
+	code_editor.set_gutter_type(2, TextEdit.GUTTER_TYPE_STRING)
 	#code_editor.set_line_gutter_text(2, 2, 'A')
-	#code_editor.set_gutter_clickable(2, true)
-	#code_editor.set_gutter_draw(2, true)
 
 
 	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
@@ -71,7 +70,7 @@ func _ready() -> void:
 	code_editor.code_completion_enabled = false
 	code_editor.text_changed.connect(code_request_code_completion)
 	
-
+	mark_loop()
 
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 	if data.begins_with('$'):
@@ -209,7 +208,19 @@ func _on_board_clicked(id: int):
 	current_board = board_menu.get_item_text(id)
 	compile_arguments[2] = current_board
 	board_changed.emit(current_board)
-	print("Changed board to ", current_board )
+	print("Changed board to ", current_board)
 	
+	
+func mark_loop():
+	var loop_start_location: Vector2i = code_editor.search("Void loop()", 2, 0, 0)
+	code_editor.set_line_gutter_text(loop_start_location[1], 2, 'L')
+	code_editor.set_gutter_draw(2, true)
+	code_editor.set_line_gutter_clickable(loop_start_location[1], 2, true)
+
+
+func _on_code_edit_gutter_clicked(line: int, gutter: int) -> void:
+	print("Gutter ", gutter, " Line: ", line)
+
+
 func _exit_tree() -> void:
 	thread.wait_to_finish()

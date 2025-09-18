@@ -133,6 +133,7 @@ script = ExtResource("10_yxof0")
 
 [connection signal="focus_entered" from="CodeEdit" to="." method="_on_code_edit_focus_entered"]
 [connection signal="focus_exited" from="CodeEdit" to="." method="_on_code_edit_focus_exited"]
+[connection signal="gutter_clicked" from="CodeEdit" to="." method="_on_code_edit_gutter_clicked"]
 [connection signal="pressed" from="Compile" to="." method="_on_compile_pressed"]
 [connection signal="pressed" from="Upload" to="." method="_on_upload_pressed"]
 [connection signal="item_selected" from="PortList" to="PortList" method="_on_item_selected"]
