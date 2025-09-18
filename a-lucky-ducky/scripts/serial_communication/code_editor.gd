@@ -56,14 +56,12 @@ func _ready() -> void:
 	code_editor_menu.add_submenu_node_item("Boards", board_menu)
 	
 	board_menu.id_pressed.connect(_on_board_clicked)
+	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
 
 
 	code_editor.add_gutter(2)
 	code_editor.set_gutter_type(2, TextEdit.GUTTER_TYPE_STRING)
-	#code_editor.set_line_gutter_text(2, 2, 'A')
 
-
-	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
 
 	thread = Thread.new()
 
@@ -216,6 +214,7 @@ func mark_loop():
 	code_editor.set_line_gutter_text(loop_start_location[1], 2, 'L')
 	code_editor.set_gutter_draw(2, true)
 	code_editor.set_line_gutter_clickable(loop_start_location[1], 2, true)
+	code_editor.set_line_gutter_item_color(loop_start_location[1], 2, Color(0.909, 0.189, 0.475, 1.0))
 
 
 func _on_code_edit_gutter_clicked(line: int, gutter: int) -> void:
