@@ -18,8 +18,8 @@ func _ready() -> void:
 	add_child(board_model_scene)
 	
 	for collision_shape in board_collision_shapes:
-		collision_shape.mouse_entered.connect(_on_static_body_3d_mouse_entered)
-		collision_shape.mouse_exited.connect(_on_static_body_3d_mouse_exited)
+		collision_shape.mouse_entered.connect(_on_static_body_3d_mouse_entered.bind(collision_shape.get_parent()))
+		collision_shape.mouse_exited.connect(_on_static_body_3d_mouse_exited.bind(collision_shape.get_parent()))
 	
 	code_editor_node.symbol_hovered.connect(_on_symbol_hovered)
 	code_editor_node.focus_entered.connect(_on_text_hovered)
@@ -41,12 +41,13 @@ func _on_text_hovered():
 func _focus_entered():
 	print("Hovered")
 
-func _on_static_body_3d_mouse_entered() -> void:
-	stemma_port.material_overlay = material
+func _on_static_body_3d_mouse_entered(mesh: MeshInstance3D) -> void:
+	mesh.material_overlay = material
+	
 
 
-func _on_static_body_3d_mouse_exited() -> void:
-	stemma_port.material_overlay = null
+func _on_static_body_3d_mouse_exited(mesh: MeshInstance3D) -> void:
+	mesh.material_overlay = null
 	
 
 func _on_code_editor_board_changed(new_board) -> void:

@@ -9,5 +9,5 @@ board_FQBN = "rp2040:rp2040:adafruit_trinkeyrp2040qt"
 board_core = "rp2040:rp2040"
 board_author = "Adafruit"
 board_url = "https://www.adafruit.com/product/5056"
-dynamic_parts = Array[String](["stemma_0"])
+dynamic_parts = Array[String](["stemma_0", "button_0"])
 metadata/_custom_type_script = "uid://4as1lu3lsvt8"
