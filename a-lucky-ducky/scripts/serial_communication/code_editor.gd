@@ -2,6 +2,7 @@ extends Control
 
 signal currently_typing
 signal board_changed
+signal line_edited
 
 @onready var code_editor: CodeEdit = %CodeEdit
 @onready var current_board: String = boards_info[1].board_FQBN
@@ -27,6 +28,8 @@ var code_editor_menu
 
 var board_menu = PopupMenu.new()
 
+var _timer: Timer
+
 var _ignore_keywords: Array[String] = [
 	"{",
 	"}",
@@ -45,6 +48,11 @@ var _ignore_keywords: Array[String] = [
 
 
 func _ready() -> void:
+	_timer = Timer.new()
+	_timer.set_one_shot(true)
+	_timer.set_wait_time(1.0)
+	add_child(_timer)
+
 	compile_arguments = ['compile', '--fqbn', current_board, 'Alterna']
 	upload_arguments = ['upload', '-p', SerialController.portName, '--fqbn', current_board, 'Alterna']
 	
@@ -67,6 +75,9 @@ func _ready() -> void:
 
 	code_editor.code_completion_enabled = false
 	code_editor.text_changed.connect(code_request_code_completion)
+	
+	
+	_timer.timeout.connect(user_finished_typing)
 	
 	mark_loop()
 
@@ -219,6 +230,14 @@ func mark_loop():
 
 func _on_code_edit_gutter_clicked(line: int, gutter: int) -> void:
 	print("Gutter ", gutter, " Line: ", line)
+
+
+func _on_code_edit_text_changed() -> void:
+	_timer.start()
+
+
+func user_finished_typing() -> void:
+	emit_signal("line_edited")
 
 
 func _exit_tree() -> void:
