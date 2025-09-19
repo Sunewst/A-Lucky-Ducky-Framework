@@ -219,6 +219,10 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_yjqe1")
 
+[node name="RayCast3D" type="RayCast3D" parent="SubViewportContainer/SubViewport/CameraControls/Camera3D"]
+unique_name_in_owner = true
+transform = Transform3D(0.9331982, 0, -0.35936213, -0.17968106, 0.8660253, -0.46659917, 0.3112167, 0.50000006, 0.80817336, -0.58983517, -0.6405964, -48.70159)
+
 [node name="code_editor" parent="." instance=ExtResource("3_go7bl")]
 boards_info = Array[ExtResource("7_n8bwo")]([ExtResource("8_bpkyh"), ExtResource("9_vud12"), ExtResource("10_p8mmv")])
 

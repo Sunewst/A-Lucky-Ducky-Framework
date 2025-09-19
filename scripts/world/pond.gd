@@ -5,21 +5,26 @@ extends Node3D
 @onready var board_model_scene: Node = preload("res://graphics/models/rp2040_trinkey/rp2040_trinkey.tscn").instantiate()
 
 @onready var stemma_port: MeshInstance3D = board_model_scene.find_child("stemma0")
-@onready var stemma_port_collision: StaticBody3D = stemma_port.get_child(0)
+
+@onready var dynamic_parts: Resource = preload("res://resources/boards/rp2040_trinkey.tres")
+@onready var board_collision_shapes = board_model_scene.find_children("StaticBody3D")
 
 @onready var code_editor_node: CodeEdit = find_child("CodeEdit")
 
 var part_hovered: bool
 
+
 func _ready() -> void:
 	add_child(board_model_scene)
+	
+	for collision_shape in board_collision_shapes:
+		collision_shape.mouse_entered.connect(_on_static_body_3d_mouse_entered)
+		collision_shape.mouse_exited.connect(_on_static_body_3d_mouse_exited)
 	
 	code_editor_node.symbol_hovered.connect(_on_symbol_hovered)
 	code_editor_node.focus_entered.connect(_on_text_hovered)
 
-	stemma_port_collision.mouse_entered.connect(_on_static_body_3d_mouse_entered)
-	stemma_port_collision.mouse_exited.connect(_on_static_body_3d_mouse_exited)
-	
+
 
 func _on_symbol_hovered(symbol: String, line: int, collumn: int):
 	match symbol:
