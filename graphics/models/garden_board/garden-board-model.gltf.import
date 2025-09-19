@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bfj10dvdpxqbc"
-path="res://.godot/imported/garden-board-model.gltf-c8f4b2ffe46c5cf3fd79dff84f1d64b3.scn"
+path="res://.godot/imported/garden-board-model.gltf-bf6286dd7113bf50b4867cdde6847f93.scn"
 
 [deps]
 
-source_file="res://graphics/garden-board-model.gltf"
-dest_files=["res://.godot/imported/garden-board-model.gltf-c8f4b2ffe46c5cf3fd79dff84f1d64b3.scn"]
+source_file="res://graphics/models/garden_board/garden-board-model.gltf"
+dest_files=["res://.godot/imported/garden-board-model.gltf-bf6286dd7113bf50b4867cdde6847f93.scn"]
 
 [params]
 

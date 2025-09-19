@@ -70,7 +70,6 @@ func _ready() -> void:
 	code_editor.add_gutter(2)
 	code_editor.set_gutter_type(2, TextEdit.GUTTER_TYPE_STRING)
 
-
 	thread = Thread.new()
 
 	code_editor.code_completion_enabled = false

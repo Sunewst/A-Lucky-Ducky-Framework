@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/world/camera_controls.gd" id="1_4h7al"]
 [ext_resource type="Script" uid="uid://crviwgj8ijc24" path="res://scripts/world/pond.gd" id="1_sgue5"]
 [ext_resource type="Shader" uid="uid://bu32bxcuo17mi" path="res://shaders/grid.gdshader" id="2_hvmvx"]
-[ext_resource type="Shader" uid="uid://sl7rygw7j1bj" path="res://shaders/glitch.gdshader" id="2_jryt2"]
+[ext_resource type="Shader" uid="uid://sl7rygw7j1bj" path="res://shaders/highlight.gdshader" id="2_jryt2"]
 [ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor.tscn" id="3_go7bl"]
 [ext_resource type="Script" uid="uid://4as1lu3lsvt8" path="res://resources/boards/board_resource.gd" id="7_n8bwo"]
 [ext_resource type="Resource" uid="uid://cqwrnue4ejuti" path="res://resources/boards/arduino_uno.tres" id="8_bpkyh"]
