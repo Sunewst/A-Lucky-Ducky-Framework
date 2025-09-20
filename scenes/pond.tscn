@@ -202,24 +202,24 @@ shadow_enabled = true
 [node name="Ground" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 mesh = SubResource("BoxMesh_sgue5")
 
-[node name="CameraControls" type="Node3D" parent="SubViewportContainer/SubViewport"]
+[node name="CameraControl" type="Node3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(0.933198, -0.179681, 0.311216, 0, 0.866025, 0.5, -0.359362, -0.466599, 0.808173, -0.000476569, 0.46578, -0.423462)
 script = ExtResource("1_4h7al")
 snap = false
 
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraControls"]
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraControl"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 5.66244e-07, 0, 1, -2.08616e-07, 0, 2.98023e-08, 1, 0.438132, 0.0395386, 48.8111)
 projection = 1
 size = 5.0
 far = 200.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/CameraControls/Camera3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/CameraControl/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0.0500045, -0.175917)
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_yjqe1")
 
-[node name="RayCast3D" type="RayCast3D" parent="SubViewportContainer/SubViewport/CameraControls/Camera3D"]
+[node name="RayCast3D" type="RayCast3D" parent="SubViewportContainer/SubViewport/CameraControl/Camera3D"]
 unique_name_in_owner = true
 transform = Transform3D(0.9331982, 0, -0.35936213, -0.17968106, 0.8660253, -0.46659917, 0.3112167, 0.50000006, 0.80817336, -0.58983517, -0.6405964, -48.70159)
 
@@ -227,4 +227,4 @@ transform = Transform3D(0.9331982, 0, -0.35936213, -0.17968106, 0.8660253, -0.46
 boards_info = Array[ExtResource("7_n8bwo")]([ExtResource("8_bpkyh"), ExtResource("9_vud12"), ExtResource("10_p8mmv")])
 
 [connection signal="board_changed" from="code_editor" to="." method="_on_code_editor_board_changed"]
-[connection signal="currently_typing" from="code_editor" to="SubViewportContainer/SubViewport/CameraControls" method="_on_code_editor_currently_typing"]
+[connection signal="currently_typing" from="code_editor" to="SubViewportContainer/SubViewport/CameraControl" method="_on_code_editor_currently_typing"]
