@@ -80,6 +80,7 @@ func _ready() -> void:
 	
 	mark_loop()
 
+
 func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 	if data.begins_with('$'):
 		var _current_line: int = data.get_slice('$', 1).to_int()
@@ -89,6 +90,7 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 		
 		code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
 		_past_line = _current_line
+
 
 func _thread_function(cli_arguments: Array[String]):
 	var path
@@ -146,12 +148,14 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	
 	compiled_code.queue_free()
 
+
 func check_for_validity(line: String) -> bool:
 	line = line.get_slice("//", 0).strip_edges()
 	for ignore_keyword in _ignore_keywords:
 		if line.begins_with(ignore_keyword) or line.ends_with(ignore_keyword) or line.is_empty():
 			return false
 	return true
+
 
 func create_thread(cli_arguments: Array[String]) -> void:
 	if not thread.is_alive():
@@ -161,7 +165,8 @@ func create_thread(cli_arguments: Array[String]) -> void:
 	
 	thread = Thread.new()
 	thread.start(_thread_function.bind(cli_arguments))
-	
+
+
 func _on_compile_pressed() -> void:
 	_compile_code(code_editor, compile_arguments)
 
@@ -200,7 +205,6 @@ func _highlight_errors(cli_output: String):
 	printerr("Failed to compile!")
 
 
-
 func _total_lines_added(error_line: int) -> int:
 	var arduino_file: FileAccess = FileAccess.open(ino_file_path, FileAccess.READ)
 	var compiled_code: PackedStringArray = arduino_file.get_as_text().split("\n")
@@ -212,13 +216,14 @@ func _total_lines_added(error_line: int) -> int:
 		
 	return total_added_lines
 
+
 func _on_board_clicked(id: int):
 	current_board = board_menu.get_item_text(id)
 	compile_arguments[2] = current_board
 	board_changed.emit(current_board)
 	print("Changed board to ", current_board)
-	
-	
+
+
 func mark_loop():
 	var loop_start_location: Vector2i = code_editor.search("Void loop()", 2, 0, 0)
 	code_editor.set_line_gutter_text(loop_start_location[1], 2, 'L')
