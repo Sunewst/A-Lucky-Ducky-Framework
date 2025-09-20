@@ -17,7 +17,7 @@ signal line_edited
 var compile_arguments: Array[String]
 var upload_arguments: Array[String]
 
-var ino_file_path: String = 'res://Alterna/Alterna.ino'
+const ino_file_path: String = 'res://Alterna/Alterna.ino'
 
 var thread: Thread
 
@@ -76,7 +76,7 @@ func _ready() -> void:
 	code_editor.text_changed.connect(code_request_code_completion)
 	
 	
-	_timer.timeout.connect(user_finished_typing)
+	_timer.timeout.connect(_user_finished_typing)
 	
 	mark_loop()
 
@@ -110,12 +110,12 @@ func _thread_function(cli_arguments: Array[String]):
 	
 	print(output[0])
 	if output[0].contains("Error"):
-		_highlight_errors(output[0])
+		highlight_errors(output[0])
 	if cli_arguments[0].contains('upload'):
 		SerialController._OpenPort()
 
 
-func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
+func compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var compiled_code = CodeEdit.new()
 	var compiled_line_count: int
 	var current_line: String
@@ -127,7 +127,7 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	for i in range(userCode.get_line_count()):
 		current_line = userCode.get_line(i)
 		compiled_line_count = compiled_code.get_line_count()
-		if check_for_validity(current_line):
+		if _check_for_validity(current_line):
 			if debug_messages:
 				print("Valid " + str(i + 1) + ": " + str(current_line))
 			compiled_code.insert_line_at(compiled_line_count - 1, current_line)
@@ -142,18 +142,18 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var arduino_file: FileAccess = FileAccess.open(ino_file_path, FileAccess.WRITE)
 
 	arduino_file.store_string(compiled_code.get_text())
-	create_thread(cli_arguments)
+	_create_thread(cli_arguments)
 	
 	compiled_code.queue_free()
 
-func check_for_validity(line: String) -> bool:
+func _check_for_validity(line: String) -> bool:
 	line = line.get_slice("//", 0).strip_edges()
 	for ignore_keyword in _ignore_keywords:
 		if line.begins_with(ignore_keyword) or line.ends_with(ignore_keyword) or line.is_empty():
 			return false
 	return true
 
-func create_thread(cli_arguments: Array[String]) -> void:
+func _create_thread(cli_arguments: Array[String]) -> void:
 	if not thread.is_alive():
 		thread.wait_to_finish()
 	else:
@@ -163,10 +163,10 @@ func create_thread(cli_arguments: Array[String]) -> void:
 	thread.start(_thread_function.bind(cli_arguments))
 	
 func _on_compile_pressed() -> void:
-	_compile_code(code_editor, compile_arguments)
+	compile_code(code_editor, compile_arguments)
 
 func _on_upload_pressed() -> void:
-	_compile_code(code_editor, upload_arguments)
+	compile_code(code_editor, upload_arguments)
 
 func _on_code_edit_focus_entered() -> void:
 	emit_signal("currently_typing", true)
@@ -184,7 +184,7 @@ func code_request_code_completion():
 	code_editor.update_code_completion_options(true)
 
 
-func _highlight_errors(cli_output: String):
+func highlight_errors(cli_output: String):
 	var cli_output_array: PackedStringArray = cli_output.split("\n", true)
 	var cli_error
 	var cli_line_error
@@ -235,7 +235,7 @@ func _on_code_edit_text_changed() -> void:
 	_timer.start()
 
 
-func user_finished_typing() -> void:
+func _user_finished_typing() -> void:
 	emit_signal("line_edited")
 
 
