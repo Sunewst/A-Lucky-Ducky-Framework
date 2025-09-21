@@ -134,7 +134,7 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 				print("Valid " + str(i + 1) + ": " + str(current_line))
 			compiled_code.insert_line_at(compiled_line_count - 1, current_line)
 			lines_added += 1
-			compiled_code.insert_line_at(compiled_line_count - 1, "Serial.println(\"$" + str(compiled_line_count + 1) + "$" + str(lines_added) + "\");")
+			compiled_code.insert_line_at(compiled_line_count - 1, "Serial.println(\"\\n$" + str(compiled_line_count + 1) + "$" + str(lines_added) + "\");")
 		else:
 			if debug_messages:
 				print("Not Valid: " + str(i + 1) + ": " + str(current_line))
