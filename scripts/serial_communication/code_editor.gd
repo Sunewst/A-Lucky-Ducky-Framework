@@ -48,11 +48,6 @@ var _ignore_keywords: Array[String] = [
 
 
 func _ready() -> void:
-	_timer = Timer.new()
-	_timer.set_one_shot(true)
-	_timer.set_wait_time(1.0)
-	add_child(_timer)
-
 	compile_arguments = ['compile', '--fqbn', current_board, 'Alterna']
 	upload_arguments = ['upload', '-p', SerialController.portName, '--fqbn', current_board, 'Alterna']
 	
@@ -66,12 +61,16 @@ func _ready() -> void:
 	board_menu.id_pressed.connect(_on_board_clicked)
 	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
 
-
 	code_editor.add_gutter(2)
 	code_editor.set_gutter_type(2, TextEdit.GUTTER_TYPE_STRING)
 
 	thread = Thread.new()
-
+	
+	_timer = Timer.new()
+	_timer.set_one_shot(true)
+	_timer.set_wait_time(1.0)
+	add_child(_timer)
+	
 	code_editor.code_completion_enabled = false
 	code_editor.text_changed.connect(code_request_code_completion)
 	
@@ -170,8 +169,10 @@ func create_thread(cli_arguments: Array[String]) -> void:
 func _on_compile_pressed() -> void:
 	_compile_code(code_editor, compile_arguments)
 
+
 func _on_upload_pressed() -> void:
 	_compile_code(code_editor, upload_arguments)
+
 
 func _on_code_edit_focus_entered() -> void:
 	emit_signal("currently_typing", true)
