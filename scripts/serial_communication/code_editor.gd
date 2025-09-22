@@ -46,6 +46,9 @@ var _ignore_keywords: Array[String] = [
 	"Serial.begin",
 ]
 
+var _unique_highlighting_keywords: Array[String] = [
+	"Delay"
+]
 
 func _ready() -> void:
 	compile_arguments = ['compile', '--fqbn', current_board, 'Alterna']
@@ -148,12 +151,17 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	compiled_code.queue_free()
 
 
-func check_for_validity(line: String) -> bool:
+func check_for_validity(line: String) -> String:
 	line = line.get_slice("//", 0).strip_edges()
 	for ignore_keyword in _ignore_keywords:
 		if line.begins_with(ignore_keyword) or line.ends_with(ignore_keyword) or line.is_empty():
-			return false
-	return true
+			return ""
+			
+	for unique_highlighting_keyword in _unique_highlighting_keywords:
+		if line.contains(unique_highlighting_keyword):
+			return unique_highlighting_keyword
+	
+	return "Default"
 
 
 func create_thread(cli_arguments: Array[String]) -> void:
