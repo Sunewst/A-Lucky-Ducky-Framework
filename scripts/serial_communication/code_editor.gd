@@ -51,6 +51,10 @@ var _unique_highlighting_keywords: Array[String] = [
 	"delay"
 ]
 
+var _unique_highlighting_keywordsdic: Dictionary = {
+	"delay": [Callable(self, "delay_highlighting")]
+}
+
 func _ready() -> void:
 	compile_arguments = ['compile', '--fqbn', current_board, 'Alterna']
 	upload_arguments = ['upload', '-p', SerialController.portName, '--fqbn', current_board, 'Alterna']
@@ -63,7 +67,7 @@ func _ready() -> void:
 	code_editor_menu.add_submenu_node_item("Boards", board_menu)
 	
 	board_menu.id_pressed.connect(_on_board_clicked)
-	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
+	SerialController.SerialDataReceived.connect(_on_serial_data_received)
 
 	code_editor.add_gutter(2)
 	code_editor.set_gutter_type(2, TextEdit.GUTTER_TYPE_STRING)
@@ -80,19 +84,24 @@ func _ready() -> void:
 	
 	
 	_timer.timeout.connect(user_finished_typing)
-	
+
 	mark_loop()
+	_on_serial_data_received("$1$delay$500")
 
 
-func _on_simple_serial_controller_serial_data_received(data: String) -> void:
+func _on_serial_data_received(data: String) -> void:
 	if data.begins_with('$'):
-		var _current_line: int = data.get_slice('$', 1).to_int()
-		code_editor.set_line_background_color(_past_line - _lines_added - 1, Color(0,0,0,0))
+		var serial_slices = data.split("$")
+		if data.count("$") == 2:
+			_unique_highlighting_keywordsdic[serial_slices[1]][0].call(serial_slices[2])
+		else: 
+			var _current_line: int = serial_slices[0].to_int()
+			code_editor.set_line_background_color(_past_line - _lines_added - 1, Color(0,0,0,0))
 
-		_lines_added = _total_lines_added(_current_line)
+			_lines_added = _total_lines_added(_current_line)
 		
-		code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
-		_past_line = _current_line
+			code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
+			_past_line = _current_line
 
 
 func _thread_function(cli_arguments: Array[String]):
@@ -153,26 +162,22 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 
 
 func check_for_validity(line: String) -> String:
+	var print_highlight = "Serial.println(\"\\n$%s$%s$%s\");"
 	line = line.get_slice("//", 0).strip_edges()
 	for ignore_keyword in _ignore_keywords:
 		if line.begins_with(ignore_keyword) or line.ends_with(ignore_keyword) or line.is_empty():
 			return ""
-			
-	for unique_highlighting_keyword in _unique_highlighting_keywords:
+
+	for unique_highlighting_keyword in _unique_highlighting_keywordsdic.keys():
 		if line.contains(unique_highlighting_keyword):
-			return _unqiue_highlighting_string(line, unique_highlighting_keyword)
+			print_highlight = print_highlight % [compiled_line_count + 1, unique_highlighting_keyword, line.to_int()]
+			return print_highlight
 	
-	return _unqiue_highlighting_string(line, "Default") 
+	return "Serial.println(\"\\n$%s);" % [compiled_line_count + 1]
 
-func _unqiue_highlighting_string(line: String, highlighting_keyword: String) -> String:
-	match highlighting_keyword:
-		"delay":
-			return("Serial.println(\"\\n$" + str(compiled_line_count + 1) + "$" + str(line.to_int()) + "\");")
-		_:
-			return ("Serial.println(\"\\n$" + str(compiled_line_count + 1) + "\");")
-			
-			
 
+func delay_highlighting(line: int):
+	print("This is line:", line)
 
 func create_thread(cli_arguments: Array[String]) -> void:
 	if not thread.is_alive():
