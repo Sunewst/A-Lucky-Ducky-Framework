@@ -89,7 +89,6 @@ func _on_simple_serial_controller_serial_data_received(data: String) -> void:
 		var _current_line: int = data.get_slice('$', 1).to_int()
 		code_editor.set_line_background_color(_past_line - _lines_added - 1, Color(0,0,0,0))
 
-		#_lines_added = data.get_slice('$', 2).to_int()
 		_lines_added = _total_lines_added(_current_line)
 		
 		code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
@@ -198,8 +197,7 @@ func _on_code_edit_focus_entered() -> void:
 
 
 func _on_code_edit_focus_exited() -> void:
-	emit_signal("currently_typing", false)
-	
+	emit_signal("currently_typing", false)	
 
 
 func code_request_code_completion():
