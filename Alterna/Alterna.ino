@@ -1,8 +1,9 @@
 void setup() {
+  Serial.begin(115200);
   
 }
 
 void loop() {
-Serial.println("$7$1");
-  Adwa
+Serial.println("\n$8$500");
+  delay(500)
 }
