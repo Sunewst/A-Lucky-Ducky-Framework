@@ -47,11 +47,7 @@ var _ignore_keywords: Array[String] = [
 	"Serial.begin",
 ]
 
-var _unique_highlighting_keywords: Array[String] = [
-	"delay"
-]
-
-var _unique_highlighting_keywordsdic: Dictionary = {
+var _unique_highlighting_keywords: Dictionary = {
 	"delay": [Callable(self, "delay_highlighting")]
 }
 
@@ -86,14 +82,13 @@ func _ready() -> void:
 	_timer.timeout.connect(user_finished_typing)
 
 	mark_loop()
-	_on_serial_data_received("$1$delay$500")
 
 
 func _on_serial_data_received(data: String) -> void:
 	if data.begins_with('$'):
-		var serial_slices = data.split("$")
-		if data.count("$") == 2:
-			_unique_highlighting_keywordsdic[serial_slices[1]][0].call(serial_slices[2])
+		var serial_slices = data.split("$", false)
+		if data.count("$") >= 2:
+			_unique_highlighting_keywords[serial_slices[1]] [0].call(serial_slices[0].to_int())
 		else: 
 			var _current_line: int = serial_slices[0].to_int()
 			code_editor.set_line_background_color(_past_line - _lines_added - 1, Color(0,0,0,0))
@@ -168,7 +163,7 @@ func check_for_validity(line: String) -> String:
 		if line.begins_with(ignore_keyword) or line.ends_with(ignore_keyword) or line.is_empty():
 			return ""
 
-	for unique_highlighting_keyword in _unique_highlighting_keywordsdic.keys():
+	for unique_highlighting_keyword in _unique_highlighting_keywords.keys():
 		if line.contains(unique_highlighting_keyword):
 			print_highlight = print_highlight % [compiled_line_count + 1, unique_highlighting_keyword, line.to_int()]
 			return print_highlight
@@ -177,7 +172,7 @@ func check_for_validity(line: String) -> String:
 
 
 func delay_highlighting(line: int):
-	print("This is line:", line)
+	code_editor.set_line_background_color(line, Color(0.78, 0.718, 0.02, 0.125))
 
 func create_thread(cli_arguments: Array[String]) -> void:
 	if not thread.is_alive():
