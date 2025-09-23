@@ -23,6 +23,7 @@ var thread: Thread
 
 var _past_line: int
 var _lines_added: int = 0
+var compiled_line_count: int
 
 var code_editor_menu
 
@@ -46,6 +47,9 @@ var _ignore_keywords: Array[String] = [
 	"Serial.begin",
 ]
 
+var _unique_highlighting_keywords: Dictionary = {
+	"delay": [Callable(self, "delay_highlighting")]
+}
 
 func _ready() -> void:
 	compile_arguments = ['compile', '--fqbn', current_board, 'Alterna']
@@ -59,7 +63,7 @@ func _ready() -> void:
 	code_editor_menu.add_submenu_node_item("Boards", board_menu)
 	
 	board_menu.id_pressed.connect(_on_board_clicked)
-	SerialController.SerialDataReceived.connect(_on_simple_serial_controller_serial_data_received)
+	SerialController.SerialDataReceived.connect(_on_serial_data_received)
 
 	code_editor.add_gutter(2)
 	code_editor.set_gutter_type(2, TextEdit.GUTTER_TYPE_STRING)
@@ -76,19 +80,23 @@ func _ready() -> void:
 	
 	
 	_timer.timeout.connect(user_finished_typing)
-	
+
 	mark_loop()
 
 
-func _on_simple_serial_controller_serial_data_received(data: String) -> void:
+func _on_serial_data_received(data: String) -> void:
 	if data.begins_with('$'):
-		var _current_line: int = data.get_slice('$', 1).to_int()
-		code_editor.set_line_background_color(_past_line - _lines_added - 1, Color(0,0,0,0))
+		var serial_slices = data.split("$", false)
+		if data.count("$") >= 2:
+			_unique_highlighting_keywords[serial_slices[1]] [0].call(serial_slices[0].to_int())
+		else: 
+			var _current_line: int = serial_slices[0].to_int()
+			code_editor.set_line_background_color(_past_line - _lines_added - 1, Color(0,0,0,0))
 
-		_lines_added = data.get_slice('$', 2).to_int()
+			_lines_added = _total_lines_added(_current_line)
 		
-		code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
-		_past_line = _current_line
+			code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
+			_past_line = _current_line
 
 
 func _thread_function(cli_arguments: Array[String]):
@@ -118,9 +126,7 @@ func _thread_function(cli_arguments: Array[String]):
 
 func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var compiled_code = CodeEdit.new()
-	var compiled_line_count: int
 	var current_line: String
-	var lines_added: int = 0
 
 	for line in range (code_editor.get_line_count()):
 		code_editor.set_line_background_color(line, Color(0,0,0,0))
@@ -128,12 +134,14 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	for i in range(userCode.get_line_count()):
 		current_line = userCode.get_line(i)
 		compiled_line_count = compiled_code.get_line_count()
-		if check_for_validity(current_line):
+		var highlight_keyword: String = check_for_validity(current_line)
+
+		if not highlight_keyword.is_empty():
 			if debug_messages:
 				print("Valid " + str(i + 1) + ": " + str(current_line))
 			compiled_code.insert_line_at(compiled_line_count - 1, current_line)
-			lines_added += 1
-			compiled_code.insert_line_at(compiled_line_count - 1, "Serial.println(\"\\n$" + str(compiled_line_count + 1) + "$" + str(lines_added) + "\");")
+			compiled_code.insert_line_at(compiled_line_count - 1, highlight_keyword)
+			
 		else:
 			if debug_messages:
 				print("Not Valid: " + str(i + 1) + ": " + str(current_line))
@@ -148,13 +156,23 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	compiled_code.queue_free()
 
 
-func check_for_validity(line: String) -> bool:
+func check_for_validity(line: String) -> String:
+	var print_highlight = "Serial.println(\"\\n$%s$%s$%s\");"
 	line = line.get_slice("//", 0).strip_edges()
 	for ignore_keyword in _ignore_keywords:
 		if line.begins_with(ignore_keyword) or line.ends_with(ignore_keyword) or line.is_empty():
-			return false
-	return true
+			return ""
 
+	for unique_highlighting_keyword in _unique_highlighting_keywords.keys():
+		if line.contains(unique_highlighting_keyword):
+			print_highlight = print_highlight % [compiled_line_count + 1, unique_highlighting_keyword, line.to_int()]
+			return print_highlight
+	
+	return "Serial.println(\"\\n$%s);" % [compiled_line_count + 1]
+
+
+func delay_highlighting(line: int):
+	code_editor.set_line_background_color(line, Color(0.78, 0.718, 0.02, 0.125))
 
 func create_thread(cli_arguments: Array[String]) -> void:
 	if not thread.is_alive():
@@ -179,8 +197,7 @@ func _on_code_edit_focus_entered() -> void:
 
 
 func _on_code_edit_focus_exited() -> void:
-	emit_signal("currently_typing", false)
-	
+	emit_signal("currently_typing", false)	
 
 
 func code_request_code_completion():
@@ -206,15 +223,15 @@ func _highlight_errors(cli_output: String):
 	printerr("Failed to compile!")
 
 
-func _total_lines_added(error_line: int) -> int:
+func _total_lines_added(last_line: int) -> int:
 	var arduino_file: FileAccess = FileAccess.open(ino_file_path, FileAccess.READ)
 	var compiled_code: PackedStringArray = arduino_file.get_as_text().split("\n")
 	var total_added_lines: int = 0
-	
-	for i in error_line:
-		if compiled_code[i].contains('Serial.println(\"$'):
+
+	for i in last_line:
+		if compiled_code[i].contains('Serial.println(\"\\n$'):
 			total_added_lines += 1
-		
+
 	return total_added_lines
 
 
