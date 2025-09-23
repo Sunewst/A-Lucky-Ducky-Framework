@@ -29,7 +29,7 @@ var code_editor_menu
 
 var board_menu = PopupMenu.new()
 
-var _timer: Timer
+var _text_timer: Timer
 
 var _ignore_keywords: Array[String] = [
 	"{",
@@ -70,16 +70,16 @@ func _ready() -> void:
 
 	thread = Thread.new()
 	
-	_timer = Timer.new()
-	_timer.set_one_shot(true)
-	_timer.set_wait_time(1.0)
-	add_child(_timer)
+	_text_timer = Timer.new()
+	_text_timer.set_one_shot(true)
+	_text_timer.set_wait_time(1.0)
+	add_child(_text_timer)
 	
 	code_editor.code_completion_enabled = false
 	code_editor.text_changed.connect(code_request_code_completion)
 	
 	
-	_timer.timeout.connect(user_finished_typing)
+	_text_timer.timeout.connect(user_finished_typing)
 
 	mark_loop()
 
@@ -172,7 +172,9 @@ func check_for_validity(line: String) -> String:
 
 
 func delay_highlighting(line: int):
+	
 	code_editor.set_line_background_color(line, Color(0.78, 0.718, 0.02, 0.125))
+	add_child(TimerDisplay.create_new_timer(5, 8))
 
 func create_thread(cli_arguments: Array[String]) -> void:
 	if not thread.is_alive():
@@ -255,7 +257,7 @@ func _on_code_edit_gutter_clicked(line: int, gutter: int) -> void:
 
 
 func _on_code_edit_text_changed() -> void:
-	_timer.start()
+	_text_timer.start()
 
 
 func user_finished_typing() -> void:
