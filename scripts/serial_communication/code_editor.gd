@@ -124,7 +124,6 @@ func _thread_function(cli_arguments: Array[String]):
 func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var compiled_code = CodeEdit.new()
 	var current_line: String
-	#var lines_added: int = 0
 
 	for line in range (code_editor.get_line_count()):
 		code_editor.set_line_background_color(line, Color(0,0,0,0))
@@ -132,13 +131,12 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	for i in range(userCode.get_line_count()):
 		current_line = userCode.get_line(i)
 		compiled_line_count = compiled_code.get_line_count()
-		var highlight_keyword = check_for_validity(current_line)
+		var highlight_keyword: String = check_for_validity(current_line)
 
 		if not highlight_keyword.is_empty():
 			if debug_messages:
 				print("Valid " + str(i + 1) + ": " + str(current_line))
 			compiled_code.insert_line_at(compiled_line_count - 1, current_line)
-			#lines_added += 1
 			compiled_code.insert_line_at(compiled_line_count - 1, highlight_keyword)
 			
 		else:
@@ -231,11 +229,11 @@ func _total_lines_added(last_line: int) -> int:
 	var arduino_file: FileAccess = FileAccess.open(ino_file_path, FileAccess.READ)
 	var compiled_code: PackedStringArray = arduino_file.get_as_text().split("\n")
 	var total_added_lines: int = 0
-	
+
 	for i in last_line:
-		if compiled_code[i].contains('Serial.println(\"$'):
+		if compiled_code[i].contains('Serial.println(\"\\n$'):
 			total_added_lines += 1
-		
+
 	return total_added_lines
 
 
