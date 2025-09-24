@@ -158,6 +158,7 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 
 func check_for_validity(line: String) -> String:
 	var print_highlight = "Serial.println(\"\\n$%s$%s$%s\");"
+
 	line = line.get_slice("//", 0).strip_edges()
 	for ignore_keyword in _ignore_keywords:
 		if line.begins_with(ignore_keyword) or line.ends_with(ignore_keyword) or line.is_empty():
@@ -172,7 +173,6 @@ func check_for_validity(line: String) -> String:
 
 
 func delay_highlighting(line: int):
-	
 	code_editor.set_line_background_color(line, Color(0.78, 0.718, 0.02, 0.125))
 	add_child(TimerDisplay.create_new_timer(5, 8))
 

@@ -13,6 +13,8 @@ extends Node3D
 
 var part_hovered: bool
 
+var popup: PopupHover
+
 
 func _ready() -> void:
 	add_child(board_model_scene)
@@ -21,16 +23,15 @@ func _ready() -> void:
 		collision_shape.mouse_entered.connect(_on_static_body_3d_mouse_entered.bind(collision_shape.get_parent()))
 		collision_shape.mouse_exited.connect(_on_static_body_3d_mouse_exited.bind(collision_shape.get_parent()))
 	
-	code_editor_node.symbol_hovered.connect(_on_symbol_hovered)
+	#code_editor_node.symbol_hovered.connect(_on_symbol_hovered)
 	code_editor_node.focus_entered.connect(_on_text_hovered)
 
 
-
-func _on_symbol_hovered(symbol: String, line: int, collumn: int):
-	match symbol:
-		"stemma0":
-			part_hovered = true
-			stemma_port.material_overlay = material
+#func _on_symbol_hovered(symbol: String, line: int, collumn: int):
+	#match symbol:
+		#"stemma0":
+			#part_hovered = true
+			#stemma_port.material_overlay = material
 			
 
 func _on_text_hovered():
@@ -42,13 +43,16 @@ func _focus_entered():
 	print("Hovered")
 
 func _on_static_body_3d_mouse_entered(mesh: MeshInstance3D) -> void:
+	popup = PopupHover.create_new_popup()
 	mesh.material_overlay = material
-	
+	popup.get_child(0).set_position(get_viewport().get_mouse_position())
+	add_child(popup)
 
 
 func _on_static_body_3d_mouse_exited(mesh: MeshInstance3D) -> void:
 	mesh.material_overlay = null
+	popup.queue_free()
 	
 
-func _on_code_editor_board_changed(new_board) -> void:
+func _on_code_editor_board_changed(_new_board) -> void:
 	pass

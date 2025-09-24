@@ -6,6 +6,7 @@ var time_left: float
 
 @onready var timer: Timer = %Timer
 @onready var timer_label: Label = %TimerDisplayLabel
+
 func _ready() -> void:
 	timer.timeout.connect(timer_finished)
 	timer.set_wait_time(time_left)
