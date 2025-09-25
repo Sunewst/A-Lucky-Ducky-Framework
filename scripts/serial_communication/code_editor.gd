@@ -17,7 +17,7 @@ signal line_edited
 var compile_arguments: Array[String]
 var upload_arguments: Array[String]
 
-var ino_file_path: String = 'res://Alterna/Alterna.ino'
+const INO_FILE_PATH: String = 'user://Nest//Nest.ino'
 
 var thread: Thread
 
@@ -50,6 +50,7 @@ var _ignore_keywords: Array[String] = [
 var _unique_highlighting_keywords: Dictionary = {
 	"delay": [Callable(self, "delay_highlighting")]
 }
+
 
 func _ready() -> void:
 	compile_arguments = ['compile', '--fqbn', current_board, 'Alterna']
@@ -127,6 +128,9 @@ func _thread_function(cli_arguments: Array[String]):
 func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var compiled_code = CodeEdit.new()
 	var current_line: String
+	
+	if not DirAccess.dir_exists_absolute("user://Nest"):
+		DirAccess.make_dir_absolute("user://Nest")
 
 	for line in range (code_editor.get_line_count()):
 		code_editor.set_line_background_color(line, Color(0,0,0,0))
@@ -148,7 +152,7 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 			compiled_code.insert_line_at(compiled_code.get_line_count() - 1, current_line)
 		
 	print("Your compiled code is ready")
-	var arduino_file: FileAccess = FileAccess.open(ino_file_path, FileAccess.WRITE)
+	var arduino_file: FileAccess = FileAccess.open(INO_FILE_PATH, FileAccess.WRITE)
 
 	arduino_file.store_string(compiled_code.get_text())
 	create_thread(cli_arguments)
@@ -226,7 +230,7 @@ func _highlight_errors(cli_output: String):
 
 
 func _total_lines_added(last_line: int) -> int:
-	var arduino_file: FileAccess = FileAccess.open(ino_file_path, FileAccess.READ)
+	var arduino_file: FileAccess = FileAccess.open(INO_FILE_PATH, FileAccess.READ)
 	var compiled_code: PackedStringArray = arduino_file.get_as_text().split("\n")
 	var total_added_lines: int = 0
 
