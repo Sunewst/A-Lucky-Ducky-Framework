@@ -6,6 +6,7 @@ signal line_edited
 
 @onready var code_editor: CodeEdit = %CodeEdit
 @onready var current_board: String = boards_info[1].board_FQBN
+@onready var loop_menu = preload("res://scenes/loop_scene.tscn")
 
 @export var default_code_completion_canadits: code_completion_resource
 @export var code_completion_canadits: Array[code_completion_resource]
@@ -258,6 +259,9 @@ func mark_loop():
 
 func _on_code_edit_gutter_clicked(line: int, gutter: int) -> void:
 	print("Gutter ", gutter, " Line: ", line)
+	if code_editor.is_line_gutter_clickable(line, gutter):
+		print("Gutter clickable!")
+
 
 
 func _on_code_edit_text_changed() -> void:

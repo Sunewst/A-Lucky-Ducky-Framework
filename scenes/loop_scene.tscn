@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cemvov1fr7kwl"]
+
+[node name="Loop" type="Window"]
+oversampling_override = 1.0
+title = "Loop Menu"
+initial_position = 2
+size = Vector2i(200, 200)
