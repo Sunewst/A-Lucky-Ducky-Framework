@@ -1,5 +1,5 @@
-extends Resource
-class_name board_resource
+class_name board_resource extends Resource
+
 
 @export var board_name: String
 @export var board_FQBN: String

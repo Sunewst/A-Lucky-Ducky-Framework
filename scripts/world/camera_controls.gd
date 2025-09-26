@@ -1,8 +1,6 @@
 extends Node3D
 
 var _cam
-var _rightVec: Vector3
-var _forwardVec: Vector3
 
 @export_range (2.0, 20, 1) var rotation_speed: float = 2.0
 @export_range (1.0, 30, 2) var movement_speed: float = 6.0
@@ -11,8 +9,6 @@ var _forwardVec: Vector3
 @export var camera_rotation_amount: float = 1
 
 @export var snap := true
-@onready var _prev_rotation := global_rotation
-@onready var _snap_space := global_transform
 
 var camera_animation_running: bool = true
 var _in_focus: bool = true

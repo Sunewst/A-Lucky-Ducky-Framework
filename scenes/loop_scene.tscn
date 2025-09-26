@@ -1,7 +1,11 @@
-[gd_scene format=3 uid="uid://cemvov1fr7kwl"]
+[gd_scene load_steps=2 format=3 uid="uid://cemvov1fr7kwl"]
+
+[ext_resource type="Script" uid="uid://g6twjjmvbamv" path="res://scripts/serial_communication/loop_window.gd" id="1_qa8it"]
 
 [node name="Loop" type="Window"]
 oversampling_override = 1.0
 title = "Loop Menu"
 initial_position = 2
-size = Vector2i(200, 200)
+size = Vector2i(400, 300)
+unresizable = true
+script = ExtResource("1_qa8it")
