@@ -48,21 +48,21 @@ var _ignore_keywords: Array[String] = [
 ]
 
 var _unique_highlighting_keywords: Dictionary = {
-	"delay": [Callable(self, "delay_highlighting")]
+	"delay": [Callable(self, "delay_highlighting")],
 }
 
 
 func _ready() -> void:
 	compile_arguments = ['compile', '--fqbn', current_board, 'Alterna']
 	upload_arguments = ['upload', '-p', SerialController.portName, '--fqbn', current_board, 'Alterna']
-	
+
 	code_editor_menu = code_editor.get_menu()
 
 	for i in boards_info.size():
 		board_menu.add_item(boards_info[i].board_FQBN)
-	
+
 	code_editor_menu.add_submenu_node_item("Boards", board_menu)
-	
+
 	board_menu.id_pressed.connect(_on_board_clicked)
 	SerialController.SerialDataReceived.connect(_on_serial_data_received)
 
@@ -70,16 +70,15 @@ func _ready() -> void:
 	code_editor.set_gutter_type(2, TextEdit.GUTTER_TYPE_STRING)
 
 	thread = Thread.new()
-	
+
 	_text_timer = Timer.new()
 	_text_timer.set_one_shot(true)
 	_text_timer.set_wait_time(1.0)
 	add_child(_text_timer)
-	
+
 	code_editor.code_completion_enabled = false
 	code_editor.text_changed.connect(code_request_code_completion)
-	
-	
+
 	_text_timer.timeout.connect(user_finished_typing)
 
 	mark_loop()
@@ -89,14 +88,14 @@ func _on_serial_data_received(data: String) -> void:
 	if data.begins_with('$'):
 		var serial_slices = data.split("$", false)
 		if data.count("$") >= 2:
-			_unique_highlighting_keywords[serial_slices[1]] [0].call(serial_slices[0].to_int())
-		else: 
+			_unique_highlighting_keywords[serial_slices[1]][0].call(serial_slices[0].to_int())
+		else:
 			var _current_line: int = serial_slices[0].to_int()
-			code_editor.set_line_background_color(_past_line - _lines_added - 1, Color(0,0,0,0))
+			code_editor.set_line_background_color(_past_line - _lines_added - 1, Color(0, 0, 0, 0))
 
 			_lines_added = _total_lines_added(_current_line)
-		
-			code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0,0.6,0,0.3))
+
+			code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0, 0.6, 0, 0.3))
 			_past_line = _current_line
 
 
@@ -106,7 +105,7 @@ func _thread_function(cli_arguments: Array[String]):
 	if cli_arguments[0].contains('upload'):
 		cli_arguments[2] = SerialController.portName
 		SerialController._ClosePort()
-		
+
 	if OS.get_name().contains("mac"):
 		print("Using MacOS")
 		path = ProjectSettings.globalize_path("res://arduino-cli")
@@ -117,7 +116,7 @@ func _thread_function(cli_arguments: Array[String]):
 
 	var output: Array[String] = []
 	OS.execute(path, cli_arguments, output, true, false)
-	
+
 	print(output[0])
 	if output[0].contains("Error"):
 		_highlight_errors(output[0])
@@ -128,13 +127,13 @@ func _thread_function(cli_arguments: Array[String]):
 func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var compiled_code = CodeEdit.new()
 	var current_line: String
-	
+
 	if not DirAccess.dir_exists_absolute("user://Nest"):
 		DirAccess.make_dir_absolute("user://Nest")
 
-	for line in range (code_editor.get_line_count()):
-		code_editor.set_line_background_color(line, Color(0,0,0,0))
-	
+	for line in range(code_editor.get_line_count()):
+		code_editor.set_line_background_color(line, Color(0, 0, 0, 0))
+
 	for i in range(userCode.get_line_count()):
 		current_line = userCode.get_line(i)
 		compiled_line_count = compiled_code.get_line_count()
@@ -145,23 +144,23 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 				print("Valid " + str(i + 1) + ": " + str(current_line))
 			compiled_code.insert_line_at(compiled_line_count - 1, current_line)
 			compiled_code.insert_line_at(compiled_line_count - 1, highlight_keyword)
-			
+
 		else:
 			if debug_messages:
 				print("Not Valid: " + str(i + 1) + ": " + str(current_line))
 			compiled_code.insert_line_at(compiled_code.get_line_count() - 1, current_line)
-		
+
 	print("Your compiled code is ready")
 	var arduino_file: FileAccess = FileAccess.open(INO_FILE_PATH, FileAccess.WRITE)
 
 	arduino_file.store_string(compiled_code.get_text())
 	create_thread(cli_arguments)
-	
+
 	compiled_code.queue_free()
 
 
 func check_for_validity(line: String) -> String:
-	var print_highlight = "Serial.println(\"\\n$%s$%s$%s\");"
+	var print_highlight: String = "Serial.println(\"\\n$%s$%s$%s\");"
 
 	line = line.get_slice("//", 0).strip_edges()
 	for ignore_keyword in _ignore_keywords:
@@ -172,7 +171,7 @@ func check_for_validity(line: String) -> String:
 		if line.contains(unique_highlighting_keyword):
 			print_highlight = print_highlight % [compiled_line_count + 1, unique_highlighting_keyword, line.to_int()]
 			return print_highlight
-	
+
 	return "Serial.println(\"\\n$%s);" % [compiled_line_count + 1]
 
 
@@ -180,12 +179,13 @@ func delay_highlighting(line: int):
 	code_editor.set_line_background_color(line, Color(0.78, 0.718, 0.02, 0.125))
 	add_child(TimerDisplay.create_new_timer(5, 8))
 
+
 func create_thread(cli_arguments: Array[String]) -> void:
 	if not thread.is_alive():
 		thread.wait_to_finish()
 	else:
 		return
-	
+
 	thread = Thread.new()
 	thread.start(_thread_function.bind(cli_arguments))
 
@@ -203,7 +203,7 @@ func _on_code_edit_focus_entered() -> void:
 
 
 func _on_code_edit_focus_exited() -> void:
-	emit_signal("currently_typing", false)	
+	emit_signal("currently_typing", false)
 
 
 func code_request_code_completion():
@@ -225,7 +225,7 @@ func _highlight_errors(cli_output: String):
 				cli_line_error = cli_error.get_slice(':', 1).to_int()
 			else:
 				cli_line_error = cli_error.get_slice(':', 2).to_int()
-			code_editor.set_line_background_color.call_deferred(cli_line_error - _total_lines_added(cli_line_error) - 1, Color(1,0,0,0.3))
+			code_editor.set_line_background_color.call_deferred(cli_line_error - _total_lines_added(cli_line_error) - 1, Color(1, 0, 0, 0.3))
 	printerr("Failed to compile!")
 
 
@@ -258,7 +258,7 @@ func mark_loop():
 
 func _on_code_edit_gutter_clicked(line: int, gutter: int) -> void:
 	print("Gutter ", gutter, " Line: ", line)
-	if code_editor.is_line_gutter_clickable(line, gutter):
+	if code_editor.is_line_gutter_clickable(line, gutter) and not LoopWindow.window_exists:
 		print("Gutter clickable!")
 		add_child(LoopWindow.display_new_loop_window())
 

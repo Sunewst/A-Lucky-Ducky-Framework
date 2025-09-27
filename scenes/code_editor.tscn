@@ -117,18 +117,24 @@ grow_horizontal = 0
 theme_override_fonts/font = ExtResource("4_ys1v0")
 script = ExtResource("4_cctyv")
 
-[node name="SerialMonitor" type="RichTextLabel" parent="."]
+[node name="FoldableContainer" type="FoldableContainer" parent="."]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -280.0
-offset_top = -160.0
-offset_bottom = 160.0
+offset_left = -249.0
+offset_top = -117.0
+offset_bottom = 117.0
 grow_horizontal = 0
 grow_vertical = 2
+folded = true
+title = "Serial Monitor"
+
+[node name="SerialMonitor" type="RichTextLabel" parent="FoldableContainer"]
+visible = false
+layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("1_i4sis")
 script = ExtResource("10_yxof0")
