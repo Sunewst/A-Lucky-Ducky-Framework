@@ -14,10 +14,11 @@ signal line_edited
 
 @export var debug_messages: bool
 
+const INO_FILE_PATH: String = 'user://Nest//Nest.ino'
+var ino_file_path: String = ProjectSettings.globalize_path('user://Nest//Nest.ino')
+
 var compile_arguments: Array[String]
 var upload_arguments: Array[String]
-
-const INO_FILE_PATH: String = 'user://Nest//Nest.ino'
 
 var thread: Thread
 
@@ -53,8 +54,8 @@ var _unique_highlighting_keywords: Dictionary = {
 
 
 func _ready() -> void:
-	compile_arguments = ['compile', '--fqbn', current_board, 'Alterna']
-	upload_arguments = ['upload', '-p', SerialController.portName, '--fqbn', current_board, 'Alterna']
+	compile_arguments = ['compile', '--fqbn', current_board, ino_file_path]
+	upload_arguments = ['upload', '-p', SerialController.portName, '--fqbn', current_board, ino_file_path]
 
 	code_editor_menu = code_editor.get_menu()
 
@@ -86,7 +87,7 @@ func _ready() -> void:
 
 func _on_serial_data_received(data: String) -> void:
 	if data.begins_with('$'):
-		var serial_slices = data.split("$", false)
+		var serial_slices: PackedStringArray = data.split("$", false)
 		if data.count("$") >= 2:
 			_unique_highlighting_keywords[serial_slices[1]][0].call(serial_slices[0].to_int())
 		else:
@@ -151,8 +152,9 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 			compiled_code.insert_line_at(compiled_code.get_line_count() - 1, current_line)
 
 	print("Your compiled code is ready")
-	var arduino_file: FileAccess = FileAccess.open(INO_FILE_PATH, FileAccess.WRITE)
 
+	var arduino_file: FileAccess = FileAccess.open(INO_FILE_PATH, FileAccess.WRITE)
+	
 	arduino_file.store_string(compiled_code.get_text())
 	create_thread(cli_arguments)
 
