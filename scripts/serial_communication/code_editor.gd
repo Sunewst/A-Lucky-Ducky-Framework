@@ -9,13 +9,12 @@ signal line_edited
 
 @export var default_code_completion_canadits: code_completion_resource
 @export var code_completion_canadits: Array[code_completion_resource]
-@export var board_info: board_resource
 @export var boards_info: Array[board_resource]
 
 @export var debug_messages: bool
 
-const INO_FILE_PATH: String = 'user://Nest//Nest.ino'
-var ino_file_path: String = ProjectSettings.globalize_path('user://Nest//Nest.ino')
+const INO_USER_PATH: String = 'user://Nest//Nest.ino'
+var ino_file_path: String = ProjectSettings.globalize_path(INO_USER_PATH)
 
 var compile_arguments: Array[String]
 var upload_arguments: Array[String]
@@ -24,7 +23,7 @@ var thread: Thread
 
 var _past_line: int
 var _lines_added: int = 0
-var compiled_line_count: int
+var _compiled_line_count: int
 
 var code_editor_menu
 
@@ -100,7 +99,7 @@ func _on_serial_data_received(data: String) -> void:
 			_past_line = _current_line
 
 
-func _thread_function(cli_arguments: Array[String]):
+func _thread_function(cli_arguments: Array[String]) -> void:
 	var path
 
 	if cli_arguments[0].contains('upload'):
@@ -119,6 +118,7 @@ func _thread_function(cli_arguments: Array[String]):
 	OS.execute(path, cli_arguments, output, true, false)
 
 	print(output[0])
+
 	if output[0].contains("Error"):
 		_highlight_errors(output[0])
 	if cli_arguments[0].contains('upload'):
@@ -126,8 +126,9 @@ func _thread_function(cli_arguments: Array[String]):
 
 
 func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
-	var compiled_code = CodeEdit.new()
-	var current_line: String
+	var _compiled_code = CodeEdit.new()
+	var _current_line: String
+	var _arduino_file: FileAccess = FileAccess.open(INO_USER_PATH, FileAccess.WRITE)
 
 	if not DirAccess.dir_exists_absolute("user://Nest"):
 		DirAccess.make_dir_absolute("user://Nest")
@@ -136,29 +137,28 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 		code_editor.set_line_background_color(line, Color(0, 0, 0, 0))
 
 	for i in range(userCode.get_line_count()):
-		current_line = userCode.get_line(i)
-		compiled_line_count = compiled_code.get_line_count()
-		var highlight_keyword: String = check_for_validity(current_line)
+		_current_line = userCode.get_line(i)
+		_compiled_line_count = _compiled_code.get_line_count()
+		var highlight_keyword: String = check_for_validity(_current_line)
 
 		if not highlight_keyword.is_empty():
 			if debug_messages:
-				print("Valid " + str(i + 1) + ": " + str(current_line))
-			compiled_code.insert_line_at(compiled_line_count - 1, current_line)
-			compiled_code.insert_line_at(compiled_line_count - 1, highlight_keyword)
+				print("Valid " + str(i + 1) + ": " + str(_current_line))
+			_compiled_code.insert_line_at(_compiled_line_count - 1, _current_line)
+			_compiled_code.insert_line_at(_compiled_line_count - 1, highlight_keyword)
 
 		else:
 			if debug_messages:
-				print("Not Valid: " + str(i + 1) + ": " + str(current_line))
-			compiled_code.insert_line_at(compiled_code.get_line_count() - 1, current_line)
+				print("Not Valid: " + str(i + 1) + ": " + str(_current_line))
+			_compiled_code.insert_line_at(_compiled_code.get_line_count() - 1, _current_line)
 
 	print("Your compiled code is ready")
 
-	var arduino_file: FileAccess = FileAccess.open(INO_FILE_PATH, FileAccess.WRITE)
 	
-	arduino_file.store_string(compiled_code.get_text())
+	_arduino_file.store_string(_compiled_code.get_text())
 	create_thread(cli_arguments)
 
-	compiled_code.queue_free()
+	_compiled_code.queue_free()
 
 
 func check_for_validity(line: String) -> String:
@@ -171,13 +171,13 @@ func check_for_validity(line: String) -> String:
 
 	for unique_highlighting_keyword in _unique_highlighting_keywords.keys():
 		if line.contains(unique_highlighting_keyword):
-			print_highlight = print_highlight % [compiled_line_count + 1, unique_highlighting_keyword, line.to_int()]
+			print_highlight = print_highlight % [_compiled_line_count + 1, unique_highlighting_keyword, line.to_int()]
 			return print_highlight
 
-	return "Serial.println(\"\\n$%s);" % [compiled_line_count + 1]
+	return "Serial.println(\"\\n$%s);" % [_compiled_line_count + 1]
 
 
-func delay_highlighting(line: int):
+func delay_highlighting(line: int) -> void:
 	code_editor.set_line_background_color(line, Color(0.78, 0.718, 0.02, 0.125))
 	add_child(TimerDisplay.create_new_timer(5, 8))
 
@@ -208,14 +208,14 @@ func _on_code_edit_focus_exited() -> void:
 	emit_signal("currently_typing", false)
 
 
-func code_request_code_completion():
+func code_request_code_completion() -> void:
 	for canadit in code_completion_canadits[0].code_completion_canadits:
 		code_editor.add_code_completion_option(CodeEdit.KIND_FUNCTION, canadit, canadit)
 
 	code_editor.update_code_completion_options(true)
 
 
-func _highlight_errors(cli_output: String):
+func _highlight_errors(cli_output: String) -> void:
 	var cli_output_array: PackedStringArray = cli_output.split("\n", true)
 	var cli_error
 	var cli_line_error
@@ -232,7 +232,7 @@ func _highlight_errors(cli_output: String):
 
 
 func _total_lines_added(last_line: int) -> int:
-	var arduino_file: FileAccess = FileAccess.open(INO_FILE_PATH, FileAccess.READ)
+	var arduino_file: FileAccess = FileAccess.open(INO_USER_PATH, FileAccess.READ)
 	var compiled_code: PackedStringArray = arduino_file.get_as_text().split("\n")
 	var total_added_lines: int = 0
 
@@ -243,15 +243,17 @@ func _total_lines_added(last_line: int) -> int:
 	return total_added_lines
 
 
-func _on_board_clicked(id: int):
+func _on_board_clicked(id: int) -> void:
 	current_board = board_menu.get_item_text(id)
 	compile_arguments[2] = current_board
 	board_changed.emit(current_board)
+
 	print("Changed board to ", current_board)
 
 
-func mark_loop():
+func mark_loop() -> void:
 	var loop_start_location: Vector2i = code_editor.search("Void loop()", 2, 0, 0)
+
 	code_editor.set_line_gutter_text(loop_start_location[1], 2, 'L')
 	code_editor.set_gutter_draw(2, true)
 	code_editor.set_line_gutter_clickable(loop_start_location[1], 2, true)
@@ -260,6 +262,7 @@ func mark_loop():
 
 func _on_code_edit_gutter_clicked(line: int, gutter: int) -> void:
 	print("Gutter ", gutter, " Line: ", line)
+
 	if code_editor.is_line_gutter_clickable(line, gutter) and not LoopWindow.window_exists:
 		print("Gutter clickable!")
 		add_child(LoopWindow.display_new_loop_window())
