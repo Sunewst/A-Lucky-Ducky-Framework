@@ -99,32 +99,6 @@ func _on_serial_data_received(data: String) -> void:
 			_past_line = _current_line
 
 
-func _thread_function(cli_arguments: Array[String]) -> void:
-	var path
-
-	if cli_arguments[0].contains('upload'):
-		cli_arguments[2] = SerialController.portName
-		SerialController._ClosePort()
-
-	if OS.get_name().contains("mac"):
-		print("Using MacOS")
-		path = ProjectSettings.globalize_path("res://arduino-cli")
-
-	else:
-		print("Using Windows")
-		path = ProjectSettings.globalize_path("res://arduino-cli.exe")
-
-	var output: Array[String] = []
-	OS.execute(path, cli_arguments, output, true, false)
-
-	print(output[0])
-
-	if output[0].contains("Error"):
-		_highlight_errors(output[0])
-	if cli_arguments[0].contains('upload'):
-		SerialController._OpenPort()
-
-
 func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	var _compiled_code = CodeEdit.new()
 	var _current_line: String
@@ -153,12 +127,47 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 			_compiled_code.insert_line_at(_compiled_code.get_line_count() - 1, _current_line)
 
 	print("Your compiled code is ready")
-
 	
 	_arduino_file.store_string(_compiled_code.get_text())
 	create_thread(cli_arguments)
 
 	_compiled_code.queue_free()
+
+
+func create_thread(cli_arguments: Array[String]) -> void:
+	if not thread.is_alive():
+		thread.wait_to_finish()
+	else:
+		return
+
+	thread = Thread.new()
+	thread.start(_thread_function.bind(cli_arguments))
+
+
+func _thread_function(cli_arguments: Array[String]) -> void:
+	var path
+
+	if cli_arguments[0].contains('upload'):
+		cli_arguments[2] = SerialController.portName
+		SerialController._ClosePort()
+
+	if OS.get_name().contains("mac"):
+		print("Using MacOS")
+		path = ProjectSettings.globalize_path("res://arduino-cli")
+
+	else:
+		print("Using Windows")
+		path = ProjectSettings.globalize_path("res://arduino-cli.exe")
+
+	var output: Array[String] = []
+	OS.execute(path, cli_arguments, output, true, false)
+
+	print(output[0])
+
+	if output[0].contains("Error"):
+		_highlight_errors(output[0])
+	if cli_arguments[0].contains('upload'):
+		SerialController._OpenPort()
 
 
 func check_for_validity(line: String) -> String:
@@ -175,21 +184,6 @@ func check_for_validity(line: String) -> String:
 			return print_highlight
 
 	return "Serial.println(\"\\n$%s);" % [_compiled_line_count + 1]
-
-
-func delay_highlighting(line: int) -> void:
-	code_editor.set_line_background_color(line, Color(0.78, 0.718, 0.02, 0.125))
-	add_child(TimerDisplay.create_new_timer(5, 8))
-
-
-func create_thread(cli_arguments: Array[String]) -> void:
-	if not thread.is_alive():
-		thread.wait_to_finish()
-	else:
-		return
-
-	thread = Thread.new()
-	thread.start(_thread_function.bind(cli_arguments))
 
 
 func _on_compile_pressed() -> void:
@@ -229,6 +223,11 @@ func _highlight_errors(cli_output: String) -> void:
 				cli_line_error = cli_error.get_slice(':', 2).to_int()
 			code_editor.set_line_background_color.call_deferred(cli_line_error - _total_lines_added(cli_line_error) - 1, Color(1, 0, 0, 0.3))
 	printerr("Failed to compile!")
+
+
+func delay_highlighting(line: int) -> void:
+	code_editor.set_line_background_color(line, Color(0.78, 0.718, 0.02, 0.125))
+	add_child(TimerDisplay.create_new_timer(5, 8))
 
 
 func _total_lines_added(last_line: int) -> int:
