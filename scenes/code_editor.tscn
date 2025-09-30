@@ -45,7 +45,6 @@ mouse_filter = 2
 theme = ExtResource("1_i4sis")
 script = ExtResource("2_xqpb2")
 code_completion_canadits = Array[ExtResource("2_037gb")]([ExtResource("2_y6fiy")])
-board_info = ExtResource("2_cctyv")
 boards_info = Array[ExtResource("6_fq2oj")]([ExtResource("2_cctyv"), ExtResource("7_q003l")])
 
 [node name="CodeEdit" type="CodeEdit" parent="."]

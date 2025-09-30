@@ -244,11 +244,25 @@ func _total_lines_added(last_line: int) -> int:
 
 func _on_board_clicked(id: int) -> void:
 	current_board = board_menu.get_item_text(id)
+
 	compile_arguments[2] = current_board
+	upload_arguments[4] = current_board
+
 	board_changed.emit(current_board)
 
 	print("Changed board to ", current_board)
 
+
+func find_total_occurrences(text: String):
+	var _occurences_locations: Array[Vector2i]
+	var _occurence
+	
+	for i in code_editor.get_line_count():
+		_occurence = code_editor.search(text, 2, i, 0)
+		if not is_same(_occurence, Vector2i(-1, -1)):
+			_occurences_locations.append(_occurence)
+		else:
+			return _occurences_locations
 
 func mark_loop() -> void:
 	var loop_start_location: Vector2i = code_editor.search("Void loop()", 2, 0, 0)
@@ -258,6 +272,9 @@ func mark_loop() -> void:
 	code_editor.set_line_gutter_clickable(loop_start_location[1], 2, true)
 	code_editor.set_line_gutter_item_color(loop_start_location[1], 2, Color(0.909, 0.189, 0.475, 1.0))
 
+
+func mark_libraries():
+	print(find_total_occurrences('#include '))
 
 func _on_code_edit_gutter_clicked(line: int, gutter: int) -> void:
 	print("Gutter ", gutter, " Line: ", line)
@@ -273,7 +290,8 @@ func _on_code_edit_text_changed() -> void:
 
 func user_finished_typing() -> void:
 	emit_signal("line_edited")
-
+	mark_libraries()
+	mark_loop()
 
 func _exit_tree() -> void:
 	thread.wait_to_finish()
