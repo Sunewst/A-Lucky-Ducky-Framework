@@ -8,6 +8,7 @@ func _ready() -> void:
 	self.connect("close_requested", close_window)
 
 func close_window():
+	window_exists = false
 	queue_free()
 
 static func display_new_loop_window():
