@@ -253,7 +253,7 @@ func _on_board_clicked(id: int) -> void:
 	print("Changed board to ", current_board)
 
 
-func find_total_occurrences(text: String):
+func find_total_occurrences(text: String) -> Array[Vector2i]:
 	var _occurences_locations: Array[Vector2i]
 	var _occurence
 	
@@ -261,8 +261,7 @@ func find_total_occurrences(text: String):
 		_occurence = code_editor.search(text, 2, i, 0)
 		if not is_same(_occurence, Vector2i(-1, -1)):
 			_occurences_locations.append(_occurence)
-		else:
-			return _occurences_locations
+	return _occurences_locations
 
 func mark_loop() -> void:
 	var loop_start_location: Vector2i = code_editor.search("Void loop()", 2, 0, 0)
