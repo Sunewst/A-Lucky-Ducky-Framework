@@ -255,12 +255,17 @@ func _on_board_clicked(id: int) -> void:
 
 func find_total_occurrences(text: String) -> Array[Vector2i]:
 	var _occurences_locations: Array[Vector2i]
+	var _current_line: Vector2i = Vector2i(0, 0)
 	var _occurence
-	
+
 	for i in code_editor.get_line_count():
-		_occurence = code_editor.search(text, 2, i, 0)
-		if not is_same(_occurence, Vector2i(-1, -1)):
+		_occurence = code_editor.search(text, 2, _current_line.y + 1, 0)
+
+		if _occurence.y != -1 and _occurence not in _occurences_locations:
 			_occurences_locations.append(_occurence)
+			_current_line = _occurence
+		else:
+			break
 	return _occurences_locations
 
 func mark_loop() -> void:
@@ -273,7 +278,7 @@ func mark_loop() -> void:
 
 
 func mark_libraries():
-	print(find_total_occurrences('#include '))
+	print(find_total_occurrences("#include "))
 
 func _on_code_edit_gutter_clicked(line: int, gutter: int) -> void:
 	print("Gutter ", gutter, " Line: ", line)
