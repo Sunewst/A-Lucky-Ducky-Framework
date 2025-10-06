@@ -244,20 +244,44 @@ func _total_lines_added(last_line: int) -> int:
 
 func _on_board_clicked(id: int) -> void:
 	current_board = board_menu.get_item_text(id)
+
 	compile_arguments[2] = current_board
+	upload_arguments[4] = current_board
+
 	board_changed.emit(current_board)
 
 	print("Changed board to ", current_board)
 
 
+func find_total_occurrences(text: String) -> Array[Vector2i]:
+	var _occurences_locations: Array[Vector2i]
+	var _current_line: Vector2i = Vector2i(0, 0)
+	var _occurence
+
+	for i in code_editor.get_line_count():
+		_occurence = code_editor.search(text, 2, _current_line.y + 1, 0)
+
+		if _occurence.y != -1 and _occurence not in _occurences_locations:
+			_occurences_locations.append(_occurence)
+			_current_line = _occurence
+		else:
+			break
+	return _occurences_locations
+
 func mark_loop() -> void:
 	var loop_start_location: Vector2i = code_editor.search("Void loop()", 2, 0, 0)
 
 	code_editor.set_line_gutter_text(loop_start_location[1], 2, 'L')
-	code_editor.set_gutter_draw(2, true)
 	code_editor.set_line_gutter_clickable(loop_start_location[1], 2, true)
 	code_editor.set_line_gutter_item_color(loop_start_location[1], 2, Color(0.909, 0.189, 0.475, 1.0))
 
+
+func mark_libraries():
+	var library_locations: Array[Vector2i] = find_total_occurrences("#include ")
+
+	for location in library_locations:
+		code_editor.set_line_gutter_text(location.y, 2, '#')
+		code_editor.set_line_gutter_item_color(location.y, 2, Color(0.232, 0.73, 0.207, 1.0))
 
 func _on_code_edit_gutter_clicked(line: int, gutter: int) -> void:
 	print("Gutter ", gutter, " Line: ", line)
@@ -273,7 +297,9 @@ func _on_code_edit_text_changed() -> void:
 
 func user_finished_typing() -> void:
 	emit_signal("line_edited")
-
+	mark_libraries()
+	mark_loop()
+	code_editor.set_gutter_draw(2, true)
 
 func _exit_tree() -> void:
 	thread.wait_to_finish()
