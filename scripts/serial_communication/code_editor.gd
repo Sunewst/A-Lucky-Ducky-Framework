@@ -12,6 +12,7 @@ signal line_edited
 @export var boards_info: Array[board_resource]
 
 @export var debug_messages: bool
+@export var debug_highlights: bool
 
 const INO_USER_PATH: String = 'user://Nest//Nest.ino'
 var ino_file_path: String = ProjectSettings.globalize_path(INO_USER_PATH)
@@ -99,7 +100,7 @@ func _on_serial_data_received(data: String) -> void:
 			_past_line = _current_line
 
 
-func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
+func _compile_code(user_code: CodeEdit, cli_arguments: Array[String]):
 	var _compiled_code = CodeEdit.new()
 	var _current_line: String
 	var _arduino_file: FileAccess = FileAccess.open(INO_USER_PATH, FileAccess.WRITE)
@@ -110,8 +111,8 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 	for line in range(code_editor.get_line_count()):
 		code_editor.set_line_background_color(line, Color(0, 0, 0, 0))
 
-	for i in range(userCode.get_line_count()):
-		_current_line = userCode.get_line(i)
+	for i in range(user_code.get_line_count()):
+		_current_line = user_code.get_line(i)
 		_compiled_line_count = _compiled_code.get_line_count()
 		var highlight_keyword: String = check_for_validity(_current_line)
 
@@ -182,7 +183,10 @@ func check_for_validity(line: String) -> String:
 			print_highlight = print_highlight % [_compiled_line_count + 1, unique_highlighting_keyword, line.to_int()]
 			return print_highlight
 
-	return "Serial.println(\"\\n$%s\");" % [_compiled_line_count + 1]
+	if debug_highlights:
+		return "Serial.println(\"\\n$%s\");" % [_compiled_line_count + 1]
+	else:
+		return ""
 
 
 func _on_compile_pressed() -> void:
