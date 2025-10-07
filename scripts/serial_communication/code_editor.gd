@@ -120,10 +120,9 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 				print("Valid " + str(i + 1) + ": " + str(_current_line))
 			_compiled_code.insert_line_at(_compiled_line_count - 1, _current_line)
 			_compiled_code.insert_line_at(_compiled_line_count - 1, highlight_keyword)
-
 		else:
 			if debug_messages:
-				print("Not Valid: " + str(i + 1) + ": " + str(_current_line))
+				print("Not Valid " + str(i + 1) + ": " + str(_current_line))
 			_compiled_code.insert_line_at(_compiled_code.get_line_count() - 1, _current_line)
 
 	print("Your compiled code is ready")
@@ -183,7 +182,7 @@ func check_for_validity(line: String) -> String:
 			print_highlight = print_highlight % [_compiled_line_count + 1, unique_highlighting_keyword, line.to_int()]
 			return print_highlight
 
-	return "Serial.println(\"\\n$%s);" % [_compiled_line_count + 1]
+	return "Serial.println(\"\\n$%s\");" % [_compiled_line_count + 1]
 
 
 func _on_compile_pressed() -> void:
