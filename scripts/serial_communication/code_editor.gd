@@ -127,7 +127,7 @@ func _compile_code(userCode: CodeEdit, cli_arguments: Array[String]):
 			_compiled_code.insert_line_at(_compiled_code.get_line_count() - 1, _current_line)
 
 	print("Your compiled code is ready")
-	
+
 	_arduino_file.store_string(_compiled_code.get_text())
 	create_thread(cli_arguments)
 
@@ -268,6 +268,7 @@ func find_total_occurrences(text: String) -> Array[Vector2i]:
 			break
 	return _occurences_locations
 
+
 func mark_loop() -> void:
 	var loop_start_location: Vector2i = code_editor.search("Void loop()", 2, 0, 0)
 
@@ -282,6 +283,7 @@ func mark_libraries():
 	for location in library_locations:
 		code_editor.set_line_gutter_text(location.y, 2, '#')
 		code_editor.set_line_gutter_item_color(location.y, 2, Color(0.232, 0.73, 0.207, 1.0))
+
 
 func _on_code_edit_gutter_clicked(line: int, gutter: int) -> void:
 	print("Gutter ", gutter, " Line: ", line)
@@ -300,6 +302,7 @@ func user_finished_typing() -> void:
 	mark_libraries()
 	mark_loop()
 	code_editor.set_gutter_draw(2, true)
+
 
 func _exit_tree() -> void:
 	thread.wait_to_finish()
