@@ -10,6 +10,7 @@ signal line_edited
 @export var default_code_completion_canadits: code_completion_resource
 @export var code_completion_canadits: Array[code_completion_resource]
 @export var boards_info: Array[board_resource]
+@export var arduino_libraries: Array[library_resource]
 
 @export var debug_messages: bool
 @export var debug_highlights: bool
@@ -25,6 +26,7 @@ var thread: Thread
 var _past_line: int
 var _lines_added: int = 0
 var _compiled_line_count: int
+var _libraries_added: PackedStringArray
 
 var code_editor_menu
 
@@ -104,6 +106,8 @@ func _compile_code(user_code: CodeEdit, cli_arguments: Array[String]):
 	var _compiled_code = CodeEdit.new()
 	var _current_line: String
 	var _arduino_file: FileAccess = FileAccess.open(INO_USER_PATH, FileAccess.WRITE)
+	var loop_start_location: Vector2i = _get_loop_location()
+
 
 	if not DirAccess.dir_exists_absolute("user://Nest"):
 		DirAccess.make_dir_absolute("user://Nest")
@@ -125,6 +129,11 @@ func _compile_code(user_code: CodeEdit, cli_arguments: Array[String]):
 			if debug_messages:
 				print("Not Valid " + str(i + 1) + ": " + str(_current_line))
 			_compiled_code.insert_line_at(_compiled_code.get_line_count() - 1, _current_line)
+	
+	for library in _libraries_added:
+		var _library_update_function: String = arduino_libraries[arduino_libraries.find(library)].library_update_function
+		_compiled_code.insert_line_at(loop_start_location.y + 1, _library_update_function)
+		loop_start_location.y += 1
 
 	print("Your compiled code is ready")
 
@@ -171,7 +180,7 @@ func _thread_function(cli_arguments: Array[String]) -> void:
 
 
 func check_for_validity(line: String) -> String:
-	var print_highlight: String = "Serial.println(\"\\n$%s$%s$%s\");"
+	var print_highlight: String = "Serial.println(\"\\n$%s$%s$%s\");" 
 
 	line = line.get_slice("//", 0).strip_edges()
 	for ignore_keyword in _ignore_keywords:
@@ -273,7 +282,7 @@ func find_total_occurrences(text: String) -> Array[Vector2i]:
 
 
 func mark_loop() -> void:
-	var loop_start_location: Vector2i = code_editor.search("Void loop()", 2, 0, 0)
+	var loop_start_location: Vector2i = _get_loop_location()
 
 	code_editor.set_line_gutter_text(loop_start_location[1], 2, 'L')
 	code_editor.set_line_gutter_clickable(loop_start_location[1], 2, true)
@@ -282,10 +291,14 @@ func mark_loop() -> void:
 
 func mark_libraries():
 	var library_locations: Array[Vector2i] = find_total_occurrences("#include ")
-
+	
 	for location in library_locations:
 		code_editor.set_line_gutter_text(location.y, 2, '#')
 		code_editor.set_line_gutter_item_color(location.y, 2, Color(0.232, 0.73, 0.207, 1.0))
+		_libraries_added.append(code_editor.get_line(location.y))
+
+func _get_loop_location() -> Vector2i:
+	return code_editor.search("Void loop()", 2, 0, 0)
 
 
 func _on_code_edit_gutter_clicked(line: int, gutter: int) -> void:
