@@ -138,22 +138,22 @@ func _compile_code(user_code: CodeEdit, cli_arguments: Array[String]):
 	print("Your compiled code is ready")
 
 	_arduino_file.store_string(_compiled_code.get_text())
-	create_thread(cli_arguments)
+	create_arduino_cli_instance(cli_arguments)
 
 	_compiled_code.queue_free()
 
 
-func create_thread(cli_arguments: Array[String]) -> void:
+func create_arduino_cli_instance(cli_arguments: Array[String]) -> void:
 	if not thread.is_alive():
 		thread.wait_to_finish()
 	else:
 		return
 
 	thread = Thread.new()
-	thread.start(_thread_function.bind(cli_arguments))
+	thread.start(_arduino_cli_function.bind(cli_arguments))
 
 
-func _thread_function(cli_arguments: Array[String]) -> void:
+func _arduino_cli_function(cli_arguments: Array[String]) -> void:
 	var path
 
 	if cli_arguments[0].contains('upload'):
