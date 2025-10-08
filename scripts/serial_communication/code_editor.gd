@@ -162,11 +162,11 @@ func _arduino_cli_function(cli_arguments: Array[String]) -> void:
 
 	if OS.get_name().contains("mac"):
 		print("Using MacOS")
-		path = ProjectSettings.globalize_path("res://arduino-cli")
+		path = ProjectSettings.globalize_path("res://cli/arduino-cli")
 
 	else:
 		print("Using Windows")
-		path = ProjectSettings.globalize_path("res://arduino-cli.exe")
+		path = ProjectSettings.globalize_path("res://cli/arduino-cli.exe")
 
 	var output: Array[String] = []
 	OS.execute(path, cli_arguments, output, true, false)
