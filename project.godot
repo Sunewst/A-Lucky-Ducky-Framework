@@ -33,6 +33,17 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="A Lucky Ducky"
 
+[file_customization]
+
+folder_colors={
+"res://cli/": "gray",
+"res://graphics/": "purple",
+"res://resources/": "orange",
+"res://scenes/": "red",
+"res://scripts/": "yellow",
+"res://shaders/": "teal"
+}
+
 [input]
 
 right={
