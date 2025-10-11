@@ -18,6 +18,8 @@ signal line_edited
 const INO_USER_PATH: String = 'user://Nest//Nest.ino'
 var ino_file_path: String = ProjectSettings.globalize_path(INO_USER_PATH)
 
+const GUTTER: int = 2
+
 var compile_arguments: Array[String]
 var upload_arguments: Array[String]
 
@@ -284,17 +286,17 @@ func find_total_occurrences(text: String) -> Array[Vector2i]:
 func mark_loop() -> void:
 	var loop_start_location: Vector2i = _get_loop_location()
 
-	code_editor.set_line_gutter_text(loop_start_location[1], 2, 'L')
-	code_editor.set_line_gutter_clickable(loop_start_location[1], 2, true)
-	code_editor.set_line_gutter_item_color(loop_start_location[1], 2, Color(0.909, 0.189, 0.475, 1.0))
+	code_editor.set_line_gutter_text(loop_start_location[1], GUTTER, 'L')
+	code_editor.set_line_gutter_clickable(loop_start_location[1], GUTTER, true)
+	code_editor.set_line_gutter_item_color(loop_start_location[1], GUTTER, Color(0.909, 0.189, 0.475, 1.0))
 
 
 func mark_libraries():
 	var library_locations: Array[Vector2i] = find_total_occurrences("#include ")
 	
 	for location in library_locations:
-		code_editor.set_line_gutter_text(location.y, 2, '#')
-		code_editor.set_line_gutter_item_color(location.y, 2, Color(0.232, 0.73, 0.207, 1.0))
+		code_editor.set_line_gutter_text(location.y, GUTTER, '#')
+		code_editor.set_line_gutter_item_color(location.y, GUTTER, Color(0.232, 0.73, 0.207, 1.0))
 		_libraries_added.append(code_editor.get_line(location.y))
 
 func _get_loop_location() -> Vector2i:
@@ -317,7 +319,7 @@ func user_finished_typing() -> void:
 	emit_signal("line_edited")
 	mark_libraries()
 	mark_loop()
-	code_editor.set_gutter_draw(2, true)
+	code_editor.set_gutter_draw(GUTTER, true)
 
 
 func _exit_tree() -> void:
