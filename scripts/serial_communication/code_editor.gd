@@ -3,6 +3,8 @@ extends Control
 signal currently_typing
 signal board_changed
 signal line_edited
+signal compiling_finished
+signal uploading_finished
 
 @onready var code_editor: CodeEdit = %CodeEdit
 @onready var current_board: String = boards_info[1].board_FQBN
@@ -16,7 +18,7 @@ signal line_edited
 @export var debug_highlights: bool
 
 const INO_USER_PATH: String = 'user://Nest//Nest.ino'
-var ino_file_path: String = ProjectSettings.globalize_path(INO_USER_PATH)
+var ino_global_path: String = ProjectSettings.globalize_path(INO_USER_PATH)
 
 const GUTTER: int = 2
 
@@ -58,8 +60,8 @@ var _unique_highlighting_keywords: Dictionary = {
 
 
 func _ready() -> void:
-	compile_arguments = ['compile', '--fqbn', current_board, ino_file_path]
-	upload_arguments = ['upload', '-p', SerialController.portName, '--fqbn', current_board, ino_file_path]
+	compile_arguments = ['compile', '--fqbn', current_board, ino_global_path]
+	upload_arguments = ['upload', '-p', SerialController.portName, '--fqbn', current_board, ino_global_path]
 
 	code_editor_menu = code_editor.get_menu()
 
@@ -137,8 +139,6 @@ func _compile_code(user_code: CodeEdit, cli_arguments: Array[String]):
 		_compiled_code.insert_line_at(loop_start_location.y + 1, _library_update_function)
 		loop_start_location.y += 1
 
-	print("Your compiled code is ready")
-
 	_arduino_file.store_string(_compiled_code.get_text())
 	create_arduino_cli_instance(cli_arguments)
 
@@ -157,6 +157,7 @@ func create_arduino_cli_instance(cli_arguments: Array[String]) -> void:
 
 func _arduino_cli_function(cli_arguments: Array[String]) -> void:
 	var path: String
+	var upload_status: bool
 
 	if cli_arguments[0].contains('upload'):
 		cli_arguments[2] = SerialController.portName
@@ -176,9 +177,12 @@ func _arduino_cli_function(cli_arguments: Array[String]) -> void:
 	print(output[0])
 
 	if output[0].contains("Error"):
+		upload_status = false
+		emit_signal("compiling_finished", upload_status)
 		_highlight_errors.call_deferred(output[0])
 	if cli_arguments[0].contains('upload'):
 		SerialController._OpenPort()
+		emit_signal("uploading_finished", upload_status)
 
 
 func check_for_validity(line: String) -> String:
