@@ -156,7 +156,7 @@ func create_arduino_cli_instance(cli_arguments: Array[String]) -> void:
 
 
 func _arduino_cli_function(cli_arguments: Array[String]) -> void:
-	var path
+	var path: String
 
 	if cli_arguments[0].contains('upload'):
 		cli_arguments[2] = SerialController.portName
@@ -176,7 +176,7 @@ func _arduino_cli_function(cli_arguments: Array[String]) -> void:
 	print(output[0])
 
 	if output[0].contains("Error"):
-		_highlight_errors(output[0])
+		_highlight_errors.call_deferred(output[0])
 	if cli_arguments[0].contains('upload'):
 		SerialController._OpenPort()
 
@@ -235,7 +235,7 @@ func _highlight_errors(cli_output: String) -> void:
 				cli_line_error = cli_error.get_slice(':', 1).to_int()
 			else:
 				cli_line_error = cli_error.get_slice(':', 2).to_int()
-			code_editor.set_line_background_color.call_deferred(cli_line_error - _total_lines_added(cli_line_error) - 1, Color(1, 0, 0, 0.3))
+			code_editor.set_line_background_color(cli_line_error - _total_lines_added(cli_line_error) - 1, Color(1, 0, 0, 0.3))
 	printerr("Failed to compile!")
 
 
