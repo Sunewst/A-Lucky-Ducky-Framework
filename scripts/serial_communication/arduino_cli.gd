@@ -1,6 +1,6 @@
 extends Node
 
-#signal compiling_finished
+signal compiling_finished
 #signal uploading_finished
 
 var thread: Thread 
@@ -19,13 +19,9 @@ func execute_arduino_cli(cli_arguments):
 	thread.start(_arduino_cli_execute.bind(cli_arguments))
 
 
-func _arduino_cli_execute(cli_arguments: Array[String]) -> Array[String]:
+func _arduino_cli_execute(cli_arguments: Array[String]):
 	var _path: String
 	var _output: Array[String] = []
-
-	if cli_arguments[0].contains('upload'):
-		cli_arguments[2] = SerialController.portName
-		SerialController._ClosePort()
 
 	if OS.get_name().contains("mac"):
 		_path = ProjectSettings.globalize_path("res://cli/arduino-cli")
@@ -33,9 +29,12 @@ func _arduino_cli_execute(cli_arguments: Array[String]) -> Array[String]:
 		_path = ProjectSettings.globalize_path("res://cli/arduino-cli.exe")
 
 	OS.execute(_path, cli_arguments, _output, true, false)
-	print(_output[0])
 
-	return _output
+	if _output[0].contains("Error"):
+		call_deferred("emit_signal", "compiling_finished", _output[0], false)
+	else:
+		call_deferred("emit_signal", "compiling_finished", _output[0], true)
+
 
 
 func _exit_tree() -> void:

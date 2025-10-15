@@ -70,6 +70,7 @@ func _ready() -> void:
 
 	board_menu.id_pressed.connect(_on_board_clicked)
 	SerialController.SerialDataReceived.connect(_on_serial_data_received)
+	ArduinoCli.compiling_finished.connect(_compiling_finished)
 
 	code_editor.add_gutter(2)
 	code_editor.set_gutter_type(2, TextEdit.GUTTER_TYPE_STRING)
@@ -138,6 +139,12 @@ func _compile_code(user_code: CodeEdit, cli_arguments: Array[String]):
 	ArduinoCli.execute_arduino_cli(cli_arguments)
 
 	_compiled_code.queue_free()
+
+func _compiling_finished(cli_output: String, successful):
+	if successful:
+		print(cli_output)
+	else:
+		_highlight_errors(cli_output)
 
 
 func check_for_validity(line: String) -> String:
