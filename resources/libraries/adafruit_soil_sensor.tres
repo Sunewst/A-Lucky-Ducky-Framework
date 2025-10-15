@@ -4,4 +4,7 @@
 
 [resource]
 script = ExtResource("1_noqep")
+library_name = "Adafruit_seesaw"
+library_update_value_function = "getTemp();"
+I2C_address = "0x36"
 metadata/_custom_type_script = "uid://c4be3xx8423x7"
