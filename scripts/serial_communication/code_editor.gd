@@ -24,7 +24,6 @@ const GUTTER: int = 2 # Main gutter
 var compile_arguments: Array[String] # Main compile arguments used in the arduino-cli
 var upload_arguments: Array[String] # Main upload arguments used in the arduino-cli
 
-
 var _past_line: int
 var _lines_added: int = 0
 var _compiled_line_count: int
@@ -83,7 +82,7 @@ func _ready() -> void:
 	code_editor.code_completion_enabled = false
 	code_editor.text_changed.connect(code_request_code_completion)
 
-	_text_timer.timeout.connect(user_finished_typing)
+	_text_timer.timeout.connect(finished_typing)
 
 	mark_loop()
 
@@ -252,18 +251,23 @@ func find_total_occurrences(text: String) -> Array[Vector2i]:
 func mark_loop() -> void:
 	var _loop_start_location: Vector2i = _get_loop_location()
 
-	code_editor.set_line_gutter_text(_loop_start_location[1], GUTTER, 'L')
-	code_editor.set_line_gutter_clickable(_loop_start_location[1], GUTTER, true)
-	code_editor.set_line_gutter_item_color(_loop_start_location[1], GUTTER, Color(0.909, 0.189, 0.475, 1.0))
+	if _loop_start_location != Vector2i(-1, -1):
+		code_editor.set_line_gutter_text(_loop_start_location[1], GUTTER, 'L')
+		code_editor.set_line_gutter_clickable(_loop_start_location[1], GUTTER, true)
+		code_editor.set_line_gutter_item_color(_loop_start_location[1], GUTTER, Color(0.909, 0.189, 0.475, 1.0))
 
 
 func mark_libraries():
 	var _library_locations: Array[Vector2i] = find_total_occurrences("#include ")
-	
-	for location in _library_locations:
-		code_editor.set_line_gutter_text(location.y, GUTTER, '#')
-		code_editor.set_line_gutter_item_color(location.y, GUTTER, Color(0.232, 0.73, 0.207, 1.0))
-		_libraries_added.append(code_editor.get_line(location.y))
+	if not _library_locations.is_empty():
+		for location in _library_locations:
+			code_editor.set_line_gutter_text(location.y, GUTTER, '#')
+			code_editor.set_line_gutter_item_color(location.y, GUTTER, Color(0.232, 0.73, 0.207, 1.0))
+			_libraries_added.append(code_editor.get_line(location.y))
+
+
+func _redraw_gutter():
+	pass
 
 func _get_loop_location() -> Vector2i:
 	return code_editor.search("Void loop()", 2, 0, 0)
@@ -281,10 +285,12 @@ func _on_code_edit_text_changed() -> void:
 	_text_timer.start()
 
 
-func user_finished_typing() -> void:
+func finished_typing() -> void:
+	
 	emit_signal("line_edited")
 	mark_libraries()
 	mark_loop()
+	_redraw_gutter()
 	code_editor.set_gutter_draw(GUTTER, true)
 
 
