@@ -71,8 +71,7 @@ func _ready() -> void:
 	SerialController.SerialDataReceived.connect(_on_serial_data_received)
 	ArduinoCli.compiling_finished.connect(_compiling_finished)
 
-	code_editor.add_gutter(2)
-	code_editor.set_gutter_type(2, TextEdit.GUTTER_TYPE_STRING)
+	_add_main_gutter()
 
 	_text_timer = Timer.new()
 	_text_timer.set_one_shot(true)
@@ -266,8 +265,15 @@ func mark_libraries():
 			_libraries_added.append(code_editor.get_line(location.y))
 
 
+func _add_main_gutter():
+	code_editor.add_gutter(GUTTER)
+	code_editor.set_gutter_type(GUTTER, TextEdit.GUTTER_TYPE_STRING)
+
+
 func _redraw_gutter():
-	pass
+	code_editor.remove_gutter(GUTTER)
+	_add_main_gutter()
+
 
 func _get_loop_location() -> Vector2i:
 	return code_editor.search("Void loop()", 2, 0, 0)
@@ -286,11 +292,12 @@ func _on_code_edit_text_changed() -> void:
 
 
 func finished_typing() -> void:
-	
 	emit_signal("line_edited")
+	
+	_redraw_gutter()
 	mark_libraries()
 	mark_loop()
-	_redraw_gutter()
+
 	code_editor.set_gutter_draw(GUTTER, true)
 
 
