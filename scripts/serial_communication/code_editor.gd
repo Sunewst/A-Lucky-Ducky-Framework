@@ -8,11 +8,13 @@ signal line_edited
 @onready var code_editor: CodeEdit = %CodeEdit
 @onready var current_board: String = boards_info[1].board_FQBN
 
+@export_group("Boards")
 @export var default_code_completion_canadits: code_completion_resource
 @export var code_completion_canadits: Array[code_completion_resource]
 @export var boards_info: Array[board_resource]
 @export var arduino_libraries: Array[library_resource]
 
+@export_group("Debug")
 @export var debug_validity_messages: bool # If true, print out whether or not a line is 'Valid' 
 @export var debug_highlights: bool # If true, highlight when each line is executed
 
@@ -293,11 +295,10 @@ func _on_code_edit_text_changed() -> void:
 
 func finished_typing() -> void:
 	emit_signal("line_edited")
-	
+
 	_redraw_gutter()
 	mark_libraries()
 	mark_loop()
-
 	code_editor.set_gutter_draw(GUTTER, true)
 
 
