@@ -219,8 +219,8 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_yjqe1")
 
-[node name="code_editor" parent="." instance=ExtResource("3_go7bl")]
+[node name="CodeEditor" parent="." instance=ExtResource("3_go7bl")]
 boards_info = Array[ExtResource("7_n8bwo")]([ExtResource("8_bpkyh"), ExtResource("9_vud12"), ExtResource("10_p8mmv")])
 
-[connection signal="board_changed" from="code_editor" to="." method="_on_code_editor_board_changed"]
-[connection signal="currently_typing" from="code_editor" to="SubViewportContainer/SubViewport/CameraControl" method="_on_code_editor_currently_typing"]
+[connection signal="board_changed" from="CodeEditor" to="." method="_on_code_editor_board_changed"]
+[connection signal="currently_typing" from="CodeEditor" to="SubViewportContainer/SubViewport/CameraControl" method="_on_code_editor_currently_typing"]

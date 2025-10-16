@@ -36,7 +36,7 @@ color_regions = {
 "//": Color(0.681994, 0.942753, 0.991644, 0.617)
 }
 
-[node name="code_editor" type="Control"]
+[node name="CodeEditor" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
