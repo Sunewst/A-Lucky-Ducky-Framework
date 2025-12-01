@@ -1,6 +1,6 @@
 class_name FastLEDParser
 
-static func parse_code(editor: CodeEdit):
+static func parse_code(editor: CodeEdit) -> String:
 	#var script = GDScript.new()
 	var code_editor_node: CodeEdit = CodeEdit.new()
 
@@ -41,7 +41,7 @@ static func parse_code(editor: CodeEdit):
 	return code_editor_node.get_text()
 
 
-static func _add_indents(editor: CodeEdit, line: int, text: String):
+static func _add_indents(editor: CodeEdit, line: int, text: String) -> String:
 	var indented_line: String = text
 	var indent_level: int = editor.get_indent_level(line)
 
@@ -132,7 +132,7 @@ static func _convert_control_statements(editor: CodeEdit, control_location: int)
 	return converted_control_statement
 
 
-static func _convert_function_calls(editor: CodeEdit, function_call_location: int):
+static func _convert_function_calls(editor: CodeEdit, function_call_location: int) -> String:
 	var converted_function_call: String = EditorHelper.remove_comments(editor.get_line(function_call_location))
 
 	converted_function_call = converted_function_call.remove_chars(";")
@@ -149,9 +149,9 @@ static func get_code_components(editor: CodeEdit):
 	led_dictionary[0] = "fastled#"
 	
 	for i in editor.get_line_count():
-		var current_line = editor.get_line(i).remove_chars("}").strip_edges()
-		var loop_location = EditorHelper.get_loop_location(editor).y
-		var setup_location = EditorHelper.get_setup_location(editor).y
+		var current_line: String = editor.get_line(i).remove_chars("}").strip_edges()
+		var loop_location: int = EditorHelper.get_loop_location(editor).y
+		var setup_location: int = EditorHelper.get_setup_location(editor).y
 		
 		if i == loop_location or i == setup_location or current_line.is_empty():
 			pass
