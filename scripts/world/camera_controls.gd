@@ -1,7 +1,5 @@
 extends Node3D
 
-var _cam
-
 @export_range (2.0, 20, 1) var rotation_speed: float = 2.0
 @export_range (1.0, 30, 2) var movement_speed: float = 6.0
 
@@ -14,12 +12,10 @@ var _cam
 
 @export var snap := true
 
+@onready var _cam = %Camera3D
+
 var camera_animation_running: bool = true
 var _in_focus: bool = false
-
-
-func _ready() -> void:
-	_cam = %Camera3D
 
 
 func _process(delta: float) -> void:
