@@ -3,10 +3,7 @@ extends Node
 signal compiling_finished
 #signal uploading_finished
 
-var thread: Thread 
-
-func _ready() -> void:
-	thread = Thread.new()
+@onready var thread: Thread = Thread.new()
 
 
 func execute_arduino_cli(cli_arguments):
