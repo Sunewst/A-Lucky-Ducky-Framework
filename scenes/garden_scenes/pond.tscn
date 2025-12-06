@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bie037jbpxk61" path="res://scripts/world/pond.gd" id="1_sgue5"]
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/world/camera_controls.gd" id="2_go7bl"]
 [ext_resource type="Resource" uid="uid://dk6ttd5b555tv" path="res://resources/boards/ESP32-C6_Feather.tres" id="2_sgue5"]
-[ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor.tscn" id="5_sgue5"]
+[ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor/code_editor.tscn" id="5_sgue5"]
 [ext_resource type="Script" uid="uid://bk571ij27ski5" path="res://resources/core/code_completion_resource.gd" id="6_0h7e4"]
 [ext_resource type="Script" uid="uid://4as1lu3lsvt8" path="res://resources/boards/board_resource.gd" id="6_l5ioj"]
 [ext_resource type="Resource" uid="uid://cn38a3o2u65yq" path="res://resources/core/default_candidate.tres" id="7_0h7e4"]
@@ -17,6 +17,7 @@
 [ext_resource type="Resource" uid="uid://5ag2vqabsr2o" path="res://resources/libraries/adafruit_soil_sensor.tres" id="12_43sjr"]
 [ext_resource type="Resource" uid="uid://c5goit44pjs5l" path="res://resources/libraries/adafruit_VEML7700_light_sensor.tres" id="13_8c2ka"]
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="14_n5hp7"]
+
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yjqe1"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)

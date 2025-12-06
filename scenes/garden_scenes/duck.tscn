@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://dk6ttd5b555tv" path="res://resources/boards/ESP32-C6_Feather.tres" id="3_t4sxs"]
 [ext_resource type="Shader" uid="uid://bu32bxcuo17mi" path="res://shaders/grid.gdshader" id="4_7o3gr"]
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/world/camera_controls.gd" id="5_srci5"]
-[ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor.tscn" id="6_gsrkv"]
+[ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor/code_editor.tscn" id="6_gsrkv"]
 [ext_resource type="Script" uid="uid://4as1lu3lsvt8" path="res://resources/boards/board_resource.gd" id="7_jeaup"]
 [ext_resource type="Resource" uid="uid://cqwrnue4ejuti" path="res://resources/boards/arduino_uno.tres" id="8_dbv0r"]
 [ext_resource type="Resource" uid="uid://6k38vih27ib6" path="res://resources/boards/rp2040_trinkey.tres" id="9_hxxp2"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://c4be3xx8423x7" path="res://resources/libraries/library_resource.gd" id="11_238ab"]
 [ext_resource type="Resource" uid="uid://cmusypac6jfvu" path="res://resources/libraries/adafruit_BME280.tres" id="12_vcig1"]
 [ext_resource type="Resource" uid="uid://5ag2vqabsr2o" path="res://resources/libraries/adafruit_soil_sensor.tres" id="13_3qsp8"]
+
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7vlfm"]
 render_priority = 0

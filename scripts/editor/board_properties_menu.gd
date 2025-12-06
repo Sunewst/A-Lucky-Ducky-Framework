@@ -1,6 +1,6 @@
 class_name BoardProperties extends Window
 
-const BOARD_PROPERTIES_SCENE: PackedScene = preload("res://scenes/board_properties_menu.tscn")
+const BOARD_PROPERTIES_SCENE: PackedScene = preload("res://scenes/code_editor/board_properties_menu.tscn")
 
 
 func _ready() -> void:
