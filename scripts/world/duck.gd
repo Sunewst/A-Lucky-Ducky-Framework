@@ -1,6 +1,6 @@
 class_name Duck extends Node3D
 
-const DUCK_SCENE: PackedScene = preload("res://scenes/duck.tscn")
+const DUCK_SCENE: PackedScene = preload("res://scenes/garden_scenes/duck.tscn")
 
 @export var material: Material
 @export var current_board: board_resource

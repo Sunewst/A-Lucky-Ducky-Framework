@@ -14,7 +14,6 @@
 [ext_resource type="Resource" uid="uid://cmusypac6jfvu" path="res://resources/libraries/adafruit_BME280.tres" id="12_vcig1"]
 [ext_resource type="Resource" uid="uid://5ag2vqabsr2o" path="res://resources/libraries/adafruit_soil_sensor.tres" id="13_3qsp8"]
 
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7vlfm"]
 render_priority = 0
 shader = ExtResource("2_83675")
@@ -195,7 +194,7 @@ handle_input_locally = false
 physics_object_picking = true
 physics_object_picking_sort = true
 physics_object_picking_first_only = true
-size = Vector2i(385, 360)
+size = Vector2i(705, 540)
 render_target_update_mode = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
