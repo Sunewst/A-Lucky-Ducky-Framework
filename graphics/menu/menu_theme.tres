@@ -1,0 +1,11 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dlrrjmfakxexo"]
+
+[ext_resource type="FontFile" uid="uid://b1c2r7w6xl87" path="res://graphics/fonts/JetBrainsMonoNL-ExtraLight.ttf" id="1_1gkxa"]
+
+[resource]
+Label/font_sizes/font_size = 42
+Label/fonts/font = ExtResource("1_1gkxa")
+MarginContainer/constants/margin_bottom = 50
+MarginContainer/constants/margin_left = 20
+MarginContainer/constants/margin_top = 50
+VBoxContainer/constants/separation = 50
