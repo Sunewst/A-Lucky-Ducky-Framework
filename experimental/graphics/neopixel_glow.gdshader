@@ -22,6 +22,8 @@ uniform vec3 uv1_offset;
 uniform vec3 uv2_scale;
 uniform vec3 uv2_offset;
 
+uniform vec4 emission_2: source_color;
+
 varying vec4 emission;
 
 

@@ -23,22 +23,26 @@ func _update_muiltimesh():
 	var path_length: float = curve.get_baked_length()
 	var count = floor(path_length / distance_between)
 	var mm: MultiMesh
+	var neopixel: MultiMesh
 
-	$MultiMeshInstance3D.multimesh.mesh = $NeopixelStrip.mesh
-	$MultiMeshInstance3D.material_override = $NeopixelStrip.get_active_material(1)
+	$Neopixel.material_override = $MeshInstance3D.get_active_material(0)
 
-	mm = $MultiMeshInstance3D.multimesh
-	
+	mm = $Strip.multimesh
+	neopixel = $Neopixel.multimesh
+
 	mm.instance_count = count
+	neopixel.instance_count = count
 
 	var offset = distance_between / 2.0
-	#mm.set_instance_custom_data(1, Color(0.0, 0.611, 0.0, 1.0))
+	neopixel.set_instance_custom_data(10, Color(0.0, 0.612, 0.769, 1.0))
 	
 	for i in range(0, count):
 		var curve_distance = offset + distance_between * i
 		var object_position = curve.sample_baked(curve_distance, true)
+		var neopixel_position = curve.sample_baked(curve_distance, true)
 		
 		var object_basis = Basis()
+		var neopixel_basis = Basis()
 		
 
 		var up = curve.sample_baked_up_vector(curve_distance, true)
@@ -47,10 +51,16 @@ func _update_muiltimesh():
 		object_basis.y = up
 		object_basis.x = forward.cross(up).normalized()
 		object_basis.z = -forward
-
+		
+		neopixel_basis.y = up
+		neopixel_basis.x = forward.cross(up).normalized()
+		neopixel_basis.z = -forward
+	
 		var object_transform = Transform3D(object_basis, object_position)
+		var neopixel_transform = Transform3D(neopixel_basis, neopixel_position)
 
 		mm.set_instance_transform(i, object_transform)
+		neopixel.set_instance_transform(i, neopixel_transform)
 
 
 func _on_curve_changed() -> void:
