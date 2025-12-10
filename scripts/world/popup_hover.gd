@@ -1,6 +1,6 @@
 class_name PopupHover extends Control
 
-const POPUP_SCENE: PackedScene = preload("res://scenes/popup_hover.tscn")
+const POPUP_SCENE: PackedScene = preload("res://scenes/code_editor/popup_hover.tscn")
 
 
 static func create_new_popup():
