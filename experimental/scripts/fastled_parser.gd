@@ -1,7 +1,7 @@
 class_name FastLEDParser
 
 static func parse_code(editor: CodeEdit) -> String:
-	#var script = GDScript.new()
+	#var script = .new()
 	var code_editor_node: CodeEdit = CodeEdit.new()
 
 	var editor_components_dic = get_code_components(editor)
@@ -36,7 +36,7 @@ static func parse_code(editor: CodeEdit) -> String:
 		
 		code_editor_node.insert_line_at(component_location, converted_component)
 
-	code_editor_node.set_line(0, "extends FastLED")
+	code_editor_node.set_line(0, "extends FastLEDMethods")
 
 	return code_editor_node.get_text()
 
