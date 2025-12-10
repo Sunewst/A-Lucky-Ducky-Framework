@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class FastLED : Node
+public partial class FastLEDMethods : Node
 {
 	public void fill_solid(Godot.Color[] targetArray, int numToFill, Godot.Color color)
 	{
