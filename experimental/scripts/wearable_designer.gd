@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var code_edit_node: CodeEdit
-@onready var fastled_node: Node = %FastledEngine
+@onready var fastled_engine = %FastLEDEngine
 
 var leds: PackedColorArray = [Color(0,0,0)]
 
@@ -12,4 +12,5 @@ func _ready() -> void:
 	
 
 func _compile_fastled() -> void:
-	print(FastLEDParser.parse_code(code_edit_node))
+	#print(FastLEDParser.parse_code(code_edit_node))
+	fastled_engine.show()
