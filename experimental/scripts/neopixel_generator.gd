@@ -34,7 +34,7 @@ func _update_muiltimesh():
 	neopixel.instance_count = count
 
 	var offset = distance_between / 2.0
-	neopixel.set_instance_custom_data(10, Color(0.0, 0.612, 0.769, 1.0))
+	#neopixel.set_instance_custom_data(10, Color(0.0, 0.612, 0.769, 1.0))
 	
 	for i in range(0, count):
 		var curve_distance = offset + distance_between * i
