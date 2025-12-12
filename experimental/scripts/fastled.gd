@@ -5,18 +5,20 @@ class_name FastLED extends Node
 var leds_array: Array[PackedColorArray]
 
 var fastled_engine: Node3D
-var muiltimesh: MultiMesh
+var neopixel_muiltimesh: MultiMesh
 
 
 func _ready() -> void:
 	if not pond_node.find_child("NeopixelGenerator") == null:
 		print("Found node!")
 		fastled_engine = pond_node.find_child("NeopixelGenerator")
-		muiltimesh = fastled_engine.find_child("Neopixel").multimesh
+		neopixel_muiltimesh = fastled_engine.find_child("Neopixel").multimesh
 
 
 func show():
-	muiltimesh.set_instance_custom_data(10, Color(0.0, 0.612, 0.769, 1.0))
+	for neopixel in leds_array[0].size():
+		neopixel_muiltimesh.set_instance_custom_data(neopixel, leds_array[0][neopixel])
+
 
 
 func addLeds(targetArray: PackedColorArray):
