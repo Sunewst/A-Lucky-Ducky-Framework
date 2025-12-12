@@ -168,6 +168,7 @@ size = Vector2(2, 2)
 
 [node name="WearableDesigner" type="Node3D"]
 script = ExtResource("1_fe8b1")
+debug_leds = PackedColorArray(0.78039217, 0, 0, 1, 0.11265748, 0.06768351, 0.03334421, 1, 0, 0.8392157, 0.85490197, 1)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
