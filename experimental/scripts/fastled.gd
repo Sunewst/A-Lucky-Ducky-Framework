@@ -10,7 +10,6 @@ var neopixel_muiltimesh: MultiMesh
 
 func _ready() -> void:
 	if not pond_node.find_child("NeopixelGenerator") == null:
-		print("Found node!")
 		fastled_engine = pond_node.find_child("NeopixelGenerator")
 		neopixel_muiltimesh = fastled_engine.find_child("Neopixel").multimesh
 
