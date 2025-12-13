@@ -21,8 +21,8 @@ boot_splash/show_image=false
 
 [autoload]
 
-SignalController="*res://scripts/global/signal_controller.gd"
 SaveHandler="*res://scripts/save/SaveHandler.gd"
+SignalController="*res://scripts/global/signal_controller.gd"
 SerialController="*res://scripts/serial_communication/SerialController.cs"
 ArduinoCli="*res://scripts/serial_communication/arduino_cli.gd"
 

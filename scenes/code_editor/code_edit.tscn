@@ -26,7 +26,7 @@ color_regions = {
 "//": Color(0.681994, 0.942753, 0.991644, 0.617)
 }
 
-[node name="CodeEdit" type="CodeEdit"]
+[node name="CodeEdit" type="CodeEdit" groups=["CodeEditor"]]
 unique_name_in_owner = true
 anchors_preset = 9
 anchor_bottom = 1.0

@@ -7,3 +7,6 @@ signal finished_typing
 
 signal show_editor
 signal hide_editor
+
+signal load
+signal save

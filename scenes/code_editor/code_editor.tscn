@@ -14,7 +14,7 @@
 [ext_resource type="Resource" uid="uid://cqwrnue4ejuti" path="res://resources/boards/arduino_uno.tres" id="9_g3rls"]
 [ext_resource type="Script" uid="uid://ey5u33d4lbc3" path="res://scripts/editor/serial_monitor.gd" id="10_yxof0"]
 
-[node name="CodeEditor" type="Control" groups=["CodeEditor"]]
+[node name="CodeEditor" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

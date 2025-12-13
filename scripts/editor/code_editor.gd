@@ -60,7 +60,9 @@ var _unique_highlighting_keywords: Dictionary = {
 
 
 func _ready() -> void:
-	board_save_data = _load_save_data()
+	if not _load_save_data() == null:
+		print("Loading save!")
+		board_save_data = _load_save_data()
 
 	compile_arguments = ['compile', '--fqbn', current_board, ino_global_path]
 	upload_arguments = ['upload', '-p', SerialController._GetPort(), '--fqbn', current_board, ino_global_path]
@@ -76,8 +78,8 @@ func _ready() -> void:
 	SerialController.SerialDataReceived.connect(_on_serial_data_received)
 	ArduinoCli.compiling_finished.connect(_compiling_finished)
 
-	SignalController.show_editor.connect(editor_visible) #T
-	SignalController.hide_editor.connect(editor_hidden) #T
+	SignalController.load.connect(load_data)
+	SignalController.save.connect(save_data)
 
 	_add_main_gutter()
 
@@ -314,14 +316,12 @@ func finished_typing() -> void:
 	SignalController.finished_typing.emit()
 
 
-func editor_visible(save_name: String = current_board):
+func load_data(save_name: String = current_board):
 	_set_board_save(save_name)
-	show()
 
 
-func editor_hidden(save_name: String = current_board):
+func save_data(save_name: String = current_board):
 	board_save_data[save_name] = get_text()
-	hide()
 
 
 func save():
@@ -334,16 +334,19 @@ func save():
 
 func _load_save_data():
 	var _board_save_file = FileAccess.open("user://save_data//board.save", FileAccess.READ)
+
 	while _board_save_file.get_position() < _board_save_file.get_length():
 		var _json_string = _board_save_file.get_line()
 		var _json = JSON.new()
 
 		var _parse_result = _json.parse(_json_string)
+
 		if not _parse_result == OK:
 			print("JSON Parse Error: ", _json.get_error_message(), " in ", _json_string, " at line ", _json.get_error_line())
 			continue
 
 		var _save_dict = _json.data
+
 		return _save_dict
 
 

@@ -211,7 +211,7 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_fpgeh")
 
-[node name="CodeEditor" parent="." groups=["Saveable"] instance=ExtResource("5_sgue5")]
+[node name="CodeEditor" parent="." instance=ExtResource("5_sgue5")]
 visible = false
 
 [node name="NewBoard" type="Button" parent="."]
