@@ -28,7 +28,8 @@ func _ready() -> void:
 
 	#code_editor_node.symbol_hovered.connect(_on_symbol_hovered)
 	#code_editor_node.focus_entered.connect(_on_text_hovered)
-	code_edtior.finished_editing.connect(_text_changed)
+	#code_edtior.finished_editing.connect(_text_changed)
+	SignalController.finished_typing.connect(_text_changed)
 	SerialController.SerialDataReceived.connect(_on_serial_data_received)
 	
 

@@ -1,12 +1,8 @@
-class_name CodeEditor extends Control
-
-signal currently_typing
-signal board_changed
-signal finished_editing
+class_name CodeEditor extends CodeEdit
 
 
-@onready var code_editor: CodeEdit = %CodeEdit
 @onready var current_board: String = boards_info[3].board_FQBN
+@onready var code_edit_node: CodeEdit = %CodeEdit
 
 @export_group("Boards")
 @export var code_completion_candidates: Array[code_completion_resource]
@@ -16,7 +12,7 @@ signal finished_editing
 @export_group("Debug")
 @export var debug_validity_messages: bool # If true, print out whether or not a line is 'Valid' 
 @export var debug_highlights: bool # If true, highlight when each line is executed
-@export var saving_enabled: bool = true
+@export var saving_enabled: bool = false
 
 const GUTTER: int = 2 # Main gutter
 const INO_USER_PATH: String = 'user://Nest//Nest.ino' # The godot path to the .ino file
@@ -69,7 +65,7 @@ func _ready() -> void:
 	compile_arguments = ['compile', '--fqbn', current_board, ino_global_path]
 	upload_arguments = ['upload', '-p', SerialController._GetPort(), '--fqbn', current_board, ino_global_path]
 
-	code_editor_menu = code_editor.get_menu()
+	code_editor_menu = get_menu()
 
 	for board in boards_info:
 		board_menu.add_item(board.board_FQBN)
@@ -80,6 +76,9 @@ func _ready() -> void:
 	SerialController.SerialDataReceived.connect(_on_serial_data_received)
 	ArduinoCli.compiling_finished.connect(_compiling_finished)
 
+	SignalController.show_editor.connect(editor_visible) #T
+	SignalController.hide_editor.connect(editor_hidden) #T
+
 	_add_main_gutter()
 
 	_text_timer = Timer.new()
@@ -87,9 +86,9 @@ func _ready() -> void:
 	_text_timer.set_wait_time(1.0)
 	add_child(_text_timer)
 
-	code_editor.code_completion_enabled = false
+	code_completion_enabled = false
 
-	code_editor.text_changed.connect(code_request_code_completion)
+	text_changed.connect(code_request_code_completion)
 	_text_timer.timeout.connect(finished_typing)
 
 
@@ -100,11 +99,11 @@ func _on_serial_data_received(data: String) -> void:
 			_unique_highlighting_keywords[serial_slices[1]][0].call(serial_slices[0].to_int())
 		else:
 			var _current_line: int = serial_slices[0].to_int()
-			code_editor.set_line_background_color(_past_line - _lines_added - 1, Color(0, 0, 0, 0))
+			set_line_background_color(_past_line - _lines_added - 1, Color(0, 0, 0, 0))
 
 			_lines_added = _total_lines_added(_current_line)
 
-			code_editor.set_line_background_color(_current_line - _lines_added - 1, Color(0, 0.6, 0, 0.3))
+			set_line_background_color(_current_line - _lines_added - 1, Color(0, 0.6, 0, 0.3))
 			_past_line = _current_line
 
 
@@ -116,8 +115,8 @@ func _compile_code(user_code: CodeEdit, cli_arguments: Array[String]):
 	if not DirAccess.dir_exists_absolute("user://Nest"):
 		DirAccess.make_dir_absolute("user://Nest")
 
-	for line in range(code_editor.get_line_count()):
-		code_editor.set_line_background_color(line, Color(0, 0, 0, 0))
+	for line in range(get_line_count()):
+		set_line_background_color(line, Color(0, 0, 0, 0))
 
 	for i in range(user_code.get_line_count()):
 		_current_line = user_code.get_line(i)
@@ -141,13 +140,13 @@ func _compile_code(user_code: CodeEdit, cli_arguments: Array[String]):
 
 		for available_library in arduino_libraries:
 			if available_library.library_name.contains(library):
-				var _library_location: Array[Vector2i] = EditorHelper.find_total_occurrences(available_library.library_name, code_editor)
+				var _library_location: Array[Vector2i] = EditorHelper.find_total_occurrences(available_library.library_name, code_edit_node)
 				var _library_initialization_var: String
 				var _library_function: String
-				var _initialization_location = code_editor.search(available_library.library_name.get_slice(".", 0), 2, _library_location[0].y + 1, 0)
+				var _initialization_location = search(available_library.library_name.get_slice(".", 0), 2, _library_location[0].y + 1, 0)
 
 				_library_update_function = available_library.library_update_function
-				_library_initialization_var = code_editor.get_line(_initialization_location.y).get_slice(" ", 1).replace(";", "")
+				_library_initialization_var = get_line(_initialization_location.y).get_slice(" ", 1).replace(";", "")
 
 				_library_function = str(_library_initialization_var + "." + _library_update_function)
 				_library_print = "Serial.println(\"\\n$p$\" + %s);" % [_library_function]
@@ -189,29 +188,29 @@ func check_for_validity(line: String) -> String:
 
 
 func _on_compile_pressed() -> void:
-	_compile_code(code_editor, compile_arguments)
+	_compile_code(code_edit_node, compile_arguments)
 
 
 func _on_upload_pressed() -> void:
 	upload_arguments[2] = SerialController._GetPort()
-	_compile_code(code_editor, upload_arguments)
+	_compile_code(code_edit_node, upload_arguments)
 
 
 func _on_code_edit_focus_entered() -> void:
-	currently_typing.emit(true)
+	SignalController.editor_in_focus.emit(true)
 
 
 func _on_code_edit_focus_exited() -> void:
-	currently_typing.emit(false)
+	SignalController.editor_in_focus.emit(false)
 
 
 func code_request_code_completion() -> void:
 	for candidates_resource in code_completion_candidates:
 		for candidate in candidates_resource.available_completion_candidates:
-			code_editor.add_code_completion_option(CodeEdit.KIND_FUNCTION, candidate, candidate)
+			add_code_completion_option(CodeEdit.KIND_FUNCTION, candidate, candidate)
 
-	if code_editor.is_in_string(code_editor.get_caret_line(), code_editor.get_caret_column()) == -1:
-		code_editor.update_code_completion_options(true)
+	if is_in_string(get_caret_line(), get_caret_column()) == -1:
+		update_code_completion_options(true)
 
 
 func _highlight_errors(cli_output: String) -> void:
@@ -226,12 +225,12 @@ func _highlight_errors(cli_output: String) -> void:
 				_cli_line_error = _cli_error.get_slice(':', 1).to_int()
 			else:
 				_cli_line_error = _cli_error.get_slice(':', 2).to_int()
-			code_editor.set_line_background_color(_cli_line_error - _total_lines_added(_cli_line_error) - 1, Color(1, 0, 0, 0.3))
+			set_line_background_color(_cli_line_error - _total_lines_added(_cli_line_error) - 1, Color(1, 0, 0, 0.3))
 	printerr("Failed to compile!")
 
 
 func delay_highlighting(line: int) -> void:
-	code_editor.set_line_background_color(line, Color(0.78, 0.718, 0.02, 0.125))
+	set_line_background_color(line, Color(0.78, 0.718, 0.02, 0.125))
 	add_child(TimerDisplay.create_new_timer(5, 8))
 
 
@@ -253,31 +252,31 @@ func _on_board_clicked(id: int) -> void:
 	compile_arguments[2] = current_board
 	upload_arguments[4] = current_board
 	print("Changed board to ", current_board)
-	
-	board_changed.emit(boards_info[id])
+
+	SignalController.board_changed.emit(boards_info[id])
 
 
 func mark_loop() -> void:
-	var _loop_start_location: Vector2i = EditorHelper.get_loop_location(code_editor)
+	var _loop_start_location: Vector2i = EditorHelper.get_loop_location(code_edit_node)
 
 	if _loop_start_location != Vector2i(-1, -1):
-		code_editor.set_line_gutter_text(_loop_start_location[1], GUTTER, 'L')
-		code_editor.set_line_gutter_clickable(_loop_start_location[1], GUTTER, true)
-		code_editor.set_line_gutter_item_color(_loop_start_location[1], GUTTER, Color(0.909, 0.189, 0.475, 1.0))
+		set_line_gutter_text(_loop_start_location[1], GUTTER, 'L')
+		set_line_gutter_clickable(_loop_start_location[1], GUTTER, true)
+		set_line_gutter_item_color(_loop_start_location[1], GUTTER, Color(0.909, 0.189, 0.475, 1.0))
 	else:
 		printerr("Failed to find loop function")
 
 
 func mark_libraries():
-	var _library_locations: Array[Vector2i] = EditorHelper.find_total_occurrences("#include ", code_editor)
+	var _library_locations: Array[Vector2i] = EditorHelper.find_total_occurrences("#include ", code_edit_node)
 	_libraries_added.clear()
 
 	if not _library_locations.is_empty():
 		for location in _library_locations:
-			var library_name: String = code_editor.get_line(location.y)
+			var library_name: String = get_line(location.y)
 
-			code_editor.set_line_gutter_text(location.y, GUTTER, '#')
-			code_editor.set_line_gutter_item_color(location.y, GUTTER, Color(0.232, 0.73, 0.207, 1.0))
+			set_line_gutter_text(location.y, GUTTER, '#')
+			set_line_gutter_item_color(location.y, GUTTER, Color(0.232, 0.73, 0.207, 1.0))
 			if library_name.contains("\""):
 				_libraries_added.append(library_name.get_slice("\"", 1))
 			else:
@@ -285,19 +284,19 @@ func mark_libraries():
 
 
 func _add_main_gutter():
-	code_editor.add_gutter(GUTTER)
-	code_editor.set_gutter_type(GUTTER, TextEdit.GUTTER_TYPE_STRING)
+	add_gutter(GUTTER)
+	set_gutter_type(GUTTER, TextEdit.GUTTER_TYPE_STRING)
 
 
 func _redraw_gutter():
-	code_editor.remove_gutter(GUTTER)
+	remove_gutter(GUTTER)
 	_add_main_gutter()
 
 
 func _on_code_edit_gutter_clicked(line: int, gutter: int) -> void:
 	print("Gutter ", gutter, " Line: ", line)
 
-	if code_editor.is_line_gutter_clickable(line, gutter) and not LoopWindow.window_exists:
+	if is_line_gutter_clickable(line, gutter) and not LoopWindow.window_exists:
 		print("Gutter clickable!")
 		add_child(LoopWindow.display_new_loop_window())
 
@@ -310,9 +309,9 @@ func finished_typing() -> void:
 	_redraw_gutter()
 	mark_libraries()
 	mark_loop()
-	code_editor.set_gutter_draw(GUTTER, true)
+	set_gutter_draw(GUTTER, true)
 
-	finished_editing.emit()
+	SignalController.finished_typing.emit()
 
 
 func editor_visible(save_name: String = current_board):
@@ -321,7 +320,7 @@ func editor_visible(save_name: String = current_board):
 
 
 func editor_hidden(save_name: String = current_board):
-	board_save_data[save_name] = code_editor.get_text()
+	board_save_data[save_name] = get_text()
 	hide()
 
 
@@ -350,7 +349,7 @@ func _load_save_data():
 
 func _set_board_save(save_name: String):
 	if board_save_data.has(save_name):
-		code_editor.text = board_save_data[save_name]
+		text = board_save_data[save_name]
 	else:
 		print("No valid save!")
 
