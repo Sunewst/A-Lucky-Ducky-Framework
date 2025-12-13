@@ -1,9 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://du5ijsydyirmv"]
+[gd_scene load_steps=20 format=3 uid="uid://du5ijsydyirmv"]
 
 [ext_resource type="Script" uid="uid://5xlrluaqi8p0" path="res://experimental/scripts/wearable_designer.gd" id="1_fe8b1"]
 [ext_resource type="Shader" uid="uid://bu32bxcuo17mi" path="res://shaders/grid.gdshader" id="1_l7n01"]
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/world/camera_controls.gd" id="2_nvkp8"]
-[ext_resource type="PackedScene" uid="uid://be5ixgkfutojk" path="res://experimental/scenes/neopixel_generator.tscn" id="3_y8gkd"]
+[ext_resource type="PackedScene" uid="uid://cp2gfow8ulvnm" path="res://experimental/scenes/neopixels.tscn" id="3_y8gkd"]
 [ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor/code_editor.tscn" id="4_vbu5l"]
 [ext_resource type="Script" uid="uid://4as1lu3lsvt8" path="res://resources/boards/board_resource.gd" id="5_x4ab7"]
 [ext_resource type="Resource" uid="uid://cqwrnue4ejuti" path="res://resources/boards/arduino_uno.tres" id="6_8ulwq"]
@@ -11,7 +11,6 @@
 [ext_resource type="Resource" uid="uid://6k38vih27ib6" path="res://resources/boards/rp2040_trinkey.tres" id="7_fe8b1"]
 [ext_resource type="Resource" uid="uid://m2dk08ne2po" path="res://resources/boards/garden_board.tres" id="8_y8gkd"]
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="11_y8gkd"]
-[ext_resource type="Script" uid="uid://dh65264b6mxvs" path="res://experimental/scripts/fastled.gd" id="12_pirp3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vbu5l"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -168,7 +167,7 @@ size = Vector2(2, 2)
 
 [node name="WearableDesigner" type="Node3D"]
 script = ExtResource("1_fe8b1")
-debug_leds = PackedColorArray(0.78039217, 0, 0, 1, 0.11265748, 0.06768351, 0.03334421, 1, 0, 0.8392157, 0.85490197, 1)
+debug_leds = PackedColorArray(0.3764706, 1, 1, 1, 0, 0.7254902, 0, 1, 0.7137255, 0, 0.8980392, 1)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
@@ -198,8 +197,9 @@ shadow_enabled = true
 [node name="Ground" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 mesh = SubResource("BoxMesh_fr2ie")
 
-[node name="NeopixelGenerator" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_y8gkd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9944091, 1, 1.0223227)
+[node name="Neopixels" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_y8gkd")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6423249, 1, 0.5083761)
 
 [node name="CameraControl" type="Node3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(0.99999976, 0, 0, 0, 0.866025, 0.49999973, 0, -0.49999976, 0.8660249, -0.22320724, 0.46578, 0.4062995)
@@ -234,9 +234,7 @@ grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("11_y8gkd")
 
-[node name="FastLEDEngine" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("12_pirp3")
+[node name="FastLEDInstance" type="Node" parent="."]
 
 [connection signal="focus_entered" from="SubViewportContainer" to="SubViewportContainer/SubViewport/CameraControl" method="_on_code_edit_focus_entered"]
 [connection signal="focus_exited" from="SubViewportContainer" to="SubViewportContainer/SubViewport/CameraControl" method="_on_code_edit_focus_exited"]

@@ -1,6 +1,6 @@
 class_name FastLED extends Node
 
-@onready var pond_node: Node3D = get_parent()
+@onready var pond_node: Node3D = owner
 
 var leds_array: Array[PackedColorArray]
 
@@ -17,7 +17,6 @@ func _ready() -> void:
 func show():
 	for neopixel in leds_array[0].size():
 		neopixel_muiltimesh.set_instance_custom_data(neopixel, leds_array[0][neopixel])
-
 
 
 func addLeds(targetArray: PackedColorArray):
