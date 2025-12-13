@@ -1,15 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://du5ijsydyirmv"]
+[gd_scene load_steps=15 format=3 uid="uid://du5ijsydyirmv"]
 
 [ext_resource type="Script" uid="uid://5xlrluaqi8p0" path="res://experimental/scripts/wearable_designer.gd" id="1_fe8b1"]
 [ext_resource type="Shader" uid="uid://bu32bxcuo17mi" path="res://shaders/grid.gdshader" id="1_l7n01"]
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/world/camera_controls.gd" id="2_nvkp8"]
 [ext_resource type="PackedScene" uid="uid://cp2gfow8ulvnm" path="res://experimental/scenes/neopixels.tscn" id="3_y8gkd"]
-[ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor/code_editor.tscn" id="4_vbu5l"]
-[ext_resource type="Script" uid="uid://4as1lu3lsvt8" path="res://resources/boards/board_resource.gd" id="5_x4ab7"]
-[ext_resource type="Resource" uid="uid://cqwrnue4ejuti" path="res://resources/boards/arduino_uno.tres" id="6_8ulwq"]
-[ext_resource type="Resource" uid="uid://dk6ttd5b555tv" path="res://resources/boards/ESP32-C6_Feather.tres" id="7_3mvgf"]
-[ext_resource type="Resource" uid="uid://6k38vih27ib6" path="res://resources/boards/rp2040_trinkey.tres" id="7_fe8b1"]
-[ext_resource type="Resource" uid="uid://m2dk08ne2po" path="res://resources/boards/garden_board.tres" id="8_y8gkd"]
+[ext_resource type="PackedScene" uid="uid://cv7sxh02b5xfd" path="res://experimental/scenes/designer_editor.tscn" id="6_fr2ie"]
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="11_y8gkd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vbu5l"]
@@ -217,9 +212,7 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_8ulwq")
 
-[node name="CodeEditor" parent="." instance=ExtResource("4_vbu5l")]
-boards_info = Array[ExtResource("5_x4ab7")]([ExtResource("6_8ulwq"), ExtResource("7_fe8b1"), ExtResource("8_y8gkd"), ExtResource("7_3mvgf")])
-saving_enabled = false
+[node name="DesignerEditor" parent="." instance=ExtResource("6_fr2ie")]
 
 [node name="FastLEDButton" type="Button" parent="."]
 anchors_preset = 6
