@@ -15,7 +15,11 @@ extends Node3D
 @onready var _cam = %Camera3D
 
 var camera_animation_running: bool = true
-var _in_focus: bool = false
+var _in_focus: bool = true
+
+
+func _ready() -> void:
+	SignalController.editor_in_focus.connect(_on_code_editor_currently_typing)
 
 
 func _process(delta: float) -> void:
@@ -79,9 +83,8 @@ func _on_code_edit_focus_exited() -> void:
 
 
 func _on_code_editor_currently_typing(status: bool) -> void:
-	pass
-	#if status:
-		#_in_focus = false
-	#else:
-		#_in_focus = true
+	if status:
+		_in_focus = false
+	else:
+		_in_focus = true
 	

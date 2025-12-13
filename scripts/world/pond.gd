@@ -7,7 +7,7 @@ signal hide_editor
 @export var current_board: board_resource
 @export var divider_amount: int = 5
 
-@onready var code_editor: CodeEditor = $CodeEditor
+#@onready var code_editor: CodeEditor = $CodeEditor
 @onready var properties_window: BoardProperties = BoardProperties.display_new_properties_window()
 
 var board_model_scene: Node
@@ -44,11 +44,13 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click") and currently_hovering:
-		show_editor.emit(focused_mesh)
+		SignalController.show_editor.emit()
+		SignalController.load.emit(focused_mesh)
 
 	if event.is_action_pressed("close_code_editor"):
-		hide_editor.emit(focused_mesh)
-		
+		SignalController.hide_editor.emit()
+		SignalController.save.emit(focused_mesh)
+
 	if event.is_action_pressed("open_board_properties") and currently_hovering:
 		print("Showing properties of board: ", focused_mesh)
 		properties_window.show()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://3rxmiqb15771"]
+[gd_scene load_steps=16 format=3 uid="uid://3rxmiqb15771"]
 
 [ext_resource type="Script" uid="uid://crviwgj8ijc24" path="res://scripts/world/duck.gd" id="1_4hpwl"]
 [ext_resource type="Shader" uid="uid://sl7rygw7j1bj" path="res://shaders/highlight.gdshader" id="2_83675"]
@@ -6,13 +6,6 @@
 [ext_resource type="Shader" uid="uid://bu32bxcuo17mi" path="res://shaders/grid.gdshader" id="4_7o3gr"]
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/world/camera_controls.gd" id="5_srci5"]
 [ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor/code_editor.tscn" id="6_gsrkv"]
-[ext_resource type="Script" uid="uid://4as1lu3lsvt8" path="res://resources/boards/board_resource.gd" id="7_jeaup"]
-[ext_resource type="Resource" uid="uid://cqwrnue4ejuti" path="res://resources/boards/arduino_uno.tres" id="8_dbv0r"]
-[ext_resource type="Resource" uid="uid://6k38vih27ib6" path="res://resources/boards/rp2040_trinkey.tres" id="9_hxxp2"]
-[ext_resource type="Resource" uid="uid://m2dk08ne2po" path="res://resources/boards/garden_board.tres" id="10_h31it"]
-[ext_resource type="Script" uid="uid://c4be3xx8423x7" path="res://resources/libraries/library_resource.gd" id="11_238ab"]
-[ext_resource type="Resource" uid="uid://cmusypac6jfvu" path="res://resources/libraries/adafruit_BME280.tres" id="12_vcig1"]
-[ext_resource type="Resource" uid="uid://5ag2vqabsr2o" path="res://resources/libraries/adafruit_soil_sensor.tres" id="13_3qsp8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7vlfm"]
 render_priority = 0
@@ -225,8 +218,3 @@ extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_yjqe1")
 
 [node name="CodeEditor" parent="." instance=ExtResource("6_gsrkv")]
-boards_info = Array[ExtResource("7_jeaup")]([ExtResource("8_dbv0r"), ExtResource("9_hxxp2"), ExtResource("10_h31it"), ExtResource("3_t4sxs")])
-arduino_libraries = Array[ExtResource("11_238ab")]([ExtResource("12_vcig1"), ExtResource("13_3qsp8")])
-
-[connection signal="board_changed" from="CodeEditor" to="." method="_on_code_editor_board_changed"]
-[connection signal="currently_typing" from="CodeEditor" to="SubViewportContainer/SubViewport/CameraControl" method="_on_code_editor_currently_typing"]

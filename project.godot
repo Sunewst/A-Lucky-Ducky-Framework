@@ -22,8 +22,13 @@ boot_splash/show_image=false
 [autoload]
 
 SaveHandler="*res://scripts/save/SaveHandler.gd"
+SignalController="*res://scripts/global/signal_controller.gd"
 SerialController="*res://scripts/serial_communication/SerialController.cs"
 ArduinoCli="*res://scripts/serial_communication/arduino_cli.gd"
+
+[debug]
+
+gdscript/warnings/unused_signal=0
 
 [display]
 

@@ -1,23 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://bm82cdsoaxkhf"]
+[gd_scene load_steps=15 format=3 uid="uid://bm82cdsoaxkhf"]
 
 [ext_resource type="Shader" uid="uid://bu32bxcuo17mi" path="res://shaders/grid.gdshader" id="1_hvmvx"]
 [ext_resource type="Script" uid="uid://bie037jbpxk61" path="res://scripts/world/pond.gd" id="1_sgue5"]
 [ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/world/camera_controls.gd" id="2_go7bl"]
 [ext_resource type="Resource" uid="uid://dk6ttd5b555tv" path="res://resources/boards/ESP32-C6_Feather.tres" id="2_sgue5"]
 [ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor/code_editor.tscn" id="5_sgue5"]
-[ext_resource type="Script" uid="uid://bk571ij27ski5" path="res://resources/core/code_completion_resource.gd" id="6_0h7e4"]
-[ext_resource type="Script" uid="uid://4as1lu3lsvt8" path="res://resources/boards/board_resource.gd" id="6_l5ioj"]
-[ext_resource type="Resource" uid="uid://cn38a3o2u65yq" path="res://resources/core/default_candidate.tres" id="7_0h7e4"]
-[ext_resource type="Resource" uid="uid://cqwrnue4ejuti" path="res://resources/boards/arduino_uno.tres" id="7_n8bwo"]
-[ext_resource type="Resource" uid="uid://m2dk08ne2po" path="res://resources/boards/garden_board.tres" id="8_bpkyh"]
-[ext_resource type="Resource" uid="uid://1wcmvlohjv65" path="res://resources/core/esp_now_candidate.tres" id="8_jy5g4"]
-[ext_resource type="Resource" uid="uid://6k38vih27ib6" path="res://resources/boards/rp2040_trinkey.tres" id="9_vud12"]
-[ext_resource type="Script" uid="uid://c4be3xx8423x7" path="res://resources/libraries/library_resource.gd" id="10_p8mmv"]
-[ext_resource type="Resource" uid="uid://cmusypac6jfvu" path="res://resources/libraries/adafruit_BME280.tres" id="11_n5hp7"]
-[ext_resource type="Resource" uid="uid://5ag2vqabsr2o" path="res://resources/libraries/adafruit_soil_sensor.tres" id="12_43sjr"]
-[ext_resource type="Resource" uid="uid://c5goit44pjs5l" path="res://resources/libraries/adafruit_VEML7700_light_sensor.tres" id="13_8c2ka"]
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="14_n5hp7"]
-
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yjqe1"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -193,7 +181,7 @@ handle_input_locally = false
 physics_object_picking = true
 physics_object_picking_sort = true
 physics_object_picking_first_only = true
-size = Vector2i(640, 360)
+size = Vector2i(960, 540)
 render_target_update_mode = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
@@ -223,11 +211,8 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_fpgeh")
 
-[node name="CodeEditor" parent="." groups=["Saveable"] instance=ExtResource("5_sgue5")]
+[node name="CodeEditor" parent="." instance=ExtResource("5_sgue5")]
 visible = false
-code_completion_candidates = Array[ExtResource("6_0h7e4")]([ExtResource("7_0h7e4"), ExtResource("8_jy5g4")])
-boards_info = Array[ExtResource("6_l5ioj")]([ExtResource("7_n8bwo"), ExtResource("8_bpkyh"), ExtResource("9_vud12"), ExtResource("2_sgue5")])
-arduino_libraries = Array[ExtResource("10_p8mmv")]([ExtResource("11_n5hp7"), ExtResource("12_43sjr"), ExtResource("13_8c2ka")])
 
 [node name="NewBoard" type="Button" parent="."]
 visible = false
@@ -244,5 +229,4 @@ text = "Add New Board"
 [connection signal="show_editor" from="." to="CodeEditor" method="editor_visible"]
 [connection signal="focus_entered" from="SubViewportContainer" to="SubViewportContainer/SubViewport/CameraControl" method="_on_code_edit_focus_entered"]
 [connection signal="focus_exited" from="SubViewportContainer" to="SubViewportContainer/SubViewport/CameraControl" method="_on_code_edit_focus_exited"]
-[connection signal="currently_typing" from="CodeEditor" to="SubViewportContainer/SubViewport/CameraControl" method="_on_code_editor_currently_typing"]
 [connection signal="pressed" from="NewBoard" to="." method="add_new_board"]
