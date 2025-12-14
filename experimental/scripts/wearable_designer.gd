@@ -15,7 +15,8 @@ func _ready() -> void:
 
 
 func _compile_fastled() -> void:
-	#print(FastLEDParser.parse_code(code_edit_node))
-	#$FastLEDInstance.set_script(FastLEDParser.parse_code(code_edit_node))
-	#print($FastLEDInstance.get_script())
-	fastled_engine.show()
+	var converted_code = FastLEDParser.parse_code(code_edit_node)
+
+	converted_code.reload()
+	$FastLEDInstance.set_script(converted_code)
+	print($FastLEDInstance.get_script().source_code)

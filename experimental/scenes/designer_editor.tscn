@@ -28,11 +28,7 @@ offset_top = -540.0
 offset_bottom = 540.0
 text = "
 void setup() {
-
-}
-
-void loop() {
-	
+  FastLED.show();
 }"
 code_completion_candidates = Array[ExtResource("3_tlhm1")]([ExtResource("4_470y0")])
 boards_info = Array[ExtResource("5_4uxvg")]([ExtResource("6_3ku1q"), ExtResource("7_ack0o"), ExtResource("8_6pxpi"), ExtResource("9_8nthc")])

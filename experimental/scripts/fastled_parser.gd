@@ -1,10 +1,11 @@
 class_name FastLEDParser
 
-static func parse_code(editor: CodeEdit) -> String:
-	#var script = .new()
+static func parse_code(editor: CodeEdit) -> GDScript:
+	var gd_script = GDScript.new()
 	var code_editor_node: CodeEdit = CodeEdit.new()
-
 	var editor_components_dic = get_code_components(editor)
+	var setup_location = editor_components_dic.find_key('setup')
+
 	editor_components_dic.sort()
 
 	for i in editor.get_line_count():
@@ -16,29 +17,37 @@ static func parse_code(editor: CodeEdit) -> String:
 		var converted_component: String
 	
 		match component:
-			"function_initilzations":
+			'function_initilzations':
 				converted_component = _convert_function(editor, component_location)
 			
-			"variable_initilzations":
+			'variable_initilzations':
 				converted_component = _convert_variable(editor, component_location)
 
-			"variable_operations":
+			'variable_operations':
 				converted_component = _convert_operator(editor, component_location)
 
-			"control_statements":
+			'control_statements':
 				converted_component = _convert_control_statements(editor, component_location)
 
-			"function_calls":
+			'function_calls':
 				converted_component = _convert_function_calls(editor, component_location)
 
-			"loop":
-				converted_component = "func _process(delta: float) -> void:"
+			'loop':
+				converted_component = 'func _process(delta: float) -> void:'
+				
+			'setup':
+				converted_component = 'func _init() -> void:'
 		
 		code_editor_node.insert_line_at(component_location, converted_component)
 
-	code_editor_node.set_line(0, "extends FastLEDMethods")
+	code_editor_node.insert_line_at(setup_location + 1, '  FastLEDm = %Neopixels.find_child("FastLEDDisplay")')
 
-	return code_editor_node.get_text()
+	code_editor_node.set_line(0, "extends FastLEDMethods")
+	code_editor_node.insert_line_at(1, 'var FastLEDm')
+
+	gd_script.source_code = code_editor_node.get_text()
+
+	return gd_script
 
 
 static func _add_indents(editor: CodeEdit, line: int, text: String) -> String:
@@ -142,12 +151,12 @@ static func _convert_function_calls(editor: CodeEdit, function_call_location: in
 
 
 static func get_code_components(editor: CodeEdit):
-	var led_dictionary: Dictionary = {
-	}
+	var led_dictionary: Dictionary = {}
 
-	led_dictionary[EditorHelper.get_loop_location(editor).y] = "loop"
+	led_dictionary[EditorHelper.get_loop_location(editor).y] = 'loop'
+	led_dictionary[EditorHelper.get_setup_location(editor).y] = 'setup'
 	led_dictionary[0] = "fastled#"
-	
+
 	for i in editor.get_line_count():
 		var current_line: String = editor.get_line(i).remove_chars("}").strip_edges()
 		var loop_location: int = EditorHelper.get_loop_location(editor).y
