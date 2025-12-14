@@ -1,7 +1,6 @@
 class_name FastLEDParser
 
-static func parse_code(editor: CodeEdit) -> GDScript:
-	var gd_script = GDScript.new()
+static func parse_code(editor: CodeEdit) -> String:
 	var code_editor_node: CodeEdit = CodeEdit.new()
 	var editor_components_dic = get_code_components(editor)
 	var setup_location = editor_components_dic.find_key('setup')
@@ -45,9 +44,9 @@ static func parse_code(editor: CodeEdit) -> GDScript:
 	code_editor_node.set_line(0, "extends FastLEDMethods")
 	code_editor_node.insert_line_at(1, 'var FastLEDm')
 
-	gd_script.source_code = code_editor_node.get_text()
+	code_editor_node.queue_free()
 
-	return gd_script
+	return code_editor_node.get_text()
 
 
 static func _add_indents(editor: CodeEdit, line: int, text: String) -> String:

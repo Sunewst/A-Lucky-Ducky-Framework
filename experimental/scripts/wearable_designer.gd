@@ -3,6 +3,7 @@ extends Node3D
 @export var debug_leds: PackedColorArray
 
 @onready var code_edit_node: CodeEdit
+@onready var neopixel_script: GDScript = GDScript.new()
 @onready var fastled_engine = %Neopixels.find_child("FastLEDDisplay")
 
 
@@ -17,12 +18,13 @@ func _ready() -> void:
 
 
 func _compile_fastled() -> void:
-	var converted_code = FastLEDParser.parse_code(code_edit_node)
+	var converted_code: String = FastLEDParser.parse_code(code_edit_node)
 
-	converted_code.reload()
-	$FastLEDInstance.set_script(converted_code)
+	neopixel_script.source_code = converted_code
+	neopixel_script.reload()
+	$FastLEDInstance.set_script(neopixel_script)
+
 	print($FastLEDInstance.get_script().source_code)
-
 	print('Running FastLED GDScript')
 
 
@@ -31,7 +33,7 @@ func _model_added(model):
 	var gltf_document_load: GLTFDocument = GLTFDocument.new()
 	var gltf_state_load: GLTFState = GLTFState.new()
 	var error
-	
+
 	if model_path.get_extension() == 'gltf': 
 		error = gltf_document_load.append_from_file(model[0], gltf_state_load)
 	else:

@@ -1,6 +1,5 @@
 class_name CodeEditor extends CodeEdit
 
-
 @onready var current_board: String = boards_info[3].board_FQBN
 @onready var code_edit_node: CodeEdit = %CodeEdit
 
