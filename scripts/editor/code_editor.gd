@@ -61,8 +61,10 @@ var _unique_highlighting_keywords: Dictionary = {
 
 func _ready() -> void:
 	if not _load_save_data() == null:
-		print("Loading save!")
+		print('Loaded save')
 		board_save_data = _load_save_data()
+	else:
+		printerr('Save data failed to load')
 
 	compile_arguments = ['compile', '--fqbn', current_board, ino_global_path]
 	upload_arguments = ['upload', '-p', SerialController._GetPort(), '--fqbn', current_board, ino_global_path]
@@ -174,6 +176,7 @@ func check_for_validity(line: String) -> String:
 	var _print_highlight: String = "Serial.println(\"\\n$%s$%s$%s\");" 
 
 	line = line.get_slice("//", 0).strip_edges()
+
 	for ignore_keyword in IGNORE_KEYWORDS:
 		if line.begins_with(ignore_keyword) or line.ends_with(ignore_keyword) or line.is_empty():
 			return ""
@@ -228,7 +231,8 @@ func _highlight_errors(cli_output: String) -> void:
 			else:
 				_cli_line_error = _cli_error.get_slice(':', 2).to_int()
 			set_line_background_color(_cli_line_error - _total_lines_added(_cli_line_error) - 1, Color(1, 0, 0, 0.3))
-	printerr("Failed to compile!")
+
+	printerr("Failed to compile, see errors")
 
 
 func delay_highlighting(line: int) -> void:
@@ -266,7 +270,7 @@ func mark_loop() -> void:
 		set_line_gutter_clickable(_loop_start_location[1], GUTTER, true)
 		set_line_gutter_item_color(_loop_start_location[1], GUTTER, Color(0.909, 0.189, 0.475, 1.0))
 	else:
-		printerr("Failed to find loop function")
+		print("Failed to find loop function")
 
 
 func mark_libraries():
@@ -299,7 +303,7 @@ func _on_code_edit_gutter_clicked(line: int, gutter: int) -> void:
 	print("Gutter ", gutter, " Line: ", line)
 
 	if is_line_gutter_clickable(line, gutter) and not LoopWindow.window_exists:
-		print("Gutter clickable!")
+		print("Gutter clickable")
 		add_child(LoopWindow.display_new_loop_window())
 
 
@@ -342,7 +346,7 @@ func _load_save_data():
 		var _parse_result = _json.parse(_json_string)
 
 		if not _parse_result == OK:
-			print("JSON Parse Error: ", _json.get_error_message(), " in ", _json_string, " at line ", _json.get_error_line())
+			printerr("JSON Parse Error: ", _json.get_error_message(), " in ", _json_string, " at line ", _json.get_error_line())
 			continue
 
 		var _save_dict = _json.data
@@ -354,7 +358,7 @@ func _set_board_save(save_name: String):
 	if board_save_data.has(save_name):
 		text = board_save_data[save_name]
 	else:
-		print("No valid save!")
+		print("No valid save to load")
 
 	mark_loop()
 	mark_libraries()
