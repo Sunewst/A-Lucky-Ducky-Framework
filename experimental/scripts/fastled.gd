@@ -19,7 +19,8 @@ func show():
 		neopixel_muiltimesh.set_instance_custom_data(neopixel, leds_array[0][neopixel])
 
 
-func addLeds(targetArray: PackedColorArray):
+func addLeds(targetArray: PackedColorArray, totalLeds: int):
+	targetArray.resize(totalLeds)
 	leds_array.append(targetArray)
 
 

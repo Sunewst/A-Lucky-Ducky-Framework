@@ -14,12 +14,12 @@ func _ready() -> void:
 
 	get_tree().get_root().files_dropped.connect(_model_added)
 
-	debug_leds.resize(10)
-	fastled_engine.addLeds(debug_leds)
+	fastled_engine.addLeds(debug_leds, 10)
 
 
 func _compile_fastled() -> void:
 	var _converted_code: String = FastLEDParser.parse_code(code_edit_node)
+	print(_converted_code)
 
 	neopixel_script.source_code = _converted_code
 	_create_fastled_instance(neopixel_script)
