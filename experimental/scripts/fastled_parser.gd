@@ -90,15 +90,18 @@ static func _convert_function(editor: CodeEdit, function_location: int) -> Strin
 static func _convert_variable(editor: CodeEdit, data_type_location: int) -> String:
 	var converted_variable: String
 
-	var current_line: String = EditorHelper.remove_comments(editor.get_line(data_type_location))
+	var current_line: String = EditorHelper.remove_comments(editor.get_line(data_type_location)).remove_chars(';')
 	var variable_name: String = current_line.get_slice(' ', 1).get_slice('=', 0)
 	var variable_value: String
 
 	if current_line.contains('='):
-		variable_value = current_line.get_slice('=', 1).remove_chars(';')
+		variable_value = current_line.get_slice('=', 1)
+	elif variable_name.contains('['):
+		variable_name = variable_name.get_slice('[', 0)
+		variable_value = ' []'
 	else:
-		variable_name = variable_name.remove_chars(';')
-
+		variable_name = variable_name
+	
 	if variable_value.is_empty():
 		converted_variable = "var %s" % [variable_name]
 	else:
