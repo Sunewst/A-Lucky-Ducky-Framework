@@ -46,7 +46,7 @@ static func parse_code(editor: CodeEdit) -> String:
 		
 		code_editor_node.insert_line_at(component_location, converted_component)
 
-	code_editor_node.insert_line_at(setup_location + 1, '  FastLEDm = %Neopixels.find_child("FastLEDDisplay")')
+	code_editor_node.insert_line_at(setup_location + 1, '  FastLEDm = get_parent().find_child("FastLEDDisplay")')
 
 	code_editor_node.set_line(0, "extends FastLEDMethods")
 	code_editor_node.insert_line_at(1, 'var FastLEDm')

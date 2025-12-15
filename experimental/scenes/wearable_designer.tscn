@@ -227,8 +227,6 @@ grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("11_y8gkd")
 
-[node name="FastLEDInstance" type="Node" parent="."]
-
 [connection signal="focus_entered" from="SubViewportContainer" to="SubViewportContainer/SubViewport/CameraControl" method="_on_code_edit_focus_entered"]
 [connection signal="focus_exited" from="SubViewportContainer" to="SubViewportContainer/SubViewport/CameraControl" method="_on_code_edit_focus_exited"]
 [connection signal="pressed" from="FastLEDButton" to="." method="_compile_fastled"]

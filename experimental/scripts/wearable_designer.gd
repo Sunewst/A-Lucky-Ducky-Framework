@@ -4,14 +4,15 @@ extends Node3D
 
 @onready var code_edit_node: CodeEdit
 @onready var neopixel_script: GDScript = GDScript.new()
-@onready var fastled_engine = %Neopixels.find_child("FastLEDDisplay")
+@onready var fastled_engine = find_child("FastLEDDisplay")
+@onready var fastled_node_instance: Node
 
 
 func _ready() -> void:
-	get_tree().get_root().files_dropped.connect(_model_added)
-
 	if not find_child("CodeEdit") == null:
 		code_edit_node = find_child("CodeEdit") # Not a permenent solution but works for now
+
+	get_tree().get_root().files_dropped.connect(_model_added)
 
 	debug_leds.resize(10)
 	fastled_engine.addLeds(debug_leds)
@@ -21,11 +22,22 @@ func _compile_fastled() -> void:
 	var _converted_code: String = FastLEDParser.parse_code(code_edit_node)
 
 	neopixel_script.source_code = _converted_code
-	neopixel_script.reload()
-	$FastLEDInstance.set_script(neopixel_script)
+	_create_fastled_instance(neopixel_script)
 
-	print($FastLEDInstance.get_script().source_code)
 	print('Running FastLED GDScript')
+
+
+func _create_fastled_instance(script: GDScript):
+	if fastled_node_instance == null:
+		fastled_node_instance = Node.new()
+	else:
+		fastled_node_instance.free()
+		fastled_node_instance = Node.new()
+
+	add_child(fastled_node_instance)
+	script.reload()
+
+	fastled_node_instance.set_script(script)
 
 
 func _model_added(model):
