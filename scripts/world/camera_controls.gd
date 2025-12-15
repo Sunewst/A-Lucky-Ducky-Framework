@@ -27,39 +27,34 @@ func _process(delta: float) -> void:
 		#rotation.y += rotation_speed * delta
 		_cam.position.x -= movement_speed * delta
 
-
 	if Input.is_action_pressed("move_camera_right") and _in_focus == true:
 		#rotation.y -= rotation_speed * delta
 		_cam.position.x += movement_speed * delta
 
-		
 	if Input.is_action_pressed("move_camera_up") and _in_focus == true:
 		#rotation.x += rotation_speed * delta
 		_cam.position.y += movement_speed * delta
 		
-
 	if Input.is_action_pressed("move_camera_down") and _in_focus == true:
 		#rotation.x -= rotation_speed * delta
 		_cam.position.y -= movement_speed * delta
 
 
-	if Input.is_action_just_pressed("rotate_camera_right") and _in_focus:
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("rotate_camera_right") and _in_focus:
 		_rotate_camera(camera_rotation_amount)
-
-
-	if Input.is_action_just_pressed("rotate_camera_left") and _in_focus:
+	
+	if event.is_action_pressed("rotate_camera_left") and _in_focus:
 		_rotate_camera(-camera_rotation_amount)
 
-
-	if Input.is_action_just_pressed("zoom_in") and _in_focus:
+	if event.is_action_pressed("zoom_in") and _in_focus:
 		if not _cam.size <= camera_max_zoom_in:
 			_cam.size -= 1
 
-
-	if Input.is_action_just_pressed("zoom_out") and _in_focus:
+	if event.is_action_pressed("zoom_out") and _in_focus:
 		if not _cam.size >= camera_max_zoom_out:
 			_cam.size += 1
-	
+
 
 func _rotate_camera(direction: float):
 	camera_animation_running = false
@@ -68,7 +63,6 @@ func _rotate_camera(direction: float):
 	tween.tween_property(self, "rotation:y", current_rotation, camera_rotation_speed)
 	
 	#camera_animation_running = tween.is_running()
-	
 
 
 func _on_code_edit_focus_entered() -> void:
