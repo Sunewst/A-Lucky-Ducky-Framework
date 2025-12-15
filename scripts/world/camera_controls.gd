@@ -102,4 +102,6 @@ func _get_mouse_click_location(mouse: Vector2):
 	params.to = end
 
 	mouse_data = world_space.intersect_ray(params)
-	print(mouse_data)
+
+	if not mouse_data.is_empty():
+		SignalController.model_clicked.emit(mouse_data['position'])

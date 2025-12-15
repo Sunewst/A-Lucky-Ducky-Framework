@@ -10,3 +10,5 @@ signal hide_editor
 
 signal load
 signal save
+
+signal model_clicked
