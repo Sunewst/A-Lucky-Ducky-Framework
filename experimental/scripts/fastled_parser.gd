@@ -91,14 +91,19 @@ static func _convert_variable(editor: CodeEdit, data_type_location: int) -> Stri
 	var converted_variable: String
 
 	var current_line: String = EditorHelper.remove_comments(editor.get_line(data_type_location))
-	var variable_name: String = current_line.get_slice(" ", 1).get_slice("=", 0)
-	var variable_value: String = current_line.get_slice("=", 1).remove_chars(";")
+	var variable_name: String = current_line.get_slice(' ', 1).get_slice('=', 0)
+	var variable_value: String
+
+	if current_line.contains('='):
+		variable_value = current_line.get_slice('=', 1).remove_chars(';')
+	else:
+		variable_name = variable_name.remove_chars(';')
 
 	if variable_value.is_empty():
-		converted_variable = "var %s;" % [variable_name]
+		converted_variable = "var %s" % [variable_name]
 	else:
 		converted_variable = "var %s =%s" % [variable_name, variable_value]
-	
+
 	converted_variable = _add_indents(editor, data_type_location, converted_variable)
 
 	return converted_variable
