@@ -42,6 +42,11 @@ func _model_added(model):
 
 	if error == OK:
 		var gltf_scene_root_node = gltf_document_load.generate_scene(gltf_state_load)
+		var gltf_mesh_nodes = gltf_scene_root_node.find_children('', 'MeshInstance3D')
+
+		for mesh: MeshInstance3D in gltf_mesh_nodes:
+			mesh.create_trimesh_collision()
+
 		add_child(gltf_scene_root_node)
 		print('Model added')
 	else:
