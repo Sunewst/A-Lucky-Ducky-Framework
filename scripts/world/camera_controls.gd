@@ -13,10 +13,12 @@ extends Node3D
 @export var snap := true
 
 @onready var _cam = %Camera3D
+@onready var params = PhysicsRayQueryParameters3D.new()
 
 var camera_animation_running: bool = true
 var _in_focus: bool = true
 
+var _mouse_location
 
 func _ready() -> void:
 	SignalController.editor_in_focus.connect(_on_code_editor_currently_typing)
@@ -55,6 +57,13 @@ func _input(event: InputEvent) -> void:
 		if not _cam.size >= camera_max_zoom_out:
 			_cam.size += 1
 
+	if event is InputEventMouseMotion:
+		_mouse_location = event.position
+
+	if event is InputEventMouseButton:
+		if not event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			_get_mouse_click_location(_mouse_location)
+
 
 func _rotate_camera(direction: float):
 	camera_animation_running = false
@@ -81,4 +90,16 @@ func _on_code_editor_currently_typing(status: bool) -> void:
 		_in_focus = false
 	else:
 		_in_focus = true
+
+
+func _get_mouse_click_location(mouse: Vector2):
+	var world_space: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+	var start: Vector3 = _cam.project_ray_origin(mouse)
+	var end: Vector3 = _cam.project_position(mouse, 100)
+	var mouse_data: Dictionary
 	
+	params.from = start
+	params.to = end
+
+	mouse_data = world_space.intersect_ray(params)
+	print(mouse_data)

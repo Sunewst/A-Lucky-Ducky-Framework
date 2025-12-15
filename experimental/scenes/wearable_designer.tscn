@@ -213,7 +213,6 @@ extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_8ulwq")
 
 [node name="DesignerEditor" parent="." instance=ExtResource("6_fr2ie")]
-mouse_filter = 2
 
 [node name="FastLEDButton" type="Button" parent="."]
 anchors_preset = 6
