@@ -59,7 +59,7 @@ var _unique_highlighting_keywords: Dictionary = {
 
 
 func _ready() -> void:
-	if not _load_save_data() == null:
+	if _load_save_data() != null:
 		print('Loaded save')
 		board_save_data = _load_save_data()
 	else:
@@ -152,7 +152,7 @@ func _compile_code(user_code: CodeEdit, cli_arguments: Array[String]):
 				_library_initialization_var = get_line(_initialization_location.y).get_slice(" ", 1).replace(";", "")
 
 				_library_function = str(_library_initialization_var + "." + _library_update_function)
-				_library_print = "Serial.println(\"\\n$p$\" + %s);" % [_library_function]
+				_library_print = 'Serial.println("\\n$p$" + %s);' % [_library_function]
 
 				_compiled_code.insert_line_at(_loop_start_location.y + 1, _library_print)
 				_loop_start_location.y += 1
@@ -344,7 +344,7 @@ func _load_save_data():
 
 		var _parse_result = _json.parse(_json_string)
 
-		if not _parse_result == OK:
+		if _parse_result != OK:
 			printerr("JSON Parse Error: ", _json.get_error_message(), " in ", _json_string, " at line ", _json.get_error_line())
 			continue
 

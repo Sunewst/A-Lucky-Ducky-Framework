@@ -9,7 +9,7 @@ extends Node3D
 
 
 func _ready() -> void:
-	if not find_child("CodeEdit") == null:
+	if find_child("CodeEdit") != null:
 		code_edit_node = find_child("CodeEdit") # Not a permenent solution but works for now
 
 	get_tree().get_root().files_dropped.connect(_model_added)
