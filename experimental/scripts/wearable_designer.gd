@@ -18,9 +18,9 @@ func _ready() -> void:
 
 
 func _compile_fastled() -> void:
-	var converted_code: String = FastLEDParser.parse_code(code_edit_node)
+	var _converted_code: String = FastLEDParser.parse_code(code_edit_node)
 
-	neopixel_script.source_code = converted_code
+	neopixel_script.source_code = _converted_code
 	neopixel_script.reload()
 	$FastLEDInstance.set_script(neopixel_script)
 
@@ -29,25 +29,25 @@ func _compile_fastled() -> void:
 
 
 func _model_added(model):
-	var model_path: String = model[0]
-	var gltf_document_load: GLTFDocument = GLTFDocument.new()
-	var gltf_state_load: GLTFState = GLTFState.new()
-	var error
+	var _model_path: String = model[0]
+	var _gltf_document_load: GLTFDocument = GLTFDocument.new()
+	var _gltf_state_load: GLTFState = GLTFState.new()
+	var _error
 
-	if model_path.get_extension() == 'gltf': 
-		error = gltf_document_load.append_from_file(model[0], gltf_state_load)
+	if _model_path.get_extension() == 'gltf': 
+		_error = _gltf_document_load.append_from_file(model[0], _gltf_state_load)
 	else:
 		print('Incorrect file type')
 		return
 
-	if error == OK:
-		var gltf_scene_root_node = gltf_document_load.generate_scene(gltf_state_load)
-		var gltf_mesh_nodes = gltf_scene_root_node.find_children('', 'MeshInstance3D')
+	if _error == OK:
+		var _gltf_scene_root_node = _gltf_document_load.generate_scene(_gltf_state_load)
+		var _gltf_mesh_nodes = _gltf_scene_root_node.find_children('', 'MeshInstance3D')
 
-		for mesh: MeshInstance3D in gltf_mesh_nodes:
+		for mesh: MeshInstance3D in _gltf_mesh_nodes:
 			mesh.create_trimesh_collision()
 
-		add_child(gltf_scene_root_node)
+		add_child(_gltf_scene_root_node)
 		print('Model added')
 	else:
-		printerr('Failed to load model', error)
+		printerr('Failed to load model', _error)
