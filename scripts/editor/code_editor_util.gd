@@ -9,9 +9,9 @@ const CONTROL_STRUCTUERS: Array[String] = [
 
 
 const DATA_TYPES: Array[String] = [
-	"int",
-	"float",
-	"void", #Not really a data type
+	"int ",
+	"float ",
+	"void ", #Not really a data type
 ]
 
 const OPERATORS: Array[String] = [
