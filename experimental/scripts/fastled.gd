@@ -1,4 +1,4 @@
-class_name FastLED extends Node
+class_name FastLEDController extends Node
 
 @onready var pond_node: Node3D = owner
 
