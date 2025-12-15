@@ -4,6 +4,7 @@ class_name FastLEDParser
 static var arduino_functions: Dictionary = {
 	'delay': 'await get_tree().create_timer(%s).timeout',
 	'Serial.println': 'print(%s)',
+	'FastLED.addLeds': 'FastLED.addLeds(%s)',
 }
 
 
@@ -149,8 +150,12 @@ static func _convert_control_statements(editor: CodeEdit, control_location: int)
 
 static func _convert_function_calls(editor: CodeEdit, function_call_location: int) -> String:
 	var converted_function_call: String = EditorHelper.remove_comments(editor.get_line(function_call_location))
+
 	var function_name: String = converted_function_call.get_slice('(', 0).strip_edges()
 	var function_params: String = converted_function_call.get_slice('(', 1).get_slice(')', 0)
+
+	if function_name.contains('<'):
+		function_name = function_name.get_slice('<', 0)
 
 	if function_name in arduino_functions:
 		converted_function_call = arduino_functions[function_name] % [function_params]
