@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_u3sti")
-available_completion_candidates = Array[String](["delay()", "Serial", "Print()", "Println()", "digitalWrite()", "digitalRead()", "pinMode()", "analogRead()", "analogWrite()", "void loop() {", "void setup() {"])
+available_completion_candidates = Array[String](["delay()", "Serial", "print()", "println()", "digitalWrite()", "digitalRead()", "pinMode()", "analogRead()", "analogWrite()", "void loop() {", "void setup() {"])
 metadata/_custom_type_script = "uid://bk571ij27ski5"
