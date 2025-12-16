@@ -3,12 +3,10 @@
 
 extends Path3D
 
-var path_changed: bool
+@export var distance_between = 1.0
 
-@export var distance_between = 1.0:
-	set(value):
-		distance_between = value
-		path_changed = true
+var path_changed: bool
+var selected_curve_point: int = 0
 
 
 func _ready() -> void:
@@ -19,6 +17,13 @@ func _process(_delta: float) -> void:
 	if path_changed:
 		_update_muiltimesh()
 		path_changed = false
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.as_text().contains('Ctrl+'):
+		var new_point = event.as_text().to_int()
+		selected_curve_point = new_point - 1
+		SignalController.new_selected_point.emit(new_point)
 
 
 func _update_muiltimesh():
@@ -34,6 +39,7 @@ func _update_muiltimesh():
 
 	mm.instance_count = count
 	neopixel.instance_count = count
+	SignalController.neopixel_count_updated.emit(count)
 
 	var offset = distance_between / 2.0
 	
@@ -70,4 +76,4 @@ func _on_curve_changed() -> void:
 
 func _model_clicked(location: Vector3) -> void:
 	var current_curve = get_curve()
-	current_curve.set_point_position(0, location)
+	current_curve.set_point_position(selected_curve_point, location)

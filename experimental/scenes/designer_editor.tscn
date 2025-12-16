@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cv7sxh02b5xfd"]
+[gd_scene load_steps=11 format=3 uid="uid://cv7sxh02b5xfd"]
 
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="1_f67cb"]
 [ext_resource type="PackedScene" uid="uid://brxff7xnsvj38" path="res://scenes/code_editor/code_edit.tscn" id="1_m63vt"]
+[ext_resource type="Script" uid="uid://yo2suerripse" path="res://experimental/scripts/designer_editor_debug.gd" id="2_470y0"]
 [ext_resource type="Script" uid="uid://bk571ij27ski5" path="res://resources/core/code_completion_resource.gd" id="3_tlhm1"]
 [ext_resource type="Resource" uid="uid://cn38a3o2u65yq" path="res://resources/core/default_candidate.tres" id="4_470y0"]
 [ext_resource type="Script" uid="uid://4as1lu3lsvt8" path="res://resources/boards/board_resource.gd" id="5_4uxvg"]
@@ -41,16 +42,61 @@ void setup() {
 code_completion_candidates = Array[ExtResource("3_tlhm1")]([ExtResource("4_470y0")])
 boards_info = Array[ExtResource("5_4uxvg")]([ExtResource("6_3ku1q"), ExtResource("7_ack0o"), ExtResource("8_6pxpi"), ExtResource("9_8nthc")])
 
-[node name="Label" type="Label" parent="."]
+[node name="DebugPanel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -365.0
-offset_top = -22.0
+offset_left = -1411.0
+offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "NextEd Labs Wearble Designer Prototype"
-horizontal_alignment = 1
+script = ExtResource("2_470y0")
+
+[node name="ProjectName" type="Label" parent="DebugPanel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -327.0
+offset_top = -10.666668
+offset_bottom = 10.666668
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+text = "NextEd Labs Wearble Designer Debug"
+
+[node name="DebugBar" type="HBoxContainer" parent="DebugPanel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = -40.0
+offset_right = 1069.0
+grow_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="NeopixelStrip" type="HBoxContainer" parent="DebugPanel/DebugBar"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="DebugPanel/DebugBar/NeopixelStrip"]
+layout_mode = 2
+text = "Neopixel Strip: "
+
+[node name="Count" type="Label" parent="DebugPanel/DebugBar/NeopixelStrip"]
+layout_mode = 2
+
+[node name="SelectedPoint" type="HBoxContainer" parent="DebugPanel/DebugBar"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="DebugPanel/DebugBar/SelectedPoint"]
+layout_mode = 2
+text = "Selected Point:"
+
+[node name="PointNumber" type="Label" parent="DebugPanel/DebugBar/SelectedPoint"]
+layout_mode = 2

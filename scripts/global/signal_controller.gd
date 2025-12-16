@@ -12,3 +12,5 @@ signal load
 signal save
 
 signal model_clicked
+signal new_selected_point
+signal neopixel_count_updated
