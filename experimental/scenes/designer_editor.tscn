@@ -40,3 +40,17 @@ void setup() {
 "
 code_completion_candidates = Array[ExtResource("3_tlhm1")]([ExtResource("4_470y0")])
 boards_info = Array[ExtResource("5_4uxvg")]([ExtResource("6_3ku1q"), ExtResource("7_ack0o"), ExtResource("8_6pxpi"), ExtResource("9_8nthc")])
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -365.0
+offset_top = -22.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "NextEd Labs Wearble Designer Prototype"
+horizontal_alignment = 1
