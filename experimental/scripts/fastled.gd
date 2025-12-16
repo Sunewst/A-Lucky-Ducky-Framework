@@ -20,7 +20,9 @@ func show():
 
 
 func addLeds(targetArray: PackedColorArray, totalLeds: int):
+	leds_array.clear() # In the future when more than one strip can be added, this should be removed
 	targetArray.resize(totalLeds)
+
 	leds_array.append(targetArray)
 
 

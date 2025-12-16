@@ -12,6 +12,8 @@ const DATA_TYPES: Array[String] = [
 	"int ",
 	"float ",
 	"void ", #Not really a data type
+	"#define ", #!
+	"CRGB ",
 ]
 
 const OPERATORS: Array[String] = [

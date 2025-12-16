@@ -97,7 +97,10 @@ static func _convert_variable(editor: CodeEdit, data_type_location: int) -> Stri
 	if current_line.contains('='):
 		variable_value = current_line.get_slice('=', 1)
 	elif variable_name.contains('['):
-		variable_name = variable_name.get_slice('[', 0)
+		if current_line.contains('CRGB '):
+			variable_name = variable_name.get_slice('[', 0) + ':PackedColorArray'
+		else:
+			variable_name = variable_name.get_slice('[', 0)
 		variable_value = ' []'
 	else:
 		variable_name = variable_name

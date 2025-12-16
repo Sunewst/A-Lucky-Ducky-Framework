@@ -28,8 +28,15 @@ anchor_bottom = 0.5
 offset_top = -540.0
 offset_bottom = 540.0
 text = "
+int NUM_LEDS = 10;
+CRGB leds[NUM_LEDS];
+
 void setup() {
+  FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
+  leds[0] = Color(255, 0, 0, 0.3);
   FastLED.show();
-}"
+  
+}
+"
 code_completion_candidates = Array[ExtResource("3_tlhm1")]([ExtResource("4_470y0")])
 boards_info = Array[ExtResource("5_4uxvg")]([ExtResource("6_3ku1q"), ExtResource("7_ack0o"), ExtResource("8_6pxpi"), ExtResource("9_8nthc")])
