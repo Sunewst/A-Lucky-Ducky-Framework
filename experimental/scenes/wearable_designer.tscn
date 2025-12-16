@@ -190,11 +190,11 @@ transform = Transform3D(0.0767869, 0.996376, 0.0365883, 0.57301, -0.0741313, 0.8
 shadow_enabled = true
 
 [node name="Ground" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16500747, 0)
 mesh = SubResource("BoxMesh_fr2ie")
 
 [node name="Neopixels" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_y8gkd")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6423249, 1, 0.5083761)
 
 [node name="CameraControl" type="Node3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(0.99999976, 0, 0, 0, 0.866025, 0.49999973, 0, -0.49999976, 0.8660249, -0.22320724, 0.46578, 0.4062995)
