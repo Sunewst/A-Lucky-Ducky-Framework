@@ -32,8 +32,9 @@ func _create_fastled_instance(script: GDScript):
 		fastled_node_instance = Node.new()
 
 	add_child(fastled_node_instance)
-	script.reload()
+	fastled_node_instance.set_process(true)
 
+	script.reload()
 	fastled_node_instance.set_script(script)
 
 
