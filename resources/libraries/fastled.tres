@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="library_resource" load_steps=2 format=3 uid="uid://ckj21ui0sl1jd"]
+
+[ext_resource type="Script" uid="uid://c4be3xx8423x7" path="res://resources/libraries/library_resource.gd" id="1_2nm33"]
+
+[resource]
+script = ExtResource("1_2nm33")
+library_name = "FastLED.h"
+metadata/_custom_type_script = "uid://c4be3xx8423x7"
