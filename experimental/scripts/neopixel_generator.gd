@@ -1,9 +1,11 @@
 # For now, the neopixel genarator is a tool, meaning in only runs in the engine editor.
 # Due to that, the code is really ugly until its converted to a normal script
 
-extends Path3D
+extends Node3D
 
 @export var distance_between = 1.0
+
+@onready var path = %Path3D
 
 var path_changed: bool
 var selected_curve_point: int = 0
@@ -27,13 +29,13 @@ func _input(event: InputEvent) -> void:
 
 
 func _update_muiltimesh():
-	var path_length: float = curve.get_baked_length()
+	var path_length: float = path.curve.get_baked_length()
 	var count = floor(path_length / distance_between)
 	var mm: MultiMesh
 	var neopixel: MultiMesh
 
 	$Neopixel.material_override = $MeshInstance3D.get_active_material(0)
-
+	
 	mm = $Strip.multimesh
 	neopixel = $Neopixel.multimesh
 
@@ -45,15 +47,15 @@ func _update_muiltimesh():
 	
 	for i in range(0, count):
 		var curve_distance = offset + distance_between * i
-		var object_position = curve.sample_baked(curve_distance, true)
-		var neopixel_position = curve.sample_baked(curve_distance, true)
+		var object_position = path.curve.sample_baked(curve_distance, true)
+		var neopixel_position = path.curve.sample_baked(curve_distance, true)
 		
 		var object_basis = Basis()
 		var neopixel_basis = Basis()
 		
 
-		var up = curve.sample_baked_up_vector(curve_distance, true)
-		var forward = object_position.direction_to(curve.sample_baked(curve_distance + 0.1, true))
+		var up = path.curve.sample_baked_up_vector(curve_distance, true)
+		var forward = object_position.direction_to(path.curve.sample_baked(curve_distance + 0.1, true))
 
 		object_basis.y = up
 		object_basis.x = forward.cross(up).normalized()
@@ -75,5 +77,5 @@ func _on_curve_changed() -> void:
 
 
 func _model_clicked(location: Vector3) -> void:
-	var current_curve = get_curve()
+	var current_curve: Curve3D = path.get_curve()
 	current_curve.set_point_position(selected_curve_point, location)

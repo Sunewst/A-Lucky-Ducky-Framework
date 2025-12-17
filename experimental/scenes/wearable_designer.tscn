@@ -24,37 +24,6 @@ tonemap_exposure = 0.7
 fog_enabled = true
 fog_light_energy = 0.05
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjqe1"]
-render_priority = 0
-shader = ExtResource("1_l7n01")
-shader_parameter/subdivisions = 32.0
-shader_parameter/grid_width = 0.02
-shader_parameter/background_color = Color(0.2, 0.2, 0.2, 1)
-shader_parameter/background_color_two = Color(0.1, 0.1, 0.1, 1)
-shader_parameter/grid_color = Color(0.5, 0.5, 0.5, 1)
-shader_parameter/dashed_scale_x = 0.5
-shader_parameter/dashed_scale_y = 0.5
-shader_parameter/dashed_count_x = 1.0
-shader_parameter/dashed_count_y = 1.0
-shader_parameter/point_width = 0.3
-shader_parameter/point_color = Color(0, 0, 0, 1)
-shader_parameter/point_scale_x = 0.05
-shader_parameter/point_scale_y = 0.05
-shader_parameter/inside_width = 0.01
-shader_parameter/inside_subdivisions = 6.0
-shader_parameter/inside_color = Color(0.4, 0.4, 0.4, 1)
-shader_parameter/in_dashed_scale_x = 0.3
-shader_parameter/in_dashed_scale_y = 0.3
-shader_parameter/in_dashed_count_x = 6.0
-shader_parameter/in_dashed_count_y = 6.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_fr2ie"]
-material = SubResource("ShaderMaterial_yjqe1")
-size = Vector3(50, 0.2, 50)
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fr2ie"]
-data = PackedVector3Array(-25, 0.099999994, 25, 25, 0.099999994, 25, -25, -0.099999994, 25, 25, 0.099999994, 25, 25, -0.099999994, 25, -25, -0.099999994, 25, 25, 0.099999994, -25, -25, 0.099999994, -25, 25, -0.099999994, -25, -25, 0.099999994, -25, -25, -0.099999994, -25, 25, -0.099999994, -25, 25, 0.099999994, 25, 25, 0.099999994, -25, 25, -0.099999994, 25, 25, 0.099999994, -25, 25, -0.099999994, -25, 25, -0.099999994, 25, -25, 0.099999994, -25, -25, 0.099999994, 25, -25, -0.099999994, -25, -25, 0.099999994, 25, -25, -0.099999994, 25, -25, -0.099999994, -25, 25, 0.099999994, 25, -25, 0.099999994, 25, 25, 0.099999994, -25, -25, 0.099999994, 25, -25, 0.099999994, -25, 25, 0.099999994, -25, -25, -0.099999994, 25, 25, -0.099999994, 25, -25, -0.099999994, -25, 25, -0.099999994, 25, 25, -0.099999994, -25, -25, -0.099999994, -25)
-
 [sub_resource type="Shader" id="Shader_x4ab7"]
 code = "shader_type spatial;
 render_mode unshaded;
@@ -163,6 +132,37 @@ material = SubResource("ShaderMaterial_go7bl")
 flip_faces = true
 size = Vector2(2, 2)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjqe1"]
+render_priority = 0
+shader = ExtResource("1_l7n01")
+shader_parameter/subdivisions = 32.0
+shader_parameter/grid_width = 0.02
+shader_parameter/background_color = Color(0.2, 0.2, 0.2, 1)
+shader_parameter/background_color_two = Color(0.1, 0.1, 0.1, 1)
+shader_parameter/grid_color = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/dashed_scale_x = 0.5
+shader_parameter/dashed_scale_y = 0.5
+shader_parameter/dashed_count_x = 1.0
+shader_parameter/dashed_count_y = 1.0
+shader_parameter/point_width = 0.3
+shader_parameter/point_color = Color(0, 0, 0, 1)
+shader_parameter/point_scale_x = 0.05
+shader_parameter/point_scale_y = 0.05
+shader_parameter/inside_width = 0.01
+shader_parameter/inside_subdivisions = 6.0
+shader_parameter/inside_color = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/in_dashed_scale_x = 0.3
+shader_parameter/in_dashed_scale_y = 0.3
+shader_parameter/in_dashed_count_x = 6.0
+shader_parameter/in_dashed_count_y = 6.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_fr2ie"]
+material = SubResource("ShaderMaterial_yjqe1")
+size = Vector3(50, 0.2, 50)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fr2ie"]
+data = PackedVector3Array(-25, 0.099999994, 25, 25, 0.099999994, 25, -25, -0.099999994, 25, 25, 0.099999994, 25, 25, -0.099999994, 25, -25, -0.099999994, 25, 25, 0.099999994, -25, -25, 0.099999994, -25, 25, -0.099999994, -25, -25, 0.099999994, -25, -25, -0.099999994, -25, 25, -0.099999994, -25, 25, 0.099999994, 25, 25, 0.099999994, -25, 25, -0.099999994, 25, 25, 0.099999994, -25, 25, -0.099999994, -25, 25, -0.099999994, 25, -25, 0.099999994, -25, -25, 0.099999994, 25, -25, -0.099999994, -25, -25, 0.099999994, 25, -25, -0.099999994, 25, -25, -0.099999994, -25, 25, 0.099999994, 25, -25, 0.099999994, 25, 25, 0.099999994, -25, -25, 0.099999994, 25, -25, 0.099999994, -25, 25, 0.099999994, -25, -25, -0.099999994, 25, 25, -0.099999994, 25, -25, -0.099999994, -25, 25, -0.099999994, 25, 25, -0.099999994, -25, -25, -0.099999994, -25)
+
 [node name="WearableDesigner" type="Node3D"]
 script = ExtResource("1_fe8b1")
 debug_leds = PackedColorArray(0.3764706, 1, 1, 1, 0, 0.7254902, 0, 1, 0.7137255, 0, 0.8980392, 1)
@@ -192,6 +192,23 @@ environment = SubResource("Environment_xwkll")
 transform = Transform3D(0.0767869, 0.996376, 0.0365883, 0.57301, -0.0741313, 0.816189, 0.815943, -0.0417072, -0.576625, -4.7528, 8.03853, -8.90619)
 shadow_enabled = true
 
+[node name="CameraControl" type="Node3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.99999976, 0, 0, 0, 0.99999946, 0, 0, 0, 0.99999946, -0.8169234, 1.6298556, 0.4062995)
+script = ExtResource("2_nvkp8")
+snap = false
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraControl"]
+unique_name_in_owner = true
+transform = Transform3D(1.0000002, 0, 0, 0, 1.0000005, 0, 0, 2.9802322e-08, 1.0000006, 0.175391, -0.554861, 4.8837986)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/CameraControl/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0.0500045, -0.175917)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_8ulwq")
+
+[node name="Neopixels" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_y8gkd")]
+unique_name_in_owner = true
+
 [node name="Ground" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16500747, 0)
 mesh = SubResource("BoxMesh_fr2ie")
@@ -201,25 +218,6 @@ mesh = SubResource("BoxMesh_fr2ie")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/Ground/StaticBody3D"]
 visible = false
 shape = SubResource("ConcavePolygonShape3D_fr2ie")
-
-[node name="Neopixels" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_y8gkd")]
-unique_name_in_owner = true
-
-[node name="CameraControl" type="Node3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(0.99999976, 0, 0, 0, 0.866025, 0.49999973, 0, -0.49999976, 0.8660249, -0.22320724, 0.46578, 0.4062995)
-script = ExtResource("2_nvkp8")
-snap = false
-
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraControl"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, -2.9802294e-08, 0, 2.9802294e-08, 1, 0.438132, 0.0395386, 48.8111)
-projection = 1
-far = 200.0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/CameraControl/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0.43998, 0.0500045, -0.175917)
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_8ulwq")
 
 [node name="DesignerEditor" parent="." instance=ExtResource("6_fr2ie")]
 
