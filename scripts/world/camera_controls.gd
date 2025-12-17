@@ -60,9 +60,8 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		_mouse_location = event.position
 
-	if event is InputEventMouseButton:
-		if not event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			_get_mouse_click_location(_mouse_location)
+	if event.is_action_pressed("change_strip_point"):
+		_get_mouse_click_location(_mouse_location)
 
 
 func _rotate_camera(direction: float):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://du5ijsydyirmv"]
+[gd_scene load_steps=16 format=3 uid="uid://du5ijsydyirmv"]
 
 [ext_resource type="Script" uid="uid://5xlrluaqi8p0" path="res://experimental/scripts/wearable_designer.gd" id="1_fe8b1"]
 [ext_resource type="Shader" uid="uid://bu32bxcuo17mi" path="res://shaders/grid.gdshader" id="1_l7n01"]
@@ -51,6 +51,9 @@ shader_parameter/in_dashed_count_y = 6.0
 [sub_resource type="BoxMesh" id="BoxMesh_fr2ie"]
 material = SubResource("ShaderMaterial_yjqe1")
 size = Vector3(50, 0.2, 50)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fr2ie"]
+data = PackedVector3Array(-25, 0.099999994, 25, 25, 0.099999994, 25, -25, -0.099999994, 25, 25, 0.099999994, 25, 25, -0.099999994, 25, -25, -0.099999994, 25, 25, 0.099999994, -25, -25, 0.099999994, -25, 25, -0.099999994, -25, -25, 0.099999994, -25, -25, -0.099999994, -25, 25, -0.099999994, -25, 25, 0.099999994, 25, 25, 0.099999994, -25, 25, -0.099999994, 25, 25, 0.099999994, -25, 25, -0.099999994, -25, 25, -0.099999994, 25, -25, 0.099999994, -25, -25, 0.099999994, 25, -25, -0.099999994, -25, -25, 0.099999994, 25, -25, -0.099999994, 25, -25, -0.099999994, -25, 25, 0.099999994, 25, -25, 0.099999994, 25, 25, 0.099999994, -25, -25, 0.099999994, 25, -25, 0.099999994, -25, 25, 0.099999994, -25, -25, -0.099999994, 25, 25, -0.099999994, 25, -25, -0.099999994, -25, 25, -0.099999994, 25, 25, -0.099999994, -25, -25, -0.099999994, -25)
 
 [sub_resource type="Shader" id="Shader_x4ab7"]
 code = "shader_type spatial;
@@ -193,6 +196,12 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16500747, 0)
 mesh = SubResource("BoxMesh_fr2ie")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="SubViewportContainer/SubViewport/Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/Ground/StaticBody3D"]
+visible = false
+shape = SubResource("ConcavePolygonShape3D_fr2ie")
+
 [node name="Neopixels" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_y8gkd")]
 unique_name_in_owner = true
 
@@ -225,6 +234,7 @@ offset_top = -28.5
 offset_bottom = 28.5
 grow_horizontal = 0
 grow_vertical = 2
+mouse_filter = 1
 theme = ExtResource("11_y8gkd")
 
 [connection signal="focus_entered" from="SubViewportContainer" to="SubViewportContainer/SubViewport/CameraControl" method="_on_code_edit_focus_entered"]
