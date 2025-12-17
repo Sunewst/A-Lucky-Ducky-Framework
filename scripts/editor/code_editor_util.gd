@@ -11,6 +11,7 @@ const CONTROL_STRUCTUERS: Array[String] = [
 const DATA_TYPES: Array[String] = [
 	"int ",
 	"float ",
+	'bool ',
 	"void ", #Not really a data type
 	"#define ", #!
 	"CRGB ",
