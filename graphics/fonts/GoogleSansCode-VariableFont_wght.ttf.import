@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bu2y6rrhr31rx"
-path="res://.godot/imported/JetBrainsMonoNL-Regular.ttf-4ad4befe55bd82446267e20dd548d388.fontdata"
+uid="uid://lm5u6o3m18e5"
+path="res://.godot/imported/GoogleSansCode-VariableFont_wght.ttf-6a5267b7b5be62c66338c107b8bf3e2c.fontdata"
 
 [deps]
 
-source_file="res://graphics/fonts/JetBrainsMonoNL-Regular.ttf"
-dest_files=["res://.godot/imported/JetBrainsMonoNL-Regular.ttf-4ad4befe55bd82446267e20dd548d388.fontdata"]
+source_file="res://graphics/fonts/GoogleSansCode-VariableFont_wght.ttf"
+dest_files=["res://.godot/imported/GoogleSansCode-VariableFont_wght.ttf-6a5267b7b5be62c66338c107b8bf3e2c.fontdata"]
 
 [params]
 
@@ -16,7 +16,7 @@ Rendering=null
 antialiasing=1
 generate_mipmaps=false
 disable_embedded_bitmaps=true
-multichannel_signed_distance_field=true
+multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
@@ -35,8 +35,7 @@ preload=[{
 "glyphs": [],
 "name": "New Configuration",
 "size": Vector2i(16, 0),
-&"variation_embolden": 0.0,
-&"variation_opentype": {}
+&"variation_embolden": 0.0
 }]
 language_support={}
 script_support={}

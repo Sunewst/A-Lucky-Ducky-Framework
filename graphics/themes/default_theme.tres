@@ -1,0 +1,11 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://df0s6gqyessml"]
+
+[ext_resource type="FontFile" uid="uid://bj82btpcwmgjf" path="res://graphics/fonts/JetBrainsMono-Regular.ttf" id="1_hg3lc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vva8a"]
+bg_color = Color(0.03853967, 0.0369152, 0.04780004, 1)
+
+[resource]
+default_font = ExtResource("1_hg3lc")
+MenuBar/constants/h_separation = 24
+MenuBar/styles/normal = SubResource("StyleBoxFlat_vva8a")

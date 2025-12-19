@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bu2y6rrhr31rx"
-path="res://.godot/imported/JetBrainsMonoNL-Regular.ttf-4ad4befe55bd82446267e20dd548d388.fontdata"
+uid="uid://bj82btpcwmgjf"
+path="res://.godot/imported/JetBrainsMono-Regular.ttf-0b2ead827488f016eda2216bc0867362.fontdata"
 
 [deps]
 
-source_file="res://graphics/fonts/JetBrainsMonoNL-Regular.ttf"
-dest_files=["res://.godot/imported/JetBrainsMonoNL-Regular.ttf-4ad4befe55bd82446267e20dd548d388.fontdata"]
+source_file="res://graphics/fonts/JetBrainsMono-Regular.ttf"
+dest_files=["res://.godot/imported/JetBrainsMono-Regular.ttf-0b2ead827488f016eda2216bc0867362.fontdata"]
 
 [params]
 
@@ -34,9 +34,7 @@ preload=[{
 "chars": [],
 "glyphs": [],
 "name": "New Configuration",
-"size": Vector2i(16, 0),
-&"variation_embolden": 0.0,
-&"variation_opentype": {}
+"size": Vector2i(16, 0)
 }]
 language_support={}
 script_support={}
