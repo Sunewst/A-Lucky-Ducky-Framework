@@ -51,7 +51,8 @@ folder_colors={
 "res://resources/": "orange",
 "res://scenes/": "red",
 "res://scripts/": "yellow",
-"res://shaders/": "teal"
+"res://shaders/": "teal",
+"res://showcase/": "blue"
 }
 
 [input]
