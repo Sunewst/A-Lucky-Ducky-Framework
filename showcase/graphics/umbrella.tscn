@@ -1,13 +1,39 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkmrsbdm1hlcy"]
+[gd_scene load_steps=6 format=3 uid="uid://bkmrsbdm1hlcy"]
 
 [ext_resource type="PackedScene" uid="uid://dplqatv78ph68" path="res://showcase/graphics/Umbrella.gltf" id="1_xhsot"]
+[ext_resource type="PackedScene" uid="uid://6j2us74fr438" path="res://experimental/scenes/neopixel_tool.tscn" id="2_5ayrw"]
+
+[sub_resource type="Curve3D" id="Curve3D_xhsot"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.82884485, -0.9797363, -0.4094274, 0, 0, 0, 0, 0, 0, 0.87006354, -0.9797363, 0.50431764, 0, 0, 0, 0, 0, 0, -0.22984509, -0.9797363, 0.9644499, 0, 0, 0, 0, 0, 0, -0.9133046, -0.9797363, 0.27433276, 0, 0, 0, 0, 0, 0, -0.8541877, -0.9797363, -0.49986944, 0, 0, 0, 0, 0, 0, -0.019019172, -0.9797363, -0.99417806, 0, 0, 0, 0, 0, 0, 0.6476471, -0.9797363, -0.63734746),
+"tilts": PackedFloat32Array(-2.0943952, -2.0943952, -2.0943952, -2.0943952, -2.0943952, -2.0943952, -2.0943952)
+}
+point_count = 7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ayrw"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.98039216)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_50upa"]
 data = PackedVector3Array(0.217, -0.032899998, 1.25, 0, 0.59209996, 0, 0.625, -0.032899998, 1.0992, 0.625, -0.032899998, 1.0992, 0, 0.59209996, 0, 0.9575, -0.032899998, 0.81579995, 0.9575, -0.032899998, 0.81579995, 0, 0.59209996, 0, 1.1746, -0.032899998, 0.4341, 1.1746, -0.032899998, 0.4341, 0, 0.59209996, 0, 1.25, -0.032899998, 0, 1.25, -0.032899998, 0, 0, 0.59209996, 0, 1.1746, -0.032899998, -0.4341, 1.1746, -0.032899998, -0.4341, 0, 0.59209996, 0, 0.9575, -0.032899998, -0.81589997, 0.9575, -0.032899998, -0.81589997, 0, 0.59209996, 0, 0.625, -0.032899998, -1.0992, 0.625, -0.032899998, -1.0992, 0, 0.59209996, 0, 0.217, -0.032899998, -1.25, 0.217, -0.032899998, -1.25, 0, 0.59209996, 0, -0.2171, -0.032899998, -1.25, -0.2171, -0.032899998, -1.25, 0, 0.59209996, 0, -0.625, -0.032899998, -1.0992, -0.625, -0.032899998, -1.0992, 0, 0.59209996, 0, -0.9576, -0.032899998, -0.81589997, -0.9576, -0.032899998, -0.81589997, 0, 0.59209996, 0, -1.1746, -0.032899998, -0.4341, -1.1746, -0.032899998, -0.4341, 0, 0.59209996, 0, -1.25, -0.032899998, 0, -1.25, -0.032899998, 0, 0, 0.59209996, 0, -1.1746, -0.032899998, 0.4341, -1.1746, -0.032899998, 0.4341, 0, 0.59209996, 0, -0.9576, -0.032899998, 0.81579995, -0.9576, -0.032899998, 0.81579995, 0, 0.59209996, 0, -0.625, -0.032899998, 1.0992, -0.625, -0.032899998, 1.0992, 0, 0.59209996, 0, -0.2171, -0.032899998, 1.25, -0.2171, -0.032899998, 1.25, 0, 0.59209996, 0, 0.217, -0.032899998, 1.25)
 
 [node name="Umbrella" instance=ExtResource("1_xhsot")]
 
+[node name="Path3D" type="Path3D" parent="Umbrella" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1716646e-17, 1.7832587, 3.1164155e-17)
+curve = SubResource("Curve3D_xhsot")
+
+[node name="Canopy" parent="Umbrella" index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_5ayrw")
+
 [node name="StaticBody3D" type="StaticBody3D" parent="Umbrella/Canopy" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Umbrella/Canopy/StaticBody3D" index="0"]
+visible = false
 shape = SubResource("ConcavePolygonShape3D_50upa")
+
+[node name="NeopixelTool" parent="." index="1" node_paths=PackedStringArray("path") instance=ExtResource("2_5ayrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6684897, 0)
+visible = false
+path = NodePath("../Umbrella/Path3D")

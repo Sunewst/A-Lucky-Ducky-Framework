@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bmf5sonp2a11w"]
+[gd_scene load_steps=3 format=3 uid="uid://bmf5sonp2a11w"]
 
 [ext_resource type="PackedScene" uid="uid://dd1vfiw8indgu" path="res://scenes/world/viewport.tscn" id="1_yt2ul"]
+[ext_resource type="PackedScene" uid="uid://bkmrsbdm1hlcy" path="res://showcase/graphics/umbrella.tscn" id="2_cv4xt"]
 
 [node name="Showcase" type="Node3D"]
 
 [node name="SubViewportContainer" parent="." instance=ExtResource("1_yt2ul")]
 stretch_shrink = 1
+
+[node name="Umbrella" parent="." instance=ExtResource("2_cv4xt")]
