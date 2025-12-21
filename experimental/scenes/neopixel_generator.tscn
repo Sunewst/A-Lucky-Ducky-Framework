@@ -44,7 +44,6 @@ buffer = PackedFloat32Array(-0.03617488, 0, 0.9993455, 0.69115853, 0, 1, 0, 0, -
 
 [node name="NeopixelGenerator" type="Node3D"]
 script = ExtResource("1_0bqn3")
-distance_between = 0.11
 
 [node name="Path3D" type="Path3D" parent="."]
 unique_name_in_owner = true

@@ -1,18 +1,23 @@
 # For now, the neopixel genarator is a tool, meaning in only runs in the engine editor.
 # Due to that, the code is really ugly until its converted to a normal script
+@tool
 
 extends Node3D
 
-@export var distance_between = 0.11
+@export var distance_between = 0.11:
+	set(value):
+		distance_between = value
+		path_changed = true
 
-@onready var path = %Path3D
+
+@export var path: Path3D
 
 var path_changed: bool
 var selected_curve_point: int = 0
 
 
 func _ready() -> void:
-	SignalController.model_clicked.connect(_model_clicked)
+	path.curve_changed.connect(_on_curve_changed)
 
 
 func _process(_delta: float) -> void:
@@ -41,7 +46,7 @@ func _update_muiltimesh():
 
 	mm.instance_count = count
 	neopixel.instance_count = count
-	SignalController.neopixel_count_updated.emit(count)
+	#SignalController.neopixel_count_updated.emit(count)
 
 	var offset = distance_between / 2.0
 	
