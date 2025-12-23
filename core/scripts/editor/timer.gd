@@ -1,6 +1,6 @@
 class_name TimerDisplay extends Control
 
-const TIMER_SCENE: PackedScene = preload("res://scenes/code_editor/timer.tscn")
+const TIMER_SCENE: PackedScene = preload("res://core/scenes/code_editor/timer.tscn")
 
 var time_left: float
 

@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=3 uid="uid://bm82cdsoaxkhf"]
 
 [ext_resource type="Shader" uid="uid://bu32bxcuo17mi" path="res://shaders/grid.gdshader" id="1_hvmvx"]
-[ext_resource type="Script" uid="uid://bie037jbpxk61" path="res://scripts/world/pond.gd" id="1_sgue5"]
-[ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://scripts/world/camera_controls.gd" id="2_go7bl"]
+[ext_resource type="Script" uid="uid://bie037jbpxk61" path="res://garden/scripts/pond.gd" id="1_sgue5"]
+[ext_resource type="Script" uid="uid://bgtgv8c7khc0k" path="res://core/scripts/world/camera_controls.gd" id="2_go7bl"]
 [ext_resource type="Resource" uid="uid://dk6ttd5b555tv" path="res://resources/boards/ESP32-C6_Feather.tres" id="2_sgue5"]
-[ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://scenes/code_editor/code_editor.tscn" id="5_sgue5"]
+[ext_resource type="PackedScene" uid="uid://ci3ugvvfqe1qy" path="res://core/scenes/code_editor/code_editor.tscn" id="5_sgue5"]
 [ext_resource type="Theme" uid="uid://etxhywncatso" path="res://graphics/global_theme.tres" id="14_n5hp7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yjqe1"]

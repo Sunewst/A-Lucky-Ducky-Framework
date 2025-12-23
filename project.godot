@@ -21,10 +21,10 @@ boot_splash/show_image=false
 
 [autoload]
 
-SaveHandler="*res://scripts/save/SaveHandler.gd"
-SignalController="*res://scripts/global/signal_controller.gd"
-SerialController="*res://scripts/serial_communication/SerialController.cs"
-ArduinoCli="*res://scripts/serial_communication/arduino_cli.gd"
+SaveHandler="*res://core/scripts/save/SaveHandler.gd"
+SignalController="*res://core/scripts/global/signal_controller.gd"
+SerialController="*res://core/scripts/serial_communication/SerialController.cs"
+ArduinoCli="*res://core/scripts/serial_communication/arduino_cli.gd"
 
 [debug]
 
@@ -46,7 +46,9 @@ project/assembly_name="A Lucky Ducky"
 
 folder_colors={
 "res://cli/": "gray",
+"res://core/": "red",
 "res://experimental/": "pink",
+"res://garden/": "green",
 "res://graphics/": "purple",
 "res://resources/": "orange",
 "res://scenes/": "red",

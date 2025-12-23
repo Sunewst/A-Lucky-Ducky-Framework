@@ -1,6 +1,6 @@
 class_name LoopWindow extends Window
 
-const LOOP_SCENE: PackedScene = preload("res://scenes/code_editor/loop_scene.tscn")
+const LOOP_SCENE: PackedScene = preload("res://core/scenes/code_editor/loop_scene.tscn")
 
 static var window_exists = false
 
