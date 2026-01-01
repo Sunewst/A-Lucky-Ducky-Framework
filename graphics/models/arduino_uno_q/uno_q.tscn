@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bg4kgy3dryskr"]
+
+[ext_resource type="PackedScene" uid="uid://cok1eacxj5xwr" path="res://graphics/models/arduino_uno_q/Arduino_uno_q.gltf" id="1_jqgga"]
+
+[node name="UnoQ" instance=ExtResource("1_jqgga")]

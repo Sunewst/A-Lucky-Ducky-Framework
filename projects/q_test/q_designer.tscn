@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgletpfiw10rg"]
+
+[ext_resource type="PackedScene" uid="uid://dd1vfiw8indgu" path="res://core/scenes/world/viewport.tscn" id="1_2j5lg"]
+[ext_resource type="PackedScene" uid="uid://bg4kgy3dryskr" path="res://graphics/models/arduino_uno_q/uno_q.tscn" id="2_dx1o1"]
+
+[node name="QDesigner" type="Node3D"]
+
+[node name="SubViewportContainer" parent="." instance=ExtResource("1_2j5lg")]
+stretch_shrink = 1
+
+[node name="UnoQ" parent="." instance=ExtResource("2_dx1o1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11224532, 0)

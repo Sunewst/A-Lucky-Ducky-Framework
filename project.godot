@@ -52,6 +52,7 @@ folder_colors={
 "res://experimental/": "pink",
 "res://garden/": "green",
 "res://graphics/": "purple",
+"res://projects/": "yellow",
 "res://resources/": "orange",
 "res://scenes/": "red",
 "res://scripts/": "yellow",
