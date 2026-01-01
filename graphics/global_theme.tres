@@ -1,7 +1,6 @@
 [gd_resource type="Theme" load_steps=8 format=3 uid="uid://etxhywncatso"]
 
 [ext_resource type="FontFile" uid="uid://bu2y6rrhr31rx" path="res://graphics/fonts/JetBrainsMonoNL-Regular.ttf" id="1_kwb7i"]
-[ext_resource type="Texture2D" uid="uid://0a8gtwqx2ly1" path="res://graphics/icon.svg" id="2_677li"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vumiq"]
 bg_color = Color(0.13915244, 0.17232907, 0.2154552, 1)
@@ -33,6 +32,9 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kwb7i"]
+load_path = "res://.godot/imported/icon.svg-f1ae053ac80fafcfd76c3db57d1eb2bb.ctex"
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_677li"]
 bg_color = Color(0.07058824, 0.078431375, 0.08627451, 0.8862745)
 border_width_left = 2
@@ -59,7 +61,7 @@ CodeEdit/colors/line_number_color = Color(0.6451419, 0.88135034, 0.9721778, 1)
 CodeEdit/constants/caret_width = 2
 CodeEdit/font_sizes/font_size = 15
 CodeEdit/fonts/font = ExtResource("1_kwb7i")
-CodeEdit/icons/track = ExtResource("2_677li")
+CodeEdit/icons/track = SubResource("CompressedTexture2D_kwb7i")
 PopupMenu/font_sizes/font_size = 13
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_677li")
 RichTextLabel/styles/normal = SubResource("StyleBoxFlat_sfsbo")
