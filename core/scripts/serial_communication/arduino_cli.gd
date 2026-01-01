@@ -3,6 +3,7 @@ extends Node
 signal compiling_finished
 #signal uploading_finished
 
+
 @onready var thread: Thread = Thread.new()
 
 
@@ -14,6 +15,16 @@ func execute_arduino_cli(cli_arguments):
 	
 	thread = Thread.new()
 	thread.start(_arduino_cli_execute.bind(cli_arguments))
+
+
+func execute_arduino_app_cli(cli_arguments: Array[String]):
+	if not thread.is_alive():
+		thread.wait_to_finish()
+	else:
+		return
+	
+	thread = Thread.new()
+	thread.start(_arduino_app_cli_execute.bind(cli_arguments))
 
 
 func _arduino_cli_execute(cli_arguments: Array[String]):
@@ -41,6 +52,18 @@ func _arduino_cli_execute(cli_arguments: Array[String]):
 	else:
 		call_deferred("emit_signal", "compiling_finished", _output[0], true)
 
+
+func _arduino_app_cli_execute(cli_arguments: Array[String]):
+	var _path: String
+	var _output: Array[String] = []
+	var _process
+	var _process_io: FileAccess
+	
+	_process = OS.execute_with_pipe('echo', cli_arguments)
+	_process_io = _process['stdio']
+
+	while _process_io.is_open() and _process_io.get_error() == OK:
+		print(_process_io.get_line())
 
 
 func _exit_tree() -> void:

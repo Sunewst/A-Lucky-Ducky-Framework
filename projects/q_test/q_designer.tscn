@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgletpfiw10rg"]
+[gd_scene load_steps=4 format=3 uid="uid://bgletpfiw10rg"]
 
 [ext_resource type="PackedScene" uid="uid://dd1vfiw8indgu" path="res://core/scenes/world/viewport.tscn" id="1_2j5lg"]
+[ext_resource type="Script" uid="uid://c1tsxa5570ecu" path="res://projects/q_test/q_designer.gd" id="1_bouxp"]
 [ext_resource type="PackedScene" uid="uid://bg4kgy3dryskr" path="res://graphics/models/arduino_uno_q/uno_q.tscn" id="2_dx1o1"]
 
 [node name="QDesigner" type="Node3D"]
+script = ExtResource("1_bouxp")
 
 [node name="SubViewportContainer" parent="." instance=ExtResource("1_2j5lg")]
 stretch_shrink = 1
